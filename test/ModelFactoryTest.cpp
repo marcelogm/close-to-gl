@@ -137,15 +137,3 @@ TEST(ModelFactoryTest, ShouldPreProcessVertexColors) {
 	auto t1v2 = t1->getVertices()->at(2)->getColor();
 	assertColor(t1v2, color.get());
 }
-
-
-TEST(ModelFactoryTest, A) {
-	// given
-	unique_ptr<data::RGBColor> color(new data::RGBColor({ 252, 239, 220 }));
-	unique_ptr<ModelFactory> provider(new ModelFactory());
-	
-	for (int i = 0; i < 10000000; i++) {
-		auto ptr = provider->get("data/square.mock");
-		delete ptr;
-	}
-}

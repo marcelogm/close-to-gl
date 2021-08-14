@@ -37,4 +37,5 @@ Model::~Model() {
 	delete triangles;
 	for (auto m : *materials) { delete m; }
 	delete materials;
+	delete name;
 }
