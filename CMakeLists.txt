@@ -32,9 +32,9 @@ set(COMMON_HEADERS include/vgl.h)
 add_library(close-to-gl
 			lib/gl3w.c
 			lib/LoadShaders.cpp
-			"src/gui/Window.cpp"
-			"src/data/Model.cpp" "src/data/Vertex.cpp" "src/data/Triangle.cpp" "src/data/Material.cpp"
-			"src/services/ModelFactory.cpp")
+			"src/gui/Application.cpp" "src/data/Model.cpp" "src/data/Vertex.cpp" 
+			"src/data/Triangle.cpp" "src/data/Material.cpp" "src/services/ModelFactory.cpp"
+			"src/services/render/OpenGLRenderer.cpp" "src/services/camera/Camera.cpp")
 
 find_package(OpenMP)
 if (OPENMP_FOUND)
