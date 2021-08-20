@@ -37,15 +37,18 @@ void OpenGLRenderer::init(data::Model* model) {
 }
 
 void OpenGLRenderer::display() {
-	glClearColor(0.4f, 0.2f, 0.2f, 1.0f);
+	glClearColor(0.0f, 0.2f, 0.2f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	Camera& camera = Camera::getInstance();
+	Camera* camera = Camera::getInstance();
 	float fov = 45.0f;
-	camera.reset(this->range.x, this->range.y, glm::radians(fov));
+	if (camera->shouldReset) {
+		camera->reset(this->range.x, this->range.y, glm::radians(fov));
+		camera->shouldReset = false;
+	}
 
 	glm::mat4 model = glm::mat4(1.0f);
-	glm::mat4 view = camera.getView();
+	glm::mat4 view = camera->getView();
 	glm::mat4 projection = glm::perspective(glm::radians(fov), 600.0f / 600.0f, 0.1f, 10000.0f);
 	glUniformMatrix4fv(modelSpace, 1, GL_FALSE, glm::value_ptr(model));
 	glUniformMatrix4fv(viewSpace, 1, GL_FALSE, glm::value_ptr(view));

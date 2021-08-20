@@ -8,5 +8,5 @@ out vec3 fColor;
 void
 main()
 {
-    fColor = color * normal;
+    fColor = color;
 }
