@@ -4,6 +4,9 @@
 #include "../services/services.hpp"
 #include "../services/render/render.hpp"
 #include "../data/data.hpp"
+#include <imgui.h>
+#include <backends/imgui_impl_opengl3.h>
+#include <backends/imgui_impl_glfw.h>
 
 class Application {
 private:
@@ -20,6 +23,7 @@ public:
 class KeyCommandStrategy {
 protected:
 	Camera* camera;
+	Config* config;
 public:
 	KeyCommandStrategy();
 	virtual bool matches(int key, int action) = 0;
@@ -90,6 +94,17 @@ class MoveBack : public KeyCommandStrategy {
 	virtual bool matches(int key, int action);
 	virtual void apply(float angle);
 };
+
+class MoveUp : public KeyCommandStrategy {
+	virtual bool matches(int key, int action);
+	virtual void apply(float angle);
+};
+
+class MoveDown : public KeyCommandStrategy {
+	virtual bool matches(int key, int action);
+	virtual void apply(float angle);
+};
+
 
 class KeyStrategyService {
 private:

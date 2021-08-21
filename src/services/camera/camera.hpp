@@ -13,9 +13,11 @@ public:
 	void goBack(float);
 	void goRight(float);
 	void goLeft(float);
+	void goUp(float);
+	void goDown(float);
 	void rotateAround(float angle);
 	void requestReset();
-	bool shouldReset = false;
+	bool shouldReset = true;
 private:
 	Camera();
 	void Camera::update();
@@ -27,8 +29,6 @@ private:
 	glm::vec3 up;
 
 	glm::mat4 view;
-
-	glm::vec3 upRef;
 
 	float yaw;
 	float pitch;

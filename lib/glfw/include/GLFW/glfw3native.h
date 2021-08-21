@@ -90,6 +90,8 @@ extern "C" {
  #error "No window API selected"
 #endif
 
+// ESSE INFERNO DEVERIA ESTAR DECLADO NA API DO WINDOWS!!!!
+#define GLFW_EXPOSE_NATIVE_WGL
 #if defined(GLFW_EXPOSE_NATIVE_WGL)
  /* WGL is declared by windows.h */
 #elif defined(GLFW_EXPOSE_NATIVE_NSGL)

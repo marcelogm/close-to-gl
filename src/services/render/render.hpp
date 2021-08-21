@@ -22,8 +22,7 @@ enum BufferIDs {
 
 enum AttribIDs {
 	vPosition = 0,
-	vNormalVertex = 1,
-	vColor = 2
+	vNormalVertex = 1
 };
 
 struct VertexData {
@@ -52,6 +51,7 @@ private:
 	long modelSpace;
 	long viewSpace;
 	long projectionSpace;
+	long customColor;
 
 	vector<VertexData>* getVertexDataFromDataModel(data::Model* model);
 	VertexDataRange getRange(vector<VertexData>* vertices);

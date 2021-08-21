@@ -11,7 +11,7 @@ void Camera::reset(glm::vec2 u, glm::vec2 v, float fov) {
 
 	this->position = glm::vec3(x, y, z);
 
-	this->upRef = glm::vec3(0.0f, 1.0f, 0.0f);
+	this->up = glm::vec3(0.0f, 1.0f, 0.0f);
 	this->yaw = -90.0f;
 	this->pitch = 0.0f;
 
@@ -31,8 +31,7 @@ void Camera::update() {
 	front.z = glm::sin(yawRadians) * glm::cos(pitchRadians);
 
 	this->front = glm::normalize(this->front);
-	this->right = glm::normalize(glm::cross(front, upRef));
-	this->up = glm::normalize(glm::cross(right, front));
+	this->right = glm::normalize(glm::cross(front, up));
 	this->view = glm::lookAt(position, position + front, up);
 }
 
@@ -49,8 +48,8 @@ void Camera::look(float yawOffset, float pitchOffset) {
 }
 
 void Camera::roll(float roll) {
-	auto rotate = glm::rotate(glm::mat4(1.0f), glm::radians(roll), this->front);
-	this->upRef = rotate * glm::vec4(upRef, 1.0f);
+	auto rotate = glm::rotate(glm::mat4(1.0f), glm::radians(roll), front);
+	this->up = rotate * glm::vec4(up, 1.0f);
 	this->update();
 }
 
@@ -74,6 +73,16 @@ void Camera::goLeft(float speed) {
 	this->update();
 }
 
+void Camera::goUp(float speed) {
+	position += up * speed;
+	this->update();
+}
+
+void Camera::goDown(float speed) {
+	position -= up * speed;
+	this->update();
+}
+
 void Camera::rotateAround(float z) {
 	position = glm::vec3(z, 0.0f, z) * position;
 	this->update();
@@ -93,7 +102,7 @@ Camera* Camera::getInstance() {
 Camera* Camera::instance = nullptr;
 
 Camera::Camera() {
-	this->upRef = glm::vec3(0.0f, 1.0f, 0.0f);
+	this->up = glm::vec3(0.0f, 1.0f, 0.0f);
 	this->yaw = -90.0f;
 	this->pitch = 0.0f;
 }

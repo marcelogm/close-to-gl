@@ -9,3 +9,37 @@ ninja: build stopped: subcommand failed.
 
 
 
+Performing C SOURCE FILE Test HAVE_XINPUT_GAMEPAD_EX failed with the following output:
+Change Dir: C:/Users/marce/UFRGS/close-to-gl/out/build/x64-Debug/CMakeFiles/CMakeTmp
+
+Run Build Command(s):C:/Program Files/Microsoft Visual Studio/2022/Preview/Common7/IDE/CommonExtensions/Microsoft/CMake/Ninja/ninja.exe cmTC_5247f && [1/2] Building C object CMakeFiles\cmTC_5247f.dir\src.c.obj
+FAILED: CMakeFiles/cmTC_5247f.dir/src.c.obj 
+C:\PROGRA~1\MICROS~4\2022\Preview\VC\Tools\MSVC\1430~1.304\bin\Hostx64\x64\cl.exe  /nologo -DHAVE_XINPUT_GAMEPAD_EX  /DWIN32 /D_WINDOWS /W3  /MDd /Zi /Ob0 /Od /RTC1 /showIncludes /FoCMakeFiles\cmTC_5247f.dir\src.c.obj /FdCMakeFiles\cmTC_5247f.dir\ /FS -c src.c
+src.c(4): error C2061: syntax error: identifier 'x1'
+src.c(4): error C2059: syntax error: ';'
+ninja: build stopped: subcommand failed.
+
+
+Source file was:
+
+      #include <windows.h>
+      #include <xinput.h>
+      XINPUT_GAMEPAD_EX x1;
+      int main(int argc, char **argv) { }
+Performing C SOURCE FILE Test HAVE_XINPUT_STATE_EX failed with the following output:
+Change Dir: C:/Users/marce/UFRGS/close-to-gl/out/build/x64-Debug/CMakeFiles/CMakeTmp
+
+Run Build Command(s):C:/Program Files/Microsoft Visual Studio/2022/Preview/Common7/IDE/CommonExtensions/Microsoft/CMake/Ninja/ninja.exe cmTC_ea83d && [1/2] Building C object CMakeFiles\cmTC_ea83d.dir\src.c.obj
+FAILED: CMakeFiles/cmTC_ea83d.dir/src.c.obj 
+C:\PROGRA~1\MICROS~4\2022\Preview\VC\Tools\MSVC\1430~1.304\bin\Hostx64\x64\cl.exe  /nologo -DHAVE_XINPUT_STATE_EX  /DWIN32 /D_WINDOWS /W3  /MDd /Zi /Ob0 /Od /RTC1 /showIncludes /FoCMakeFiles\cmTC_ea83d.dir\src.c.obj /FdCMakeFiles\cmTC_ea83d.dir\ /FS -c src.c
+src.c(4): error C2061: syntax error: identifier 's1'
+src.c(4): error C2059: syntax error: ';'
+ninja: build stopped: subcommand failed.
+
+
+Source file was:
+
+      #include <windows.h>
+      #include <xinput.h>
+      XINPUT_STATE_EX s1;
+      int main(int argc, char **argv) { }

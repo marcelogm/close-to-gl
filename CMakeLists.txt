@@ -4,7 +4,6 @@ project (close-to-gl)
 set(CMAKE_CXX_STANDARD 11)
 
 LINK_DIRECTORIES(${CMAKE_SOURCE_DIR}/lib)
-
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/out/build)
@@ -24,17 +23,31 @@ find_package(OpenGL REQUIRED)
 
 add_subdirectory(lib/glfw)
 add_subdirectory(lib/glm)
-add_subdirectory(test)
 
 set(COMMON_LIBS close-to-gl ${OPENGL_LIBRARIES} glfw glm)
 set(COMMON_HEADERS include/vgl.h)
+set(IMGUI_SOURCE_DIR lib/imgui)
 
 add_library(close-to-gl
 			lib/gl3w.c
 			lib/LoadShaders.cpp
-			"src/gui/Application.cpp" "src/data/Model.cpp" "src/data/Vertex.cpp" 
-			"src/data/Triangle.cpp" "src/data/Material.cpp" "src/services/ModelFactory.cpp"
-			"src/services/render/OpenGLRenderer.cpp" "src/services/camera/Camera.cpp" "src/gui/Command.cpp")
+			${IMGUI_SOURCE_DIR}/imgui.cpp
+			${IMGUI_SOURCE_DIR}/imgui_demo.cpp 
+			${IMGUI_SOURCE_DIR}/imgui_draw.cpp 
+			${IMGUI_SOURCE_DIR}/imgui_widgets.cpp
+			${IMGUI_SOURCE_DIR}/imgui_tables.cpp
+			${IMGUI_SOURCE_DIR}/backends/imgui_impl_opengl3.cpp
+			${IMGUI_SOURCE_DIR}/backends/imgui_impl_glfw.cpp
+			"src/gui/Application.cpp" 
+			"src/data/Model.cpp" 
+			"src/data/Vertex.cpp" 
+			"src/data/Triangle.cpp" 
+			"src/data/Material.cpp" 
+			"src/services/ModelFactory.cpp"
+			"src/services/render/OpenGLRenderer.cpp" 
+			"src/services/camera/Camera.cpp" 
+			"src/gui/Command.cpp" 
+			"src/services/Config.cpp")
 
 find_package(OpenMP)
 if (OPENMP_FOUND)
@@ -48,3 +61,4 @@ target_link_libraries(main ${COMMON_LIBS})
 include_directories(include)
 include_directories(lib/glfw/include)
 include_directories(lib/glm)
+include_directories(lib/imgui)

@@ -63,3 +63,99 @@ Run Build Command(s):C:/Program Files/Microsoft Visual Studio/2022/Preview/Commo
 
 
 
+Performing C SOURCE FILE Test HAVE_WIN32_CC succeeded with the following output:
+Change Dir: C:/Users/marce/UFRGS/close-to-gl/out/build/x64-Debug/CMakeFiles/CMakeTmp
+
+Run Build Command(s):C:/Program Files/Microsoft Visual Studio/2022/Preview/Common7/IDE/CommonExtensions/Microsoft/CMake/Ninja/ninja.exe cmTC_b5819 && [1/2] Building C object CMakeFiles\cmTC_b5819.dir\src.c.obj
+[2/2] Linking C executable cmTC_b5819.exe
+
+
+Source file was:
+
+    #include <windows.h>
+    int main(int argc, char **argv) { }
+Determining if the include file d3d9.h exists passed with the following output:
+Change Dir: C:/Users/marce/UFRGS/close-to-gl/out/build/x64-Debug/CMakeFiles/CMakeTmp
+
+Run Build Command(s):C:/Program Files/Microsoft Visual Studio/2022/Preview/Common7/IDE/CommonExtensions/Microsoft/CMake/Ninja/ninja.exe cmTC_056d8 && [1/2] Building C object CMakeFiles\cmTC_056d8.dir\CheckIncludeFile.c.obj
+[2/2] Linking C executable cmTC_056d8.exe
+
+
+
+Determining if the include file d3d11_1.h exists passed with the following output:
+Change Dir: C:/Users/marce/UFRGS/close-to-gl/out/build/x64-Debug/CMakeFiles/CMakeTmp
+
+Run Build Command(s):C:/Program Files/Microsoft Visual Studio/2022/Preview/Common7/IDE/CommonExtensions/Microsoft/CMake/Ninja/ninja.exe cmTC_a43c9 && [1/2] Building C object CMakeFiles\cmTC_a43c9.dir\CheckIncludeFile.c.obj
+[2/2] Linking C executable cmTC_a43c9.exe
+
+
+
+Determining if the include file ddraw.h exists passed with the following output:
+Change Dir: C:/Users/marce/UFRGS/close-to-gl/out/build/x64-Debug/CMakeFiles/CMakeTmp
+
+Run Build Command(s):C:/Program Files/Microsoft Visual Studio/2022/Preview/Common7/IDE/CommonExtensions/Microsoft/CMake/Ninja/ninja.exe cmTC_f32f3 && [1/2] Building C object CMakeFiles\cmTC_f32f3.dir\CheckIncludeFile.c.obj
+[2/2] Linking C executable cmTC_f32f3.exe
+
+
+
+Determining if the include file dsound.h exists passed with the following output:
+Change Dir: C:/Users/marce/UFRGS/close-to-gl/out/build/x64-Debug/CMakeFiles/CMakeTmp
+
+Run Build Command(s):C:/Program Files/Microsoft Visual Studio/2022/Preview/Common7/IDE/CommonExtensions/Microsoft/CMake/Ninja/ninja.exe cmTC_c51fa && [1/2] Building C object CMakeFiles\cmTC_c51fa.dir\CheckIncludeFile.c.obj
+[2/2] Linking C executable cmTC_c51fa.exe
+
+
+
+Determining if the include file dinput.h exists passed with the following output:
+Change Dir: C:/Users/marce/UFRGS/close-to-gl/out/build/x64-Debug/CMakeFiles/CMakeTmp
+
+Run Build Command(s):C:/Program Files/Microsoft Visual Studio/2022/Preview/Common7/IDE/CommonExtensions/Microsoft/CMake/Ninja/ninja.exe cmTC_1adba && [1/2] Building C object CMakeFiles\cmTC_1adba.dir\CheckIncludeFile.c.obj
+C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\um\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
+[2/2] Linking C executable cmTC_1adba.exe
+
+
+
+Determining if the include file dxgi.h exists passed with the following output:
+Change Dir: C:/Users/marce/UFRGS/close-to-gl/out/build/x64-Debug/CMakeFiles/CMakeTmp
+
+Run Build Command(s):C:/Program Files/Microsoft Visual Studio/2022/Preview/Common7/IDE/CommonExtensions/Microsoft/CMake/Ninja/ninja.exe cmTC_4c2f8 && [1/2] Building C object CMakeFiles\cmTC_4c2f8.dir\CheckIncludeFile.c.obj
+[2/2] Linking C executable cmTC_4c2f8.exe
+
+
+
+Performing C SOURCE FILE Test HAVE_XINPUT_H succeeded with the following output:
+Change Dir: C:/Users/marce/UFRGS/close-to-gl/out/build/x64-Debug/CMakeFiles/CMakeTmp
+
+Run Build Command(s):C:/Program Files/Microsoft Visual Studio/2022/Preview/Common7/IDE/CommonExtensions/Microsoft/CMake/Ninja/ninja.exe cmTC_b4ba6 && [1/2] Building C object CMakeFiles\cmTC_b4ba6.dir\src.c.obj
+[2/2] Linking C executable cmTC_b4ba6.exe
+
+
+Source file was:
+
+      #include <windows.h>
+      #include <xinput.h>
+      int main(int argc, char **argv) { }
+Determining if the include file mmdeviceapi.h exists passed with the following output:
+Change Dir: C:/Users/marce/UFRGS/close-to-gl/out/build/x64-Debug/CMakeFiles/CMakeTmp
+
+Run Build Command(s):C:/Program Files/Microsoft Visual Studio/2022/Preview/Common7/IDE/CommonExtensions/Microsoft/CMake/Ninja/ninja.exe cmTC_a607c && [1/2] Building C object CMakeFiles\cmTC_a607c.dir\CheckIncludeFile.c.obj
+[2/2] Linking C executable cmTC_a607c.exe
+
+
+
+Determining if the include file audioclient.h exists passed with the following output:
+Change Dir: C:/Users/marce/UFRGS/close-to-gl/out/build/x64-Debug/CMakeFiles/CMakeTmp
+
+Run Build Command(s):C:/Program Files/Microsoft Visual Studio/2022/Preview/Common7/IDE/CommonExtensions/Microsoft/CMake/Ninja/ninja.exe cmTC_abb0d && [1/2] Building C object CMakeFiles\cmTC_abb0d.dir\CheckIncludeFile.c.obj
+[2/2] Linking C executable cmTC_abb0d.exe
+
+
+
+Determining if the include file sensorsapi.h exists passed with the following output:
+Change Dir: C:/Users/marce/UFRGS/close-to-gl/out/build/x64-Debug/CMakeFiles/CMakeTmp
+
+Run Build Command(s):C:/Program Files/Microsoft Visual Studio/2022/Preview/Common7/IDE/CommonExtensions/Microsoft/CMake/Ninja/ninja.exe cmTC_b16cc && [1/2] Building C object CMakeFiles\cmTC_b16cc.dir\CheckIncludeFile.c.obj
+[2/2] Linking C executable cmTC_b16cc.exe
+
+
+

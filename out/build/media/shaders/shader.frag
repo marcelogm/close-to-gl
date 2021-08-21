@@ -1,12 +1,12 @@
 #version 400 core
 
-in  vec3 color;
-in  vec3 normal;
+in  vec4 color;
+in  vec4 normal;
 
-out vec3 fColor;
+out vec4 fColor;
 
 void
 main()
 {
-    fColor = normalize(normal) * color;
+    fColor = color;
 }

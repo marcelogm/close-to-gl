@@ -25,3 +25,23 @@ private:
 public:
 	data::Model* get(string);
 };
+
+class Config {
+private:
+	static Config* instance;
+	Config();
+	float color[4] = { 1.0f, 0.1f, 0.1f, 1.0f };
+	bool move = false;
+	int fov = 45;
+	int zNear = 1;
+	int zFar = 200;
+	bool isCW = true;
+public:
+	static Config* getInstance();
+	float* getColor();
+	bool* getMove();
+	int* getFOV();
+	int* getZNear();
+	int* getZFar();
+	bool* getCW();
+};
