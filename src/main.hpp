@@ -1,4 +1,4 @@
 ﻿#pragma once
 
 #include <iostream>
-#include "gui/Application.hpp"
+#include "gui/gui.hpp"

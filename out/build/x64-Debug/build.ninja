@@ -39,7 +39,7 @@ include CMakeFiles\rules.ninja
 # Utility command for rebuild_cache
 
 build CMakeFiles\rebuild_cache.util: CUSTOM_COMMAND
-  COMMAND = cmd.exe /C "cd /D C:\Users\marce\source\repos\close-to-gl\out\build\x64-Debug && "C:\Program Files\Microsoft Visual Studio\2022\Preview\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" --regenerate-during-build -SC:\Users\marce\source\repos\close-to-gl -BC:\Users\marce\source\repos\close-to-gl\out\build\x64-Debug"
+  COMMAND = cmd.exe /C "cd /D C:\Users\marce\UFRGS\close-to-gl\out\build\x64-Debug && "C:\Program Files\Microsoft Visual Studio\2022\Preview\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" --regenerate-during-build -SC:\Users\marce\UFRGS\close-to-gl -BC:\Users\marce\UFRGS\close-to-gl\out\build\x64-Debug"
   DESC = Running CMake to regenerate build system...
   pool = console
   restat = 1
@@ -71,7 +71,7 @@ build CMakeFiles\close-to-gl.dir\lib\LoadShaders.cpp.obj: CXX_COMPILER__close-to
   TARGET_COMPILE_PDB = CMakeFiles\close-to-gl.dir\close-to-gl.pdb
   TARGET_PDB = lib\close-to-gl.pdb
 
-build CMakeFiles\close-to-gl.dir\src\gui\Window.cpp.obj: CXX_COMPILER__close-to-gl_Debug ..\..\..\src\gui\Window.cpp || cmake_object_order_depends_target_close-to-gl
+build CMakeFiles\close-to-gl.dir\src\gui\Application.cpp.obj: CXX_COMPILER__close-to-gl_Debug ..\..\..\src\gui\Application.cpp || cmake_object_order_depends_target_close-to-gl
   FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc -openmp /MDd /Zi /Ob0 /Od /RTC1
   INCLUDES = -I..\..\..\include -I..\..\..\lib\glfw\include -I..\..\..\lib\glm
   OBJECT_DIR = CMakeFiles\close-to-gl.dir
@@ -119,6 +119,30 @@ build CMakeFiles\close-to-gl.dir\src\services\ModelFactory.cpp.obj: CXX_COMPILER
   TARGET_COMPILE_PDB = CMakeFiles\close-to-gl.dir\close-to-gl.pdb
   TARGET_PDB = lib\close-to-gl.pdb
 
+build CMakeFiles\close-to-gl.dir\src\services\render\OpenGLRenderer.cpp.obj: CXX_COMPILER__close-to-gl_Debug ..\..\..\src\services\render\OpenGLRenderer.cpp || cmake_object_order_depends_target_close-to-gl
+  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc -openmp /MDd /Zi /Ob0 /Od /RTC1
+  INCLUDES = -I..\..\..\include -I..\..\..\lib\glfw\include -I..\..\..\lib\glm
+  OBJECT_DIR = CMakeFiles\close-to-gl.dir
+  OBJECT_FILE_DIR = CMakeFiles\close-to-gl.dir\src\services\render
+  TARGET_COMPILE_PDB = CMakeFiles\close-to-gl.dir\close-to-gl.pdb
+  TARGET_PDB = lib\close-to-gl.pdb
+
+build CMakeFiles\close-to-gl.dir\src\services\camera\Camera.cpp.obj: CXX_COMPILER__close-to-gl_Debug ..\..\..\src\services\camera\Camera.cpp || cmake_object_order_depends_target_close-to-gl
+  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc -openmp /MDd /Zi /Ob0 /Od /RTC1
+  INCLUDES = -I..\..\..\include -I..\..\..\lib\glfw\include -I..\..\..\lib\glm
+  OBJECT_DIR = CMakeFiles\close-to-gl.dir
+  OBJECT_FILE_DIR = CMakeFiles\close-to-gl.dir\src\services\camera
+  TARGET_COMPILE_PDB = CMakeFiles\close-to-gl.dir\close-to-gl.pdb
+  TARGET_PDB = lib\close-to-gl.pdb
+
+build CMakeFiles\close-to-gl.dir\src\gui\Command.cpp.obj: CXX_COMPILER__close-to-gl_Debug ..\..\..\src\gui\Command.cpp || cmake_object_order_depends_target_close-to-gl
+  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc -openmp /MDd /Zi /Ob0 /Od /RTC1
+  INCLUDES = -I..\..\..\include -I..\..\..\lib\glfw\include -I..\..\..\lib\glm
+  OBJECT_DIR = CMakeFiles\close-to-gl.dir
+  OBJECT_FILE_DIR = CMakeFiles\close-to-gl.dir\src\gui
+  TARGET_COMPILE_PDB = CMakeFiles\close-to-gl.dir\close-to-gl.pdb
+  TARGET_PDB = lib\close-to-gl.pdb
+
 
 # =============================================================================
 # Link build statements for STATIC_LIBRARY target close-to-gl
@@ -127,7 +151,7 @@ build CMakeFiles\close-to-gl.dir\src\services\ModelFactory.cpp.obj: CXX_COMPILER
 #############################################
 # Link the static library lib\close-to-gl.lib
 
-build lib\close-to-gl.lib: CXX_STATIC_LIBRARY_LINKER__close-to-gl_Debug CMakeFiles\close-to-gl.dir\lib\gl3w.c.obj CMakeFiles\close-to-gl.dir\lib\LoadShaders.cpp.obj CMakeFiles\close-to-gl.dir\src\gui\Window.cpp.obj CMakeFiles\close-to-gl.dir\src\data\Model.cpp.obj CMakeFiles\close-to-gl.dir\src\data\Vertex.cpp.obj CMakeFiles\close-to-gl.dir\src\data\Triangle.cpp.obj CMakeFiles\close-to-gl.dir\src\data\Material.cpp.obj CMakeFiles\close-to-gl.dir\src\services\ModelFactory.cpp.obj
+build lib\close-to-gl.lib: CXX_STATIC_LIBRARY_LINKER__close-to-gl_Debug CMakeFiles\close-to-gl.dir\lib\gl3w.c.obj CMakeFiles\close-to-gl.dir\lib\LoadShaders.cpp.obj CMakeFiles\close-to-gl.dir\src\gui\Application.cpp.obj CMakeFiles\close-to-gl.dir\src\data\Model.cpp.obj CMakeFiles\close-to-gl.dir\src\data\Vertex.cpp.obj CMakeFiles\close-to-gl.dir\src\data\Triangle.cpp.obj CMakeFiles\close-to-gl.dir\src\data\Material.cpp.obj CMakeFiles\close-to-gl.dir\src\services\ModelFactory.cpp.obj CMakeFiles\close-to-gl.dir\src\services\render\OpenGLRenderer.cpp.obj CMakeFiles\close-to-gl.dir\src\services\camera\Camera.cpp.obj CMakeFiles\close-to-gl.dir\src\gui\Command.cpp.obj
   LANGUAGE_COMPILE_FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc -openmp /MDd /Zi /Ob0 /Od /RTC1
   LINK_FLAGS = /machine:x64
   OBJECT_DIR = CMakeFiles\close-to-gl.dir
@@ -142,7 +166,7 @@ build lib\close-to-gl.lib: CXX_STATIC_LIBRARY_LINKER__close-to-gl_Debug CMakeFil
 # Utility command for install/local
 
 build CMakeFiles\install\local.util: CUSTOM_COMMAND all
-  COMMAND = cmd.exe /C "cd /D C:\Users\marce\source\repos\close-to-gl\out\build\x64-Debug && "C:\Program Files\Microsoft Visual Studio\2022\Preview\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake"
+  COMMAND = cmd.exe /C "cd /D C:\Users\marce\UFRGS\close-to-gl\out\build\x64-Debug && "C:\Program Files\Microsoft Visual Studio\2022\Preview\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake"
   DESC = Installing only the local directory...
   pool = console
   restat = 1
@@ -154,12 +178,23 @@ build install\local: phony CMakeFiles\install\local.util
 # Utility command for install
 
 build CMakeFiles\install.util: CUSTOM_COMMAND all
-  COMMAND = cmd.exe /C "cd /D C:\Users\marce\source\repos\close-to-gl\out\build\x64-Debug && "C:\Program Files\Microsoft Visual Studio\2022\Preview\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -P cmake_install.cmake"
+  COMMAND = cmd.exe /C "cd /D C:\Users\marce\UFRGS\close-to-gl\out\build\x64-Debug && "C:\Program Files\Microsoft Visual Studio\2022\Preview\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -P cmake_install.cmake"
   DESC = Install the project...
   pool = console
   restat = 1
 
 build install: phony CMakeFiles\install.util
+
+
+#############################################
+# Utility command for edit_cache
+
+build CMakeFiles\edit_cache.util: CUSTOM_COMMAND
+  COMMAND = cmd.exe /C "cd /D C:\Users\marce\UFRGS\close-to-gl\out\build\x64-Debug && "C:\Program Files\Microsoft Visual Studio\2022\Preview\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E echo "No interactive CMake dialog available.""
+  DESC = No interactive CMake dialog available...
+  restat = 1
+
+build edit_cache: phony CMakeFiles\edit_cache.util
 
 # =============================================================================
 # Object build statements for EXECUTABLE target main
@@ -190,7 +225,7 @@ build ..\main.exe: CXX_EXECUTABLE_LINKER__main_Debug CMakeFiles\main.dir\src\mai
   FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc -openmp /MDd /Zi /Ob0 /Od /RTC1
   LINK_FLAGS = /machine:x64 /debug /INCREMENTAL /subsystem:windows
   LINK_LIBRARIES = lib\close-to-gl.lib  opengl32.lib  glu32.lib  lib\glfw3.lib  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib
-  LINK_PATH = -LIBPATH:C:\Users\marce\source\repos\close-to-gl\lib
+  LINK_PATH = -LIBPATH:C:\Users\marce\UFRGS\close-to-gl\lib
   OBJECT_DIR = CMakeFiles\main.dir
   POST_BUILD = cd .
   PRE_LINK = cd .
@@ -201,61 +236,14 @@ build ..\main.exe: CXX_EXECUTABLE_LINKER__main_Debug CMakeFiles\main.dir\src\mai
 
 
 #############################################
-# Utility command for edit_cache
-
-build CMakeFiles\edit_cache.util: CUSTOM_COMMAND
-  COMMAND = cmd.exe /C "cd /D C:\Users\marce\source\repos\close-to-gl\out\build\x64-Debug && "C:\Program Files\Microsoft Visual Studio\2022\Preview\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E echo "No interactive CMake dialog available.""
-  DESC = No interactive CMake dialog available...
-  restat = 1
-
-build edit_cache: phony CMakeFiles\edit_cache.util
-
-
-#############################################
-# Utility command for package
-
-build CMakeFiles\package.util: CUSTOM_COMMAND all
-  COMMAND = cmd.exe /C "cd /D C:\Users\marce\source\repos\close-to-gl\out\build\x64-Debug && "C:\Program Files\Microsoft Visual Studio\2022\Preview\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cpack.exe" --config ./CPackConfig.cmake"
-  DESC = Run CPack packaging tool...
-  pool = console
-  restat = 1
-
-build package: phony CMakeFiles\package.util
-
-
-#############################################
-# Utility command for package_source
-
-build CMakeFiles\package_source.util: CUSTOM_COMMAND
-  COMMAND = cmd.exe /C "cd /D C:\Users\marce\source\repos\close-to-gl\out\build\x64-Debug && "C:\Program Files\Microsoft Visual Studio\2022\Preview\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cpack.exe" --config ./CPackSourceConfig.cmake C:/Users/marce/source/repos/close-to-gl/out/build/x64-Debug/CPackSourceConfig.cmake"
-  DESC = Run CPack packaging tool for source...
-  pool = console
-  restat = 1
-
-build package_source: phony CMakeFiles\package_source.util
-
-
-#############################################
 # Utility command for list_install_components
 
 build list_install_components: phony
 
 # =============================================================================
 # Write statements declared in CMakeLists.txt:
-# C:/Users/marce/source/repos/close-to-gl/CMakeLists.txt
+# C:/Users/marce/UFRGS/close-to-gl/CMakeLists.txt
 # =============================================================================
-
-
-#############################################
-# Utility command for package_source
-
-build lib\glfw\CMakeFiles\package_source.util: CUSTOM_COMMAND
-  COMMAND = cmd.exe /C "cd /D C:\Users\marce\source\repos\close-to-gl\out\build\x64-Debug && "C:\Program Files\Microsoft Visual Studio\2022\Preview\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cpack.exe" --config ./CPackSourceConfig.cmake C:/Users/marce/source/repos/close-to-gl/out/build/x64-Debug/CPackSourceConfig.cmake"
-  DESC = Run CPack packaging tool for source...
-  pool = console
-  restat = 1
-
-build lib\glfw\package_source: phony lib\glfw\CMakeFiles\package_source.util
 
 
 #############################################
@@ -265,22 +253,10 @@ build lib\glfw\uninstall: phony lib\glfw\CMakeFiles\uninstall
 
 
 #############################################
-# Utility command for package
-
-build lib\glfw\CMakeFiles\package.util: CUSTOM_COMMAND lib\glfw\all
-  COMMAND = cmd.exe /C "cd /D C:\Users\marce\source\repos\close-to-gl\out\build\x64-Debug && "C:\Program Files\Microsoft Visual Studio\2022\Preview\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cpack.exe" --config ./CPackConfig.cmake"
-  DESC = Run CPack packaging tool...
-  pool = console
-  restat = 1
-
-build lib\glfw\package: phony lib\glfw\CMakeFiles\package.util
-
-
-#############################################
 # Utility command for install/local
 
 build lib\glfw\CMakeFiles\install\local.util: CUSTOM_COMMAND lib\glfw\all
-  COMMAND = cmd.exe /C "cd /D C:\Users\marce\source\repos\close-to-gl\out\build\x64-Debug\lib\glfw && "C:\Program Files\Microsoft Visual Studio\2022\Preview\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake"
+  COMMAND = cmd.exe /C "cd /D C:\Users\marce\UFRGS\close-to-gl\out\build\x64-Debug\lib\glfw && "C:\Program Files\Microsoft Visual Studio\2022\Preview\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake"
   DESC = Installing only the local directory...
   pool = console
   restat = 1
@@ -292,7 +268,7 @@ build lib\glfw\install\local: phony lib\glfw\CMakeFiles\install\local.util
 # Utility command for install
 
 build lib\glfw\CMakeFiles\install.util: CUSTOM_COMMAND lib\glfw\all
-  COMMAND = cmd.exe /C "cd /D C:\Users\marce\source\repos\close-to-gl\out\build\x64-Debug\lib\glfw && "C:\Program Files\Microsoft Visual Studio\2022\Preview\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -P cmake_install.cmake"
+  COMMAND = cmd.exe /C "cd /D C:\Users\marce\UFRGS\close-to-gl\out\build\x64-Debug\lib\glfw && "C:\Program Files\Microsoft Visual Studio\2022\Preview\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -P cmake_install.cmake"
   DESC = Install the project...
   pool = console
   restat = 1
@@ -304,7 +280,7 @@ build lib\glfw\install: phony lib\glfw\CMakeFiles\install.util
 # Utility command for edit_cache
 
 build lib\glfw\CMakeFiles\edit_cache.util: CUSTOM_COMMAND
-  COMMAND = cmd.exe /C "cd /D C:\Users\marce\source\repos\close-to-gl\out\build\x64-Debug\lib\glfw && "C:\Program Files\Microsoft Visual Studio\2022\Preview\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E echo "No interactive CMake dialog available.""
+  COMMAND = cmd.exe /C "cd /D C:\Users\marce\UFRGS\close-to-gl\out\build\x64-Debug\lib\glfw && "C:\Program Files\Microsoft Visual Studio\2022\Preview\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E echo "No interactive CMake dialog available.""
   DESC = No interactive CMake dialog available...
   restat = 1
 
@@ -315,7 +291,7 @@ build lib\glfw\edit_cache: phony lib\glfw\CMakeFiles\edit_cache.util
 # Utility command for rebuild_cache
 
 build lib\glfw\CMakeFiles\rebuild_cache.util: CUSTOM_COMMAND
-  COMMAND = cmd.exe /C "cd /D C:\Users\marce\source\repos\close-to-gl\out\build\x64-Debug\lib\glfw && "C:\Program Files\Microsoft Visual Studio\2022\Preview\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" --regenerate-during-build -SC:\Users\marce\source\repos\close-to-gl -BC:\Users\marce\source\repos\close-to-gl\out\build\x64-Debug"
+  COMMAND = cmd.exe /C "cd /D C:\Users\marce\UFRGS\close-to-gl\out\build\x64-Debug\lib\glfw && "C:\Program Files\Microsoft Visual Studio\2022\Preview\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" --regenerate-during-build -SC:\Users\marce\UFRGS\close-to-gl -BC:\Users\marce\UFRGS\close-to-gl\out\build\x64-Debug"
   DESC = Running CMake to regenerate build system...
   pool = console
   restat = 1
@@ -333,11 +309,11 @@ build lib\glfw\list_install_components: phony
 # Custom command for lib\glfw\CMakeFiles\uninstall
 
 build lib\glfw\CMakeFiles\uninstall: CUSTOM_COMMAND
-  COMMAND = cmd.exe /C "cd /D C:\Users\marce\source\repos\close-to-gl\out\build\x64-Debug\lib\glfw && "C:\Program Files\Microsoft Visual Studio\2022\Preview\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -P C:/Users/marce/source/repos/close-to-gl/out/build/x64-Debug/lib/glfw/cmake_uninstall.cmake"
+  COMMAND = cmd.exe /C "cd /D C:\Users\marce\UFRGS\close-to-gl\out\build\x64-Debug\lib\glfw && "C:\Program Files\Microsoft Visual Studio\2022\Preview\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -P C:/Users/marce/UFRGS/close-to-gl/out/build/x64-Debug/lib/glfw/cmake_uninstall.cmake"
 
 # =============================================================================
 # Write statements declared in CMakeLists.txt:
-# C:/Users/marce/source/repos/close-to-gl/lib/glfw/CMakeLists.txt
+# C:/Users/marce/UFRGS/close-to-gl/lib/glfw/CMakeLists.txt
 # =============================================================================
 
 
@@ -345,7 +321,7 @@ build lib\glfw\CMakeFiles\uninstall: CUSTOM_COMMAND
 # Utility command for rebuild_cache
 
 build lib\glfw\src\CMakeFiles\rebuild_cache.util: CUSTOM_COMMAND
-  COMMAND = cmd.exe /C "cd /D C:\Users\marce\source\repos\close-to-gl\out\build\x64-Debug\lib\glfw\src && "C:\Program Files\Microsoft Visual Studio\2022\Preview\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" --regenerate-during-build -SC:\Users\marce\source\repos\close-to-gl -BC:\Users\marce\source\repos\close-to-gl\out\build\x64-Debug"
+  COMMAND = cmd.exe /C "cd /D C:\Users\marce\UFRGS\close-to-gl\out\build\x64-Debug\lib\glfw\src && "C:\Program Files\Microsoft Visual Studio\2022\Preview\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" --regenerate-during-build -SC:\Users\marce\UFRGS\close-to-gl -BC:\Users\marce\UFRGS\close-to-gl\out\build\x64-Debug"
   DESC = Running CMake to regenerate build system...
   pool = console
   restat = 1
@@ -489,34 +465,10 @@ build lib\glfw3.lib: C_STATIC_LIBRARY_LINKER__glfw_Debug lib\glfw\src\CMakeFiles
 
 
 #############################################
-# Utility command for package
-
-build lib\glfw\src\CMakeFiles\package.util: CUSTOM_COMMAND lib\glfw\src\all
-  COMMAND = cmd.exe /C "cd /D C:\Users\marce\source\repos\close-to-gl\out\build\x64-Debug && "C:\Program Files\Microsoft Visual Studio\2022\Preview\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cpack.exe" --config ./CPackConfig.cmake"
-  DESC = Run CPack packaging tool...
-  pool = console
-  restat = 1
-
-build lib\glfw\src\package: phony lib\glfw\src\CMakeFiles\package.util
-
-
-#############################################
-# Utility command for package_source
-
-build lib\glfw\src\CMakeFiles\package_source.util: CUSTOM_COMMAND
-  COMMAND = cmd.exe /C "cd /D C:\Users\marce\source\repos\close-to-gl\out\build\x64-Debug && "C:\Program Files\Microsoft Visual Studio\2022\Preview\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cpack.exe" --config ./CPackSourceConfig.cmake C:/Users/marce/source/repos/close-to-gl/out/build/x64-Debug/CPackSourceConfig.cmake"
-  DESC = Run CPack packaging tool for source...
-  pool = console
-  restat = 1
-
-build lib\glfw\src\package_source: phony lib\glfw\src\CMakeFiles\package_source.util
-
-
-#############################################
 # Utility command for install/local
 
 build lib\glfw\src\CMakeFiles\install\local.util: CUSTOM_COMMAND lib\glfw\src\all
-  COMMAND = cmd.exe /C "cd /D C:\Users\marce\source\repos\close-to-gl\out\build\x64-Debug\lib\glfw\src && "C:\Program Files\Microsoft Visual Studio\2022\Preview\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake"
+  COMMAND = cmd.exe /C "cd /D C:\Users\marce\UFRGS\close-to-gl\out\build\x64-Debug\lib\glfw\src && "C:\Program Files\Microsoft Visual Studio\2022\Preview\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake"
   DESC = Installing only the local directory...
   pool = console
   restat = 1
@@ -528,7 +480,7 @@ build lib\glfw\src\install\local: phony lib\glfw\src\CMakeFiles\install\local.ut
 # Utility command for install
 
 build lib\glfw\src\CMakeFiles\install.util: CUSTOM_COMMAND lib\glfw\src\all
-  COMMAND = cmd.exe /C "cd /D C:\Users\marce\source\repos\close-to-gl\out\build\x64-Debug\lib\glfw\src && "C:\Program Files\Microsoft Visual Studio\2022\Preview\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -P cmake_install.cmake"
+  COMMAND = cmd.exe /C "cd /D C:\Users\marce\UFRGS\close-to-gl\out\build\x64-Debug\lib\glfw\src && "C:\Program Files\Microsoft Visual Studio\2022\Preview\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -P cmake_install.cmake"
   DESC = Install the project...
   pool = console
   restat = 1
@@ -540,7 +492,7 @@ build lib\glfw\src\install: phony lib\glfw\src\CMakeFiles\install.util
 # Utility command for edit_cache
 
 build lib\glfw\src\CMakeFiles\edit_cache.util: CUSTOM_COMMAND
-  COMMAND = cmd.exe /C "cd /D C:\Users\marce\source\repos\close-to-gl\out\build\x64-Debug\lib\glfw\src && "C:\Program Files\Microsoft Visual Studio\2022\Preview\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E echo "No interactive CMake dialog available.""
+  COMMAND = cmd.exe /C "cd /D C:\Users\marce\UFRGS\close-to-gl\out\build\x64-Debug\lib\glfw\src && "C:\Program Files\Microsoft Visual Studio\2022\Preview\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E echo "No interactive CMake dialog available.""
   DESC = No interactive CMake dialog available...
   restat = 1
 
@@ -554,39 +506,15 @@ build lib\glfw\src\list_install_components: phony
 
 # =============================================================================
 # Write statements declared in CMakeLists.txt:
-# C:/Users/marce/source/repos/close-to-gl/CMakeLists.txt
+# C:/Users/marce/UFRGS/close-to-gl/CMakeLists.txt
 # =============================================================================
-
-
-#############################################
-# Utility command for package
-
-build lib\glm\CMakeFiles\package.util: CUSTOM_COMMAND lib\glm\all
-  COMMAND = cmd.exe /C "cd /D C:\Users\marce\source\repos\close-to-gl\out\build\x64-Debug && "C:\Program Files\Microsoft Visual Studio\2022\Preview\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cpack.exe" --config ./CPackConfig.cmake"
-  DESC = Run CPack packaging tool...
-  pool = console
-  restat = 1
-
-build lib\glm\package: phony lib\glm\CMakeFiles\package.util
-
-
-#############################################
-# Utility command for package_source
-
-build lib\glm\CMakeFiles\package_source.util: CUSTOM_COMMAND
-  COMMAND = cmd.exe /C "cd /D C:\Users\marce\source\repos\close-to-gl\out\build\x64-Debug && "C:\Program Files\Microsoft Visual Studio\2022\Preview\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cpack.exe" --config ./CPackSourceConfig.cmake C:/Users/marce/source/repos/close-to-gl/out/build/x64-Debug/CPackSourceConfig.cmake"
-  DESC = Run CPack packaging tool for source...
-  pool = console
-  restat = 1
-
-build lib\glm\package_source: phony lib\glm\CMakeFiles\package_source.util
 
 
 #############################################
 # Utility command for install/local
 
 build lib\glm\CMakeFiles\install\local.util: CUSTOM_COMMAND lib\glm\all
-  COMMAND = cmd.exe /C "cd /D C:\Users\marce\source\repos\close-to-gl\out\build\x64-Debug\lib\glm && "C:\Program Files\Microsoft Visual Studio\2022\Preview\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake"
+  COMMAND = cmd.exe /C "cd /D C:\Users\marce\UFRGS\close-to-gl\out\build\x64-Debug\lib\glm && "C:\Program Files\Microsoft Visual Studio\2022\Preview\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake"
   DESC = Installing only the local directory...
   pool = console
   restat = 1
@@ -598,7 +526,7 @@ build lib\glm\install\local: phony lib\glm\CMakeFiles\install\local.util
 # Utility command for install
 
 build lib\glm\CMakeFiles\install.util: CUSTOM_COMMAND lib\glm\all
-  COMMAND = cmd.exe /C "cd /D C:\Users\marce\source\repos\close-to-gl\out\build\x64-Debug\lib\glm && "C:\Program Files\Microsoft Visual Studio\2022\Preview\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -P cmake_install.cmake"
+  COMMAND = cmd.exe /C "cd /D C:\Users\marce\UFRGS\close-to-gl\out\build\x64-Debug\lib\glm && "C:\Program Files\Microsoft Visual Studio\2022\Preview\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -P cmake_install.cmake"
   DESC = Install the project...
   pool = console
   restat = 1
@@ -610,7 +538,7 @@ build lib\glm\install: phony lib\glm\CMakeFiles\install.util
 # Utility command for edit_cache
 
 build lib\glm\CMakeFiles\edit_cache.util: CUSTOM_COMMAND
-  COMMAND = cmd.exe /C "cd /D C:\Users\marce\source\repos\close-to-gl\out\build\x64-Debug\lib\glm && "C:\Program Files\Microsoft Visual Studio\2022\Preview\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E echo "No interactive CMake dialog available.""
+  COMMAND = cmd.exe /C "cd /D C:\Users\marce\UFRGS\close-to-gl\out\build\x64-Debug\lib\glm && "C:\Program Files\Microsoft Visual Studio\2022\Preview\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E echo "No interactive CMake dialog available.""
   DESC = No interactive CMake dialog available...
   restat = 1
 
@@ -621,7 +549,7 @@ build lib\glm\edit_cache: phony lib\glm\CMakeFiles\edit_cache.util
 # Utility command for rebuild_cache
 
 build lib\glm\CMakeFiles\rebuild_cache.util: CUSTOM_COMMAND
-  COMMAND = cmd.exe /C "cd /D C:\Users\marce\source\repos\close-to-gl\out\build\x64-Debug\lib\glm && "C:\Program Files\Microsoft Visual Studio\2022\Preview\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" --regenerate-during-build -SC:\Users\marce\source\repos\close-to-gl -BC:\Users\marce\source\repos\close-to-gl\out\build\x64-Debug"
+  COMMAND = cmd.exe /C "cd /D C:\Users\marce\UFRGS\close-to-gl\out\build\x64-Debug\lib\glm && "C:\Program Files\Microsoft Visual Studio\2022\Preview\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" --regenerate-during-build -SC:\Users\marce\UFRGS\close-to-gl -BC:\Users\marce\UFRGS\close-to-gl\out\build\x64-Debug"
   DESC = Running CMake to regenerate build system...
   pool = console
   restat = 1
@@ -636,39 +564,15 @@ build lib\glm\list_install_components: phony
 
 # =============================================================================
 # Write statements declared in CMakeLists.txt:
-# C:/Users/marce/source/repos/close-to-gl/lib/glm/CMakeLists.txt
+# C:/Users/marce/UFRGS/close-to-gl/lib/glm/CMakeLists.txt
 # =============================================================================
-
-
-#############################################
-# Utility command for package_source
-
-build lib\glm\glm\CMakeFiles\package_source.util: CUSTOM_COMMAND
-  COMMAND = cmd.exe /C "cd /D C:\Users\marce\source\repos\close-to-gl\out\build\x64-Debug && "C:\Program Files\Microsoft Visual Studio\2022\Preview\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cpack.exe" --config ./CPackSourceConfig.cmake C:/Users/marce/source/repos/close-to-gl/out/build/x64-Debug/CPackSourceConfig.cmake"
-  DESC = Run CPack packaging tool for source...
-  pool = console
-  restat = 1
-
-build lib\glm\glm\package_source: phony lib\glm\glm\CMakeFiles\package_source.util
-
-
-#############################################
-# Utility command for package
-
-build lib\glm\glm\CMakeFiles\package.util: CUSTOM_COMMAND lib\glm\glm\all
-  COMMAND = cmd.exe /C "cd /D C:\Users\marce\source\repos\close-to-gl\out\build\x64-Debug && "C:\Program Files\Microsoft Visual Studio\2022\Preview\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cpack.exe" --config ./CPackConfig.cmake"
-  DESC = Run CPack packaging tool...
-  pool = console
-  restat = 1
-
-build lib\glm\glm\package: phony lib\glm\glm\CMakeFiles\package.util
 
 
 #############################################
 # Utility command for install/local
 
 build lib\glm\glm\CMakeFiles\install\local.util: CUSTOM_COMMAND lib\glm\glm\all
-  COMMAND = cmd.exe /C "cd /D C:\Users\marce\source\repos\close-to-gl\out\build\x64-Debug\lib\glm\glm && "C:\Program Files\Microsoft Visual Studio\2022\Preview\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake"
+  COMMAND = cmd.exe /C "cd /D C:\Users\marce\UFRGS\close-to-gl\out\build\x64-Debug\lib\glm\glm && "C:\Program Files\Microsoft Visual Studio\2022\Preview\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake"
   DESC = Installing only the local directory...
   pool = console
   restat = 1
@@ -680,7 +584,7 @@ build lib\glm\glm\install\local: phony lib\glm\glm\CMakeFiles\install\local.util
 # Utility command for install
 
 build lib\glm\glm\CMakeFiles\install.util: CUSTOM_COMMAND lib\glm\glm\all
-  COMMAND = cmd.exe /C "cd /D C:\Users\marce\source\repos\close-to-gl\out\build\x64-Debug\lib\glm\glm && "C:\Program Files\Microsoft Visual Studio\2022\Preview\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -P cmake_install.cmake"
+  COMMAND = cmd.exe /C "cd /D C:\Users\marce\UFRGS\close-to-gl\out\build\x64-Debug\lib\glm\glm && "C:\Program Files\Microsoft Visual Studio\2022\Preview\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -P cmake_install.cmake"
   DESC = Install the project...
   pool = console
   restat = 1
@@ -692,7 +596,7 @@ build lib\glm\glm\install: phony lib\glm\glm\CMakeFiles\install.util
 # Utility command for edit_cache
 
 build lib\glm\glm\CMakeFiles\edit_cache.util: CUSTOM_COMMAND
-  COMMAND = cmd.exe /C "cd /D C:\Users\marce\source\repos\close-to-gl\out\build\x64-Debug\lib\glm\glm && "C:\Program Files\Microsoft Visual Studio\2022\Preview\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E echo "No interactive CMake dialog available.""
+  COMMAND = cmd.exe /C "cd /D C:\Users\marce\UFRGS\close-to-gl\out\build\x64-Debug\lib\glm\glm && "C:\Program Files\Microsoft Visual Studio\2022\Preview\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E echo "No interactive CMake dialog available.""
   DESC = No interactive CMake dialog available...
   restat = 1
 
@@ -703,7 +607,7 @@ build lib\glm\glm\edit_cache: phony lib\glm\glm\CMakeFiles\edit_cache.util
 # Utility command for rebuild_cache
 
 build lib\glm\glm\CMakeFiles\rebuild_cache.util: CUSTOM_COMMAND
-  COMMAND = cmd.exe /C "cd /D C:\Users\marce\source\repos\close-to-gl\out\build\x64-Debug\lib\glm\glm && "C:\Program Files\Microsoft Visual Studio\2022\Preview\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" --regenerate-during-build -SC:\Users\marce\source\repos\close-to-gl -BC:\Users\marce\source\repos\close-to-gl\out\build\x64-Debug"
+  COMMAND = cmd.exe /C "cd /D C:\Users\marce\UFRGS\close-to-gl\out\build\x64-Debug\lib\glm\glm && "C:\Program Files\Microsoft Visual Studio\2022\Preview\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" --regenerate-during-build -SC:\Users\marce\UFRGS\close-to-gl -BC:\Users\marce\UFRGS\close-to-gl\out\build\x64-Debug"
   DESC = Running CMake to regenerate build system...
   pool = console
   restat = 1
@@ -718,7 +622,7 @@ build lib\glm\glm\list_install_components: phony
 
 # =============================================================================
 # Write statements declared in CMakeLists.txt:
-# C:/Users/marce/source/repos/close-to-gl/CMakeLists.txt
+# C:/Users/marce/UFRGS/close-to-gl/CMakeLists.txt
 # =============================================================================
 
 
@@ -726,7 +630,7 @@ build lib\glm\glm\list_install_components: phony
 # Utility command for rebuild_cache
 
 build test\CMakeFiles\rebuild_cache.util: CUSTOM_COMMAND
-  COMMAND = cmd.exe /C "cd /D C:\Users\marce\source\repos\close-to-gl\out\build\x64-Debug\test && "C:\Program Files\Microsoft Visual Studio\2022\Preview\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" --regenerate-during-build -SC:\Users\marce\source\repos\close-to-gl -BC:\Users\marce\source\repos\close-to-gl\out\build\x64-Debug"
+  COMMAND = cmd.exe /C "cd /D C:\Users\marce\UFRGS\close-to-gl\out\build\x64-Debug\test && "C:\Program Files\Microsoft Visual Studio\2022\Preview\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" --regenerate-during-build -SC:\Users\marce\UFRGS\close-to-gl -BC:\Users\marce\UFRGS\close-to-gl\out\build\x64-Debug"
   DESC = Running CMake to regenerate build system...
   pool = console
   restat = 1
@@ -762,9 +666,9 @@ build ..\test.exe test\test[1]_tests.cmake: CXX_EXECUTABLE_LINKER__test_Debug te
   FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1
   LINK_FLAGS = /machine:x64 /debug /INCREMENTAL /subsystem:console
   LINK_LIBRARIES = lib\gtest_maind.lib  lib\gmockd.lib  lib\close-to-gl.lib  lib\gtestd.lib  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib
-  LINK_PATH = -LIBPATH:C:\Users\marce\source\repos\close-to-gl\lib
+  LINK_PATH = -LIBPATH:C:\Users\marce\UFRGS\close-to-gl\lib
   OBJECT_DIR = test\CMakeFiles\test.dir
-  POST_BUILD = cmd.exe /C "cd /D C:\Users\marce\source\repos\close-to-gl\out\build\x64-Debug\test && "C:\Program Files\Microsoft Visual Studio\2022\Preview\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -D TEST_TARGET=test -D TEST_EXECUTABLE=C:/Users/marce/source/repos/close-to-gl/out/build/test.exe -D TEST_EXECUTOR= -D TEST_WORKING_DIR=C:/Users/marce/source/repos/close-to-gl/out/build/x64-Debug/test -D TEST_EXTRA_ARGS= -D TEST_PROPERTIES= -D TEST_PREFIX= -D TEST_SUFFIX= -D NO_PRETTY_TYPES=FALSE -D NO_PRETTY_VALUES=FALSE -D TEST_LIST=test_TESTS -D CTEST_FILE=C:/Users/marce/source/repos/close-to-gl/out/build/x64-Debug/test/test[1]_tests.cmake -D TEST_DISCOVERY_TIMEOUT=5 -D TEST_XML_OUTPUT_DIR= -P "C:/Program Files/Microsoft Visual Studio/2022/Preview/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.20/Modules/GoogleTestAddTests.cmake""
+  POST_BUILD = cmd.exe /C "cd /D C:\Users\marce\UFRGS\close-to-gl\out\build\x64-Debug\test && "C:\Program Files\Microsoft Visual Studio\2022\Preview\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -D TEST_TARGET=test -D TEST_EXECUTABLE=C:/Users/marce/UFRGS/close-to-gl/out/build/test.exe -D TEST_EXECUTOR= -D TEST_WORKING_DIR=C:/Users/marce/UFRGS/close-to-gl/out/build/x64-Debug/test -D TEST_EXTRA_ARGS= -D TEST_PROPERTIES= -D TEST_PREFIX= -D TEST_SUFFIX= -D NO_PRETTY_TYPES=FALSE -D NO_PRETTY_VALUES=FALSE -D TEST_LIST=test_TESTS -D CTEST_FILE=C:/Users/marce/UFRGS/close-to-gl/out/build/x64-Debug/test/test[1]_tests.cmake -D TEST_DISCOVERY_TIMEOUT=5 -D TEST_XML_OUTPUT_DIR= -P "C:/Program Files/Microsoft Visual Studio/2022/Preview/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.20/Modules/GoogleTestAddTests.cmake""
   PRE_LINK = cd .
   RESTAT = 1
   TARGET_COMPILE_PDB = test\CMakeFiles\test.dir\
@@ -774,34 +678,10 @@ build ..\test.exe test\test[1]_tests.cmake: CXX_EXECUTABLE_LINKER__test_Debug te
 
 
 #############################################
-# Utility command for package
-
-build test\CMakeFiles\package.util: CUSTOM_COMMAND test\all
-  COMMAND = cmd.exe /C "cd /D C:\Users\marce\source\repos\close-to-gl\out\build\x64-Debug && "C:\Program Files\Microsoft Visual Studio\2022\Preview\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cpack.exe" --config ./CPackConfig.cmake"
-  DESC = Run CPack packaging tool...
-  pool = console
-  restat = 1
-
-build test\package: phony test\CMakeFiles\package.util
-
-
-#############################################
-# Utility command for package_source
-
-build test\CMakeFiles\package_source.util: CUSTOM_COMMAND
-  COMMAND = cmd.exe /C "cd /D C:\Users\marce\source\repos\close-to-gl\out\build\x64-Debug && "C:\Program Files\Microsoft Visual Studio\2022\Preview\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cpack.exe" --config ./CPackSourceConfig.cmake C:/Users/marce/source/repos/close-to-gl/out/build/x64-Debug/CPackSourceConfig.cmake"
-  DESC = Run CPack packaging tool for source...
-  pool = console
-  restat = 1
-
-build test\package_source: phony test\CMakeFiles\package_source.util
-
-
-#############################################
 # Utility command for install/local
 
 build test\CMakeFiles\install\local.util: CUSTOM_COMMAND test\all
-  COMMAND = cmd.exe /C "cd /D C:\Users\marce\source\repos\close-to-gl\out\build\x64-Debug\test && "C:\Program Files\Microsoft Visual Studio\2022\Preview\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake"
+  COMMAND = cmd.exe /C "cd /D C:\Users\marce\UFRGS\close-to-gl\out\build\x64-Debug\test && "C:\Program Files\Microsoft Visual Studio\2022\Preview\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake"
   DESC = Installing only the local directory...
   pool = console
   restat = 1
@@ -813,7 +693,7 @@ build test\install\local: phony test\CMakeFiles\install\local.util
 # Utility command for install
 
 build test\CMakeFiles\install.util: CUSTOM_COMMAND test\all
-  COMMAND = cmd.exe /C "cd /D C:\Users\marce\source\repos\close-to-gl\out\build\x64-Debug\test && "C:\Program Files\Microsoft Visual Studio\2022\Preview\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -P cmake_install.cmake"
+  COMMAND = cmd.exe /C "cd /D C:\Users\marce\UFRGS\close-to-gl\out\build\x64-Debug\test && "C:\Program Files\Microsoft Visual Studio\2022\Preview\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -P cmake_install.cmake"
   DESC = Install the project...
   pool = console
   restat = 1
@@ -825,7 +705,7 @@ build test\install: phony test\CMakeFiles\install.util
 # Utility command for edit_cache
 
 build test\CMakeFiles\edit_cache.util: CUSTOM_COMMAND
-  COMMAND = cmd.exe /C "cd /D C:\Users\marce\source\repos\close-to-gl\out\build\x64-Debug\test && "C:\Program Files\Microsoft Visual Studio\2022\Preview\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E echo "No interactive CMake dialog available.""
+  COMMAND = cmd.exe /C "cd /D C:\Users\marce\UFRGS\close-to-gl\out\build\x64-Debug\test && "C:\Program Files\Microsoft Visual Studio\2022\Preview\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E echo "No interactive CMake dialog available.""
   DESC = No interactive CMake dialog available...
   restat = 1
 
@@ -839,39 +719,15 @@ build test\list_install_components: phony
 
 # =============================================================================
 # Write statements declared in CMakeLists.txt:
-# C:/Users/marce/source/repos/close-to-gl/test/CMakeLists.txt
+# C:/Users/marce/UFRGS/close-to-gl/test/CMakeLists.txt
 # =============================================================================
-
-
-#############################################
-# Utility command for package
-
-build _deps\googletest-build\CMakeFiles\package.util: CUSTOM_COMMAND _deps\googletest-build\all
-  COMMAND = cmd.exe /C "cd /D C:\Users\marce\source\repos\close-to-gl\out\build\x64-Debug && "C:\Program Files\Microsoft Visual Studio\2022\Preview\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cpack.exe" --config ./CPackConfig.cmake"
-  DESC = Run CPack packaging tool...
-  pool = console
-  restat = 1
-
-build _deps\googletest-build\package: phony _deps\googletest-build\CMakeFiles\package.util
-
-
-#############################################
-# Utility command for package_source
-
-build _deps\googletest-build\CMakeFiles\package_source.util: CUSTOM_COMMAND
-  COMMAND = cmd.exe /C "cd /D C:\Users\marce\source\repos\close-to-gl\out\build\x64-Debug && "C:\Program Files\Microsoft Visual Studio\2022\Preview\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cpack.exe" --config ./CPackSourceConfig.cmake C:/Users/marce/source/repos/close-to-gl/out/build/x64-Debug/CPackSourceConfig.cmake"
-  DESC = Run CPack packaging tool for source...
-  pool = console
-  restat = 1
-
-build _deps\googletest-build\package_source: phony _deps\googletest-build\CMakeFiles\package_source.util
 
 
 #############################################
 # Utility command for install/local
 
 build _deps\googletest-build\CMakeFiles\install\local.util: CUSTOM_COMMAND _deps\googletest-build\all
-  COMMAND = cmd.exe /C "cd /D C:\Users\marce\source\repos\close-to-gl\out\build\x64-Debug\_deps\googletest-build && "C:\Program Files\Microsoft Visual Studio\2022\Preview\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake"
+  COMMAND = cmd.exe /C "cd /D C:\Users\marce\UFRGS\close-to-gl\out\build\x64-Debug\_deps\googletest-build && "C:\Program Files\Microsoft Visual Studio\2022\Preview\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake"
   DESC = Installing only the local directory...
   pool = console
   restat = 1
@@ -883,7 +739,7 @@ build _deps\googletest-build\install\local: phony _deps\googletest-build\CMakeFi
 # Utility command for install
 
 build _deps\googletest-build\CMakeFiles\install.util: CUSTOM_COMMAND _deps\googletest-build\all
-  COMMAND = cmd.exe /C "cd /D C:\Users\marce\source\repos\close-to-gl\out\build\x64-Debug\_deps\googletest-build && "C:\Program Files\Microsoft Visual Studio\2022\Preview\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -P cmake_install.cmake"
+  COMMAND = cmd.exe /C "cd /D C:\Users\marce\UFRGS\close-to-gl\out\build\x64-Debug\_deps\googletest-build && "C:\Program Files\Microsoft Visual Studio\2022\Preview\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -P cmake_install.cmake"
   DESC = Install the project...
   pool = console
   restat = 1
@@ -895,7 +751,7 @@ build _deps\googletest-build\install: phony _deps\googletest-build\CMakeFiles\in
 # Utility command for edit_cache
 
 build _deps\googletest-build\CMakeFiles\edit_cache.util: CUSTOM_COMMAND
-  COMMAND = cmd.exe /C "cd /D C:\Users\marce\source\repos\close-to-gl\out\build\x64-Debug\_deps\googletest-build && "C:\Program Files\Microsoft Visual Studio\2022\Preview\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E echo "No interactive CMake dialog available.""
+  COMMAND = cmd.exe /C "cd /D C:\Users\marce\UFRGS\close-to-gl\out\build\x64-Debug\_deps\googletest-build && "C:\Program Files\Microsoft Visual Studio\2022\Preview\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E echo "No interactive CMake dialog available.""
   DESC = No interactive CMake dialog available...
   restat = 1
 
@@ -906,7 +762,7 @@ build _deps\googletest-build\edit_cache: phony _deps\googletest-build\CMakeFiles
 # Utility command for rebuild_cache
 
 build _deps\googletest-build\CMakeFiles\rebuild_cache.util: CUSTOM_COMMAND
-  COMMAND = cmd.exe /C "cd /D C:\Users\marce\source\repos\close-to-gl\out\build\x64-Debug\_deps\googletest-build && "C:\Program Files\Microsoft Visual Studio\2022\Preview\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" --regenerate-during-build -SC:\Users\marce\source\repos\close-to-gl -BC:\Users\marce\source\repos\close-to-gl\out\build\x64-Debug"
+  COMMAND = cmd.exe /C "cd /D C:\Users\marce\UFRGS\close-to-gl\out\build\x64-Debug\_deps\googletest-build && "C:\Program Files\Microsoft Visual Studio\2022\Preview\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" --regenerate-during-build -SC:\Users\marce\UFRGS\close-to-gl -BC:\Users\marce\UFRGS\close-to-gl\out\build\x64-Debug"
   DESC = Running CMake to regenerate build system...
   pool = console
   restat = 1
@@ -921,7 +777,7 @@ build _deps\googletest-build\list_install_components: phony
 
 # =============================================================================
 # Write statements declared in CMakeLists.txt:
-# C:/Users/marce/source/repos/close-to-gl/out/build/x64-Debug/_deps/googletest-src/CMakeLists.txt
+# C:/Users/marce/UFRGS/close-to-gl/out/build/x64-Debug/_deps/googletest-src/CMakeLists.txt
 # =============================================================================
 
 
@@ -929,7 +785,7 @@ build _deps\googletest-build\list_install_components: phony
 # Utility command for install/local
 
 build _deps\googletest-build\googlemock\CMakeFiles\install\local.util: CUSTOM_COMMAND _deps\googletest-build\googlemock\all
-  COMMAND = cmd.exe /C "cd /D C:\Users\marce\source\repos\close-to-gl\out\build\x64-Debug\_deps\googletest-build\googlemock && "C:\Program Files\Microsoft Visual Studio\2022\Preview\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake"
+  COMMAND = cmd.exe /C "cd /D C:\Users\marce\UFRGS\close-to-gl\out\build\x64-Debug\_deps\googletest-build\googlemock && "C:\Program Files\Microsoft Visual Studio\2022\Preview\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake"
   DESC = Installing only the local directory...
   pool = console
   restat = 1
@@ -941,7 +797,7 @@ build _deps\googletest-build\googlemock\install\local: phony _deps\googletest-bu
 # Utility command for install
 
 build _deps\googletest-build\googlemock\CMakeFiles\install.util: CUSTOM_COMMAND _deps\googletest-build\googlemock\all
-  COMMAND = cmd.exe /C "cd /D C:\Users\marce\source\repos\close-to-gl\out\build\x64-Debug\_deps\googletest-build\googlemock && "C:\Program Files\Microsoft Visual Studio\2022\Preview\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -P cmake_install.cmake"
+  COMMAND = cmd.exe /C "cd /D C:\Users\marce\UFRGS\close-to-gl\out\build\x64-Debug\_deps\googletest-build\googlemock && "C:\Program Files\Microsoft Visual Studio\2022\Preview\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -P cmake_install.cmake"
   DESC = Install the project...
   pool = console
   restat = 1
@@ -953,7 +809,7 @@ build _deps\googletest-build\googlemock\install: phony _deps\googletest-build\go
 # Utility command for edit_cache
 
 build _deps\googletest-build\googlemock\CMakeFiles\edit_cache.util: CUSTOM_COMMAND
-  COMMAND = cmd.exe /C "cd /D C:\Users\marce\source\repos\close-to-gl\out\build\x64-Debug\_deps\googletest-build\googlemock && "C:\Program Files\Microsoft Visual Studio\2022\Preview\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E echo "No interactive CMake dialog available.""
+  COMMAND = cmd.exe /C "cd /D C:\Users\marce\UFRGS\close-to-gl\out\build\x64-Debug\_deps\googletest-build\googlemock && "C:\Program Files\Microsoft Visual Studio\2022\Preview\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E echo "No interactive CMake dialog available.""
   DESC = No interactive CMake dialog available...
   restat = 1
 
@@ -1055,34 +911,10 @@ build lib\gmockd.lib: CXX_STATIC_LIBRARY_LINKER__gmock_Debug _deps\googletest-bu
 
 
 #############################################
-# Utility command for package
-
-build _deps\googletest-build\googlemock\CMakeFiles\package.util: CUSTOM_COMMAND _deps\googletest-build\googlemock\all
-  COMMAND = cmd.exe /C "cd /D C:\Users\marce\source\repos\close-to-gl\out\build\x64-Debug && "C:\Program Files\Microsoft Visual Studio\2022\Preview\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cpack.exe" --config ./CPackConfig.cmake"
-  DESC = Run CPack packaging tool...
-  pool = console
-  restat = 1
-
-build _deps\googletest-build\googlemock\package: phony _deps\googletest-build\googlemock\CMakeFiles\package.util
-
-
-#############################################
-# Utility command for package_source
-
-build _deps\googletest-build\googlemock\CMakeFiles\package_source.util: CUSTOM_COMMAND
-  COMMAND = cmd.exe /C "cd /D C:\Users\marce\source\repos\close-to-gl\out\build\x64-Debug && "C:\Program Files\Microsoft Visual Studio\2022\Preview\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cpack.exe" --config ./CPackSourceConfig.cmake C:/Users/marce/source/repos/close-to-gl/out/build/x64-Debug/CPackSourceConfig.cmake"
-  DESC = Run CPack packaging tool for source...
-  pool = console
-  restat = 1
-
-build _deps\googletest-build\googlemock\package_source: phony _deps\googletest-build\googlemock\CMakeFiles\package_source.util
-
-
-#############################################
 # Utility command for rebuild_cache
 
 build _deps\googletest-build\googlemock\CMakeFiles\rebuild_cache.util: CUSTOM_COMMAND
-  COMMAND = cmd.exe /C "cd /D C:\Users\marce\source\repos\close-to-gl\out\build\x64-Debug\_deps\googletest-build\googlemock && "C:\Program Files\Microsoft Visual Studio\2022\Preview\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" --regenerate-during-build -SC:\Users\marce\source\repos\close-to-gl -BC:\Users\marce\source\repos\close-to-gl\out\build\x64-Debug"
+  COMMAND = cmd.exe /C "cd /D C:\Users\marce\UFRGS\close-to-gl\out\build\x64-Debug\_deps\googletest-build\googlemock && "C:\Program Files\Microsoft Visual Studio\2022\Preview\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" --regenerate-during-build -SC:\Users\marce\UFRGS\close-to-gl -BC:\Users\marce\UFRGS\close-to-gl\out\build\x64-Debug"
   DESC = Running CMake to regenerate build system...
   pool = console
   restat = 1
@@ -1097,7 +929,7 @@ build _deps\googletest-build\googlemock\list_install_components: phony
 
 # =============================================================================
 # Write statements declared in CMakeLists.txt:
-# C:/Users/marce/source/repos/close-to-gl/out/build/x64-Debug/_deps/googletest-src/googlemock/CMakeLists.txt
+# C:/Users/marce/UFRGS/close-to-gl/out/build/x64-Debug/_deps/googletest-src/googlemock/CMakeLists.txt
 # =============================================================================
 
 
@@ -1178,34 +1010,10 @@ build lib\gtest_maind.lib: CXX_STATIC_LIBRARY_LINKER__gtest_main_Debug _deps\goo
 
 
 #############################################
-# Utility command for package
-
-build _deps\googletest-build\googletest\CMakeFiles\package.util: CUSTOM_COMMAND _deps\googletest-build\googletest\all
-  COMMAND = cmd.exe /C "cd /D C:\Users\marce\source\repos\close-to-gl\out\build\x64-Debug && "C:\Program Files\Microsoft Visual Studio\2022\Preview\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cpack.exe" --config ./CPackConfig.cmake"
-  DESC = Run CPack packaging tool...
-  pool = console
-  restat = 1
-
-build _deps\googletest-build\googletest\package: phony _deps\googletest-build\googletest\CMakeFiles\package.util
-
-
-#############################################
-# Utility command for package_source
-
-build _deps\googletest-build\googletest\CMakeFiles\package_source.util: CUSTOM_COMMAND
-  COMMAND = cmd.exe /C "cd /D C:\Users\marce\source\repos\close-to-gl\out\build\x64-Debug && "C:\Program Files\Microsoft Visual Studio\2022\Preview\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cpack.exe" --config ./CPackSourceConfig.cmake C:/Users/marce/source/repos/close-to-gl/out/build/x64-Debug/CPackSourceConfig.cmake"
-  DESC = Run CPack packaging tool for source...
-  pool = console
-  restat = 1
-
-build _deps\googletest-build\googletest\package_source: phony _deps\googletest-build\googletest\CMakeFiles\package_source.util
-
-
-#############################################
 # Utility command for install/local
 
 build _deps\googletest-build\googletest\CMakeFiles\install\local.util: CUSTOM_COMMAND _deps\googletest-build\googletest\all
-  COMMAND = cmd.exe /C "cd /D C:\Users\marce\source\repos\close-to-gl\out\build\x64-Debug\_deps\googletest-build\googletest && "C:\Program Files\Microsoft Visual Studio\2022\Preview\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake"
+  COMMAND = cmd.exe /C "cd /D C:\Users\marce\UFRGS\close-to-gl\out\build\x64-Debug\_deps\googletest-build\googletest && "C:\Program Files\Microsoft Visual Studio\2022\Preview\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake"
   DESC = Installing only the local directory...
   pool = console
   restat = 1
@@ -1217,7 +1025,7 @@ build _deps\googletest-build\googletest\install\local: phony _deps\googletest-bu
 # Utility command for install
 
 build _deps\googletest-build\googletest\CMakeFiles\install.util: CUSTOM_COMMAND _deps\googletest-build\googletest\all
-  COMMAND = cmd.exe /C "cd /D C:\Users\marce\source\repos\close-to-gl\out\build\x64-Debug\_deps\googletest-build\googletest && "C:\Program Files\Microsoft Visual Studio\2022\Preview\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -P cmake_install.cmake"
+  COMMAND = cmd.exe /C "cd /D C:\Users\marce\UFRGS\close-to-gl\out\build\x64-Debug\_deps\googletest-build\googletest && "C:\Program Files\Microsoft Visual Studio\2022\Preview\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -P cmake_install.cmake"
   DESC = Install the project...
   pool = console
   restat = 1
@@ -1229,7 +1037,7 @@ build _deps\googletest-build\googletest\install: phony _deps\googletest-build\go
 # Utility command for edit_cache
 
 build _deps\googletest-build\googletest\CMakeFiles\edit_cache.util: CUSTOM_COMMAND
-  COMMAND = cmd.exe /C "cd /D C:\Users\marce\source\repos\close-to-gl\out\build\x64-Debug\_deps\googletest-build\googletest && "C:\Program Files\Microsoft Visual Studio\2022\Preview\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E echo "No interactive CMake dialog available.""
+  COMMAND = cmd.exe /C "cd /D C:\Users\marce\UFRGS\close-to-gl\out\build\x64-Debug\_deps\googletest-build\googletest && "C:\Program Files\Microsoft Visual Studio\2022\Preview\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E echo "No interactive CMake dialog available.""
   DESC = No interactive CMake dialog available...
   restat = 1
 
@@ -1240,7 +1048,7 @@ build _deps\googletest-build\googletest\edit_cache: phony _deps\googletest-build
 # Utility command for rebuild_cache
 
 build _deps\googletest-build\googletest\CMakeFiles\rebuild_cache.util: CUSTOM_COMMAND
-  COMMAND = cmd.exe /C "cd /D C:\Users\marce\source\repos\close-to-gl\out\build\x64-Debug\_deps\googletest-build\googletest && "C:\Program Files\Microsoft Visual Studio\2022\Preview\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" --regenerate-during-build -SC:\Users\marce\source\repos\close-to-gl -BC:\Users\marce\source\repos\close-to-gl\out\build\x64-Debug"
+  COMMAND = cmd.exe /C "cd /D C:\Users\marce\UFRGS\close-to-gl\out\build\x64-Debug\_deps\googletest-build\googletest && "C:\Program Files\Microsoft Visual Studio\2022\Preview\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" --regenerate-during-build -SC:\Users\marce\UFRGS\close-to-gl -BC:\Users\marce\UFRGS\close-to-gl\out\build\x64-Debug"
   DESC = Running CMake to regenerate build system...
   pool = console
   restat = 1
@@ -1290,63 +1098,63 @@ build uninstall: phony lib\glfw\uninstall
 # =============================================================================
 
 #############################################
-# Folder: C:/Users/marce/source/repos/close-to-gl/out/build/x64-Debug
+# Folder: C:/Users/marce/UFRGS/close-to-gl/out/build/x64-Debug
 
 build all: phony lib\close-to-gl.lib ..\main.exe lib\glfw\all lib\glm\all test\all
 
 # =============================================================================
 
 #############################################
-# Folder: C:/Users/marce/source/repos/close-to-gl/out/build/x64-Debug/_deps/googletest-build
+# Folder: C:/Users/marce/UFRGS/close-to-gl/out/build/x64-Debug/_deps/googletest-build
 
 build _deps\googletest-build\all: phony _deps\googletest-build\googlemock\all
 
 # =============================================================================
 
 #############################################
-# Folder: C:/Users/marce/source/repos/close-to-gl/out/build/x64-Debug/_deps/googletest-build/googlemock
+# Folder: C:/Users/marce/UFRGS/close-to-gl/out/build/x64-Debug/_deps/googletest-build/googlemock
 
 build _deps\googletest-build\googlemock\all: phony lib\gmock_maind.lib lib\gmockd.lib _deps\googletest-build\googletest\all
 
 # =============================================================================
 
 #############################################
-# Folder: C:/Users/marce/source/repos/close-to-gl/out/build/x64-Debug/_deps/googletest-build/googletest
+# Folder: C:/Users/marce/UFRGS/close-to-gl/out/build/x64-Debug/_deps/googletest-build/googletest
 
 build _deps\googletest-build\googletest\all: phony lib\gtestd.lib lib\gtest_maind.lib
 
 # =============================================================================
 
 #############################################
-# Folder: C:/Users/marce/source/repos/close-to-gl/out/build/x64-Debug/lib/glfw
+# Folder: C:/Users/marce/UFRGS/close-to-gl/out/build/x64-Debug/lib/glfw
 
 build lib\glfw\all: phony lib\glfw\src\all
 
 # =============================================================================
 
 #############################################
-# Folder: C:/Users/marce/source/repos/close-to-gl/out/build/x64-Debug/lib/glfw/src
+# Folder: C:/Users/marce/UFRGS/close-to-gl/out/build/x64-Debug/lib/glfw/src
 
 build lib\glfw\src\all: phony lib\glfw3.lib
 
 # =============================================================================
 
 #############################################
-# Folder: C:/Users/marce/source/repos/close-to-gl/out/build/x64-Debug/lib/glm
+# Folder: C:/Users/marce/UFRGS/close-to-gl/out/build/x64-Debug/lib/glm
 
 build lib\glm\all: phony lib\glm\glm\all
 
 # =============================================================================
 
 #############################################
-# Folder: C:/Users/marce/source/repos/close-to-gl/out/build/x64-Debug/lib/glm/glm
+# Folder: C:/Users/marce/UFRGS/close-to-gl/out/build/x64-Debug/lib/glm/glm
 
 build lib\glm\glm\all: phony
 
 # =============================================================================
 
 #############################################
-# Folder: C:/Users/marce/source/repos/close-to-gl/out/build/x64-Debug/test
+# Folder: C:/Users/marce/UFRGS/close-to-gl/out/build/x64-Debug/test
 
 build test\all: phony ..\test.exe _deps\googletest-build\all
 

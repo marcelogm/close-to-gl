@@ -14,8 +14,8 @@ project(googletest-populate NONE)
 include(ExternalProject)
 ExternalProject_Add(googletest-populate
                      "UPDATE_DISCONNECTED" "False" "URL" "https://github.com/google/googletest/archive/609281088cfefc76f9d0ce82e1ff6c30cc3591e5.zip"
-                    SOURCE_DIR          "C:/Users/marce/source/repos/close-to-gl/out/build/x64-Debug/_deps/googletest-src"
-                    BINARY_DIR          "C:/Users/marce/source/repos/close-to-gl/out/build/x64-Debug/_deps/googletest-build"
+                    SOURCE_DIR          "C:/Users/marce/UFRGS/close-to-gl/out/build/x64-Debug/_deps/googletest-src"
+                    BINARY_DIR          "C:/Users/marce/UFRGS/close-to-gl/out/build/x64-Debug/_deps/googletest-build"
                     CONFIGURE_COMMAND   ""
                     BUILD_COMMAND       ""
                     INSTALL_COMMAND     ""

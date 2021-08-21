@@ -7,19 +7,29 @@ public:
 	void reset(glm::vec2 u, glm::vec2 v, float fov);
 	glm::mat4 getView();
 	static Camera* getInstance();
-	void lookRight();
-	void lookLeft();
-	void lookUp();
-	void lookDown();
+	void look(float yaw, float pitch);
+	void roll(float roll);
+	void goFoward(float);
+	void goBack(float);
+	void goRight(float);
+	void goLeft(float);
+	void rotateAround(float angle);
 	void requestReset();
 	bool shouldReset = false;
 private:
 	Camera();
+	void Camera::update();
 	static Camera* instance;
 	glm::vec3 position;
-	glm::vec3 target;
+
 	glm::vec3 front;
 	glm::vec3 right;
 	glm::vec3 up;
+
 	glm::mat4 view;
+
+	glm::vec3 upRef;
+
+	float yaw;
+	float pitch;
 };

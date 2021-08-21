@@ -1,5 +1,0 @@
-if(EXISTS "C:/Users/marce/source/repos/close-to-gl/out/build/x64-Debug/test/Unittest1[1]_tests.cmake")
-  include("C:/Users/marce/source/repos/close-to-gl/out/build/x64-Debug/test/Unittest1[1]_tests.cmake")
-else()
-  add_test(Unittest1_NOT_BUILT Unittest1_NOT_BUILT)
-endif()

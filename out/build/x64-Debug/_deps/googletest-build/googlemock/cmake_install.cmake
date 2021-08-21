@@ -1,8 +1,8 @@
-# Install script for directory: C:/Users/marce/source/repos/close-to-gl/out/build/x64-Debug/_deps/googletest-src/googlemock
+# Install script for directory: C:/Users/marce/UFRGS/close-to-gl/out/build/x64-Debug/_deps/googletest-src/googlemock
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "C:/Users/marce/source/repos/close-to-gl/out/install/x64-Debug")
+  set(CMAKE_INSTALL_PREFIX "C:/Users/marce/UFRGS/close-to-gl/out/install/x64-Debug")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -33,36 +33,36 @@ if(NOT DEFINED CMAKE_CROSSCOMPILING)
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include" TYPE DIRECTORY FILES "C:/Users/marce/source/repos/close-to-gl/out/build/x64-Debug/_deps/googletest-src/googlemock/include/")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include" TYPE DIRECTORY FILES "C:/Users/marce/UFRGS/close-to-gl/out/build/x64-Debug/_deps/googletest-src/googlemock/include/")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE STATIC_LIBRARY FILES "C:/Users/marce/source/repos/close-to-gl/out/build/x64-Debug/lib/gmockd.lib")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE STATIC_LIBRARY FILES "C:/Users/marce/UFRGS/close-to-gl/out/build/x64-Debug/lib/gmockd.lib")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE STATIC_LIBRARY FILES "C:/Users/marce/source/repos/close-to-gl/out/build/x64-Debug/lib/gmock_maind.lib")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE STATIC_LIBRARY FILES "C:/Users/marce/UFRGS/close-to-gl/out/build/x64-Debug/lib/gmock_maind.lib")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE FILE OPTIONAL FILES "C:/Users/marce/source/repos/close-to-gl/out/build/x64-Debug/bin/${CMAKE_INSTALL_CONFIG_NAME}/gmockd.pdb")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE FILE OPTIONAL FILES "C:/Users/marce/UFRGS/close-to-gl/out/build/x64-Debug/bin/${CMAKE_INSTALL_CONFIG_NAME}/gmockd.pdb")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE FILE OPTIONAL FILES "C:/Users/marce/source/repos/close-to-gl/out/build/x64-Debug/bin/${CMAKE_INSTALL_CONFIG_NAME}/gmock_maind.pdb")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE FILE OPTIONAL FILES "C:/Users/marce/UFRGS/close-to-gl/out/build/x64-Debug/bin/${CMAKE_INSTALL_CONFIG_NAME}/gmock_maind.pdb")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "C:/Users/marce/source/repos/close-to-gl/out/build/x64-Debug/_deps/googletest-build/googletest/generated/gmock.pc")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "C:/Users/marce/UFRGS/close-to-gl/out/build/x64-Debug/_deps/googletest-build/googletest/generated/gmock.pc")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "C:/Users/marce/source/repos/close-to-gl/out/build/x64-Debug/_deps/googletest-build/googletest/generated/gmock_main.pc")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "C:/Users/marce/UFRGS/close-to-gl/out/build/x64-Debug/_deps/googletest-build/googletest/generated/gmock_main.pc")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("C:/Users/marce/source/repos/close-to-gl/out/build/x64-Debug/_deps/googletest-build/googletest/cmake_install.cmake")
+  include("C:/Users/marce/UFRGS/close-to-gl/out/build/x64-Debug/_deps/googletest-build/googletest/cmake_install.cmake")
 
 endif()
 

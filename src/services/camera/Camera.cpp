@@ -1,4 +1,5 @@
 #include "camera.hpp"
+#include <ctime>
 
 void Camera::reset(glm::vec2 u, glm::vec2 v, float fov) {
 	auto uNorm = glm::distance(u.x, u.y);
@@ -9,37 +10,73 @@ void Camera::reset(glm::vec2 u, glm::vec2 v, float fov) {
 	auto z = glm::abs(glm::min(uNorm, vNorm) / glm::sin(fov / 2));
 
 	this->position = glm::vec3(x, y, z);
-	this->front = glm::vec3(0.0f, 0.0f, -1.0f);
-	this->up = glm::vec3(0.0f, 1.0f, 0.0f);
-	this->view = glm::lookAt(position, position + front, up);
+
+	this->upRef = glm::vec3(0.0f, 1.0f, 0.0f);
+	this->yaw = -90.0f;
+	this->pitch = 0.0f;
+
+	this->update();
 }
 
 glm::mat4 Camera::getView() {
 	return this->view;
 }
 
-// yaw
-void Camera::lookRight() {
-	this->front = glm::mat3(glm::rotate(0.05f, this->up)) * this->front;
+void Camera::update() {
+	auto yawRadians = glm::radians(yaw);
+	auto pitchRadians = glm::radians(pitch);
+
+	front.x = glm::cos(yawRadians) * glm::cos(pitchRadians);
+	front.y = glm::sin(pitchRadians);
+	front.z = glm::sin(yawRadians) * glm::cos(pitchRadians);
+
+	this->front = glm::normalize(this->front);
+	this->right = glm::normalize(glm::cross(front, upRef));
+	this->up = glm::normalize(glm::cross(right, front));
 	this->view = glm::lookAt(position, position + front, up);
 }
 
-void Camera::lookLeft() {
-	this->front = glm::mat3(glm::rotate(-0.05f, this->up)) * this->front;
-	this->view = glm::lookAt(position, position + front, up);
+void Camera::look(float yawOffset, float pitchOffset) {
+	pitch += pitchOffset;
+	yaw += yawOffset;
+	if (pitch > 89.0f) {
+		pitch = 89.0f;
+	}
+	if (pitch < -89.0f) {
+		pitch = -89.0f;
+	}
+	this->update();
 }
 
-// pitch
-void Camera::lookUp() {
-	glm::vec3 rotate = glm::cross(this->front, this->up);
-	this->front = glm::mat3(glm::rotate(0.05f, rotate)) * this->front;
-	this->view = glm::lookAt(position, position + front, up);
+void Camera::roll(float roll) {
+	auto rotate = glm::rotate(glm::mat4(1.0f), glm::radians(roll), this->front);
+	this->upRef = rotate * glm::vec4(upRef, 1.0f);
+	this->update();
 }
 
-void Camera::lookDown() {
-	glm::vec3 rotate = glm::cross(this->front, this->up);
-	this->front = glm::mat3(glm::rotate(-0.05f, rotate)) * this->front;
-	this->view = glm::lookAt(position, position + front, up);
+void Camera::goFoward(float speed) {
+	position += front * speed;
+	this->update();
+}
+
+void Camera::goBack(float speed) {
+	position -= front * speed;
+	this->update();
+}
+
+void Camera::goRight(float speed) {
+	position += right * speed;
+	this->update();
+}
+
+void Camera::goLeft(float speed) {
+	position -= right * speed;
+	this->update();
+}
+
+void Camera::rotateAround(float z) {
+	position = glm::vec3(z, 0.0f, z) * position;
+	this->update();
 }
 
 void Camera::requestReset() {
@@ -56,5 +93,7 @@ Camera* Camera::getInstance() {
 Camera* Camera::instance = nullptr;
 
 Camera::Camera() {
-
+	this->upRef = glm::vec3(0.0f, 1.0f, 0.0f);
+	this->yaw = -90.0f;
+	this->pitch = 0.0f;
 }

@@ -1,21 +1,11 @@
-#include "Application.hpp"
+#include "gui.hpp"
 
 void onKeyPress(GLFWwindow* window, int key, int scancode, int action, int mods) {
-	auto camera = Camera::getInstance();
-	if (key == GLFW_KEY_D && action == GLFW_PRESS) {
-		camera->lookRight();
-	}
-	if (key == GLFW_KEY_A && action == GLFW_PRESS) {
-		camera->lookLeft();
-	}
-	if (key == GLFW_KEY_W && action == GLFW_PRESS) {
-		camera->lookUp();
-	}
-	if (key == GLFW_KEY_S && action == GLFW_PRESS) {
-		camera->lookDown();
-	}
-	if (key == GLFW_KEY_R && action == GLFW_PRESS) {
-		camera->requestReset();
+	auto service = KeyStrategyService::getInstance();
+	for (auto strategy : *service->getKeyStrategies()) {
+		if (strategy->matches(key, action)) {
+			strategy->apply(0.1f);
+		}
 	}
 }
 

@@ -1,8 +1,8 @@
-# Install script for directory: C:/Users/marce/source/repos/close-to-gl
+# Install script for directory: C:/Users/marce/UFRGS/close-to-gl
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "C:/Users/marce/source/repos/close-to-gl/out/install/x64-Debug")
+  set(CMAKE_INSTALL_PREFIX "C:/Users/marce/UFRGS/close-to-gl/out/install/x64-Debug")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -34,9 +34,9 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("C:/Users/marce/source/repos/close-to-gl/out/build/x64-Debug/lib/glfw/cmake_install.cmake")
-  include("C:/Users/marce/source/repos/close-to-gl/out/build/x64-Debug/lib/glm/cmake_install.cmake")
-  include("C:/Users/marce/source/repos/close-to-gl/out/build/x64-Debug/test/cmake_install.cmake")
+  include("C:/Users/marce/UFRGS/close-to-gl/out/build/x64-Debug/lib/glfw/cmake_install.cmake")
+  include("C:/Users/marce/UFRGS/close-to-gl/out/build/x64-Debug/lib/glm/cmake_install.cmake")
+  include("C:/Users/marce/UFRGS/close-to-gl/out/build/x64-Debug/test/cmake_install.cmake")
 
 endif()
 
@@ -48,5 +48,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "C:/Users/marce/source/repos/close-to-gl/out/build/x64-Debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "C:/Users/marce/UFRGS/close-to-gl/out/build/x64-Debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

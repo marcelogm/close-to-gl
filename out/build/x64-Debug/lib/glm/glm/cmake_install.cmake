@@ -1,8 +1,8 @@
-# Install script for directory: C:/Users/marce/source/repos/close-to-gl/lib/glm/glm
+# Install script for directory: C:/Users/marce/UFRGS/close-to-gl/lib/glm/glm
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "C:/Users/marce/source/repos/close-to-gl/out/install/x64-Debug")
+  set(CMAKE_INSTALL_PREFIX "C:/Users/marce/UFRGS/close-to-gl/out/install/x64-Debug")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
