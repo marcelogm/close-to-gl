@@ -40,8 +40,10 @@ void ImGuiWrapper::display() {
 	}
 	ImGui::SliderInt("Z Near", config->getZNear(), 1, 1000, "%d", ImGuiSliderFlags_Logarithmic);
 	ImGui::SliderInt("Z Far", config->getZFar(), 100, 10000, "%d", ImGuiSliderFlags_Logarithmic);
-	ImGui::SliderFloat("Sensibilidade", config->getSensibility(), 0.0f, 100.0f, "%.0f", ImGuiSliderFlags_Logarithmic);
+	ImGui::Checkbox("Utilizar mouse", config->getMouseStatus());
+	ImGui::SliderFloat("Sensibilidade do mouse", config->getMouseSensibility(), 0.0f, 100.0f, "%.0f", ImGuiSliderFlags_Logarithmic);
 	ImGui::Checkbox("Girar camera no proprio eixo (cntrl)", config->getMove());
+	ImGui::SliderFloat("Sensibilidade da movimentacao", config->getSensibility(), 0.0f, 100.0f, "%.0f", ImGuiSliderFlags_Logarithmic);
 	ImGui::Checkbox("Clockwise", config->getCW());
 	ImGui::End();
 	ImGui::Render();

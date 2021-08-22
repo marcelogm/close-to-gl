@@ -1,11 +1,19 @@
 #include "gui.hpp"
 
 void onKeyPress(GLFWwindow* window, int key, int scancode, int action, int mods) {
-	auto service = KeyStrategyService::getInstance();
-	for (auto strategy : *service->getKeyStrategies()) {
-		if (strategy->matches(key, action)) {
-			strategy->apply(0.1f);
-		}
+	KeyStrategyService::getInstance()->apply(key, action);
+}
+
+void onMouseMove(GLFWwindow* window, double xpos, double ypos) {
+	auto config = Config::getInstance();
+	if (*config->getMouseStatus()) {
+		MouseService::getInstance()->apply(xpos, ypos);
+	}
+}
+
+void onMouseEnter(GLFWwindow* window, int entered) {
+	if (!entered) {
+		MouseService::getInstance()->mouseLeft();
 	}
 }
 
@@ -19,6 +27,7 @@ void Application::init() {
 	glfwWindowHint(GLFW_RESIZABLE, false);
 	this->window = glfwCreateWindow(800, 600, "Programming Assignment 1", NULL, NULL);
 	glfwSetKeyCallback(this->window, onKeyPress);
+	glfwSetCursorPosCallback(this->window, onMouseMove);
 	glfwMakeContextCurrent(window);
 	gl3wInit();
 

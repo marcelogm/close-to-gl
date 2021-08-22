@@ -24,6 +24,19 @@ class SwitchBetweenMovementTypes : public KeyCommandStrategy {
 	};
 };
 
+
+class SwitchBetweenMouseStatus : public KeyCommandStrategy {
+	bool matches(int key, int action) {
+		return key == GLFW_KEY_SPACE && action == GLFW_PRESS;
+	};
+
+	void apply(float angle) {
+		bool* status = config->getMouseStatus();
+		*status = !*status;
+	};
+};
+
+
 class PitchUp : public KeyCommandStrategy {
 	bool matches(int key, int action) {
 		return key == GLFW_KEY_UP && isPressing(action) && *config->getMove();
@@ -159,10 +172,15 @@ KeyStrategyService::KeyStrategyService() {
 	strategies->push_back(new MoveUp());
 	strategies->push_back(new MoveDown());
 	strategies->push_back(new SwitchBetweenMovementTypes());
+	strategies->push_back(new SwitchBetweenMouseStatus());
 }
 
-std::vector<KeyCommandStrategy*>* KeyStrategyService::getKeyStrategies() {
-	return strategies;
+void KeyStrategyService::apply(int key, int action) {
+	for (auto strategy : *this->strategies) {
+		if (strategy->matches(key, action)) {
+			strategy->apply(0.1f);
+		}
+	}
 }
 
 KeyStrategyService* KeyStrategyService::getInstance() {
@@ -173,3 +191,35 @@ KeyStrategyService* KeyStrategyService::getInstance() {
 }
 
 KeyStrategyService* KeyStrategyService::instance = nullptr;
+
+MouseService::MouseService() {
+	this->camera = Camera::getInstance();
+	this->config = Config::getInstance();
+}
+
+void MouseService::apply(double x, double y) {
+	if (first) {
+		lastX = x;
+		lastY = y;
+		first = false;
+	}
+	float xoffset = x - lastX;
+	float yoffset = lastY - y;
+	lastX = x;
+	lastY = y;
+	float sensibility = *config->getMouseSensibility() / 100;
+	camera->look(-xoffset * sensibility, -yoffset * sensibility);
+}
+
+void MouseService::mouseLeft() {
+	first = true;
+}
+
+MouseService* MouseService::getInstance() {
+	if (instance == nullptr) {
+		instance = new MouseService();
+	}
+	return instance;
+}
+
+MouseService* MouseService::instance = nullptr;

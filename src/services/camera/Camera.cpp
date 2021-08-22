@@ -82,8 +82,8 @@ void Camera::goDown(float speed) {
 	this->update();
 }
 
-void Camera::rotateAround(float z) {
-	position = glm::vec3(z, 0.0f, z) * position;
+void Camera::rotateAround(float x) {
+	position -= up * x;
 	this->update();
 }
 

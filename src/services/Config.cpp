@@ -40,6 +40,14 @@ float* Config::getSensibility() {
 	return &this->sensibility;
 }
 
+float* Config::getMouseSensibility() {
+	return &this->mouseSensibility;
+}
+
+bool* Config::getMouseStatus() {
+	return &this->mouseStatus;
+}
+
 int* Config::getWindowHeight() {
 	return &this->windowHeight;
 }

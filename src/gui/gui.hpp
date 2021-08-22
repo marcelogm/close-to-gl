@@ -52,6 +52,21 @@ private:
 	static KeyStrategyService* instance;
 	KeyStrategyService();
 public:
-	vector<KeyCommandStrategy*>* getKeyStrategies();
+	void apply(int, int);
 	static KeyStrategyService* getInstance();
+};
+
+class MouseService {
+private:
+	bool first = true;
+	double lastY;
+	double lastX;
+	Camera* camera;
+	Config* config;
+	static MouseService* instance;
+	MouseService();
+public:
+	void apply(double, double);
+	static MouseService* getInstance();
+	void mouseLeft();
 };
