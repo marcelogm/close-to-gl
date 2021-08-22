@@ -30,7 +30,7 @@ class Config {
 private:
 	static Config* instance;
 	Config();
-	float color[4] = { 0.75f, 0.20f, 0.20f, 1.0f };
+	float color[4] = { 0.0f, 0.90f, 1.0f, 1.0f };
 	bool move = false;
 	bool mouseStatus = false;
 	int fov = 45;
@@ -39,8 +39,8 @@ private:
 	bool isCW = true;
 	float sensibility = 15.0f;
 	float mouseSensibility = 15.0f;
-	int windowWidth;
-	int windowHeight;
+	int windowWidth = 0;
+	int windowHeight = 0;
 public:
 	static Config* getInstance();
 	float* getColor();

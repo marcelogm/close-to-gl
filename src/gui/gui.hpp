@@ -31,7 +31,6 @@ public:
 	void init();
 	void loop();
 	void detroy();
-	~Application();
 };
 
 class KeyCommandStrategy {
@@ -43,7 +42,7 @@ protected:
 public:
 	KeyCommandStrategy();
 	virtual bool matches(int key, int action) = 0;
-	virtual void apply(float angle) = 0;
+	virtual void apply() = 0;
 };
 
 class KeyStrategyService {

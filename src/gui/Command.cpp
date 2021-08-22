@@ -18,7 +18,7 @@ class SwitchBetweenMovementTypes : public KeyCommandStrategy {
 		return key == GLFW_KEY_LEFT_CONTROL && action == GLFW_PRESS;
 	};
 
-	void apply(float angle) {
+	void apply() {
 		bool* move = config->getMove();
 		*move = !*move;
 	};
@@ -30,7 +30,7 @@ class SwitchBetweenMouseStatus : public KeyCommandStrategy {
 		return key == GLFW_KEY_SPACE && action == GLFW_PRESS;
 	};
 
-	void apply(float angle) {
+	void apply() {
 		bool* status = config->getMouseStatus();
 		*status = !*status;
 	};
@@ -42,7 +42,7 @@ class PitchUp : public KeyCommandStrategy {
 		return key == GLFW_KEY_UP && isPressing(action) && *config->getMove();
 	};
 
-	void apply(float angle) {
+	void apply() {
 		camera->look(0.0f, 10.0f * getSensibility());
 	};
 };
@@ -52,7 +52,7 @@ class PitchDown : public KeyCommandStrategy {
 		return key == GLFW_KEY_DOWN && isPressing(action) && *config->getMove();
 	};
 
-	void apply(float angle) {
+	void apply() {
 		camera->look(0.0f, -10.0f * getSensibility());
 	};
 };
@@ -62,7 +62,7 @@ class YawLeft : public KeyCommandStrategy {
 		return  key == GLFW_KEY_LEFT && isPressing(action) &&*config->getMove();
 	};
 
-	void apply(float angle) {
+	void apply() {
 		camera->look(-10.0f * getSensibility(), 0.0f);
 	};
 };
@@ -72,7 +72,7 @@ class YawRight : public KeyCommandStrategy {
 		return  key == GLFW_KEY_RIGHT && isPressing(action) &&*config->getMove();
 	};
 
-	void apply(float angle) {
+	void apply() {
 		camera->look(10.0f * getSensibility(), 0.0f);
 	};
 };
@@ -82,7 +82,7 @@ class RollRight : public KeyCommandStrategy {
 		return key == GLFW_KEY_Z && isPressing(action) && *config->getMove();
 	};
 
-	void apply(float angle) {
+	void apply() {
 		camera->roll(10.0f * getSensibility());
 	};
 };
@@ -92,7 +92,7 @@ class RollLeft : public KeyCommandStrategy {
 		return key == GLFW_KEY_X && isPressing(action) && *config->getMove();
 	};
 
-	void apply(float angle) {
+	void apply() {
 		camera->roll(-10.0f * getSensibility());
 	};
 };
@@ -102,7 +102,7 @@ class MoveLeft : public KeyCommandStrategy {
 		return key == GLFW_KEY_LEFT && isPressing(action) && !*config->getMove();
 	};
 
-	void apply(float angle) {
+	void apply() {
 		camera->goLeft(100.0f * getSensibility());
 	};
 };
@@ -112,7 +112,7 @@ class MoveRight : public KeyCommandStrategy {
 		return  key == GLFW_KEY_RIGHT && isPressing(action) && !*config->getMove();
 	};
 
-	void apply(float angle) {
+	void apply() {
 		camera->goRight(100.0f * getSensibility());
 	};
 };
@@ -122,7 +122,7 @@ class MoveFront : public KeyCommandStrategy {
 		return  key == GLFW_KEY_UP && isPressing(action) && !*config->getMove();
 	};
 
-	void apply(float angle) {
+	void apply() {
 		camera->goFoward(100.0f * getSensibility());
 	};
 };
@@ -132,7 +132,7 @@ class MoveBack : public KeyCommandStrategy {
 		return key == GLFW_KEY_DOWN && isPressing(action) && !*config->getMove();
 	};
 
-	void apply(float angle) {
+	void apply() {
 		camera->goBack(100.0f * getSensibility());
 	};
 };
@@ -142,7 +142,7 @@ class MoveUp : public KeyCommandStrategy {
 		return key == GLFW_KEY_Z && isPressing(action) && !*config->getMove();
 	};
 
-	void apply(float angle) {
+	void apply() {
 		camera->goUp(100.0f * getSensibility());
 	};
 };
@@ -152,8 +152,28 @@ class MoveDown : public KeyCommandStrategy {
 		return key == GLFW_KEY_X && isPressing(action) && !*config->getMove();
 	};
 
-	void apply(float angle) {
+	void apply() {
 		camera->goDown(100.0f * getSensibility());
+	};
+};
+
+class RotateAroundLeft : public KeyCommandStrategy {
+	bool matches(int key, int action) {
+		return key == GLFW_KEY_A && isPressing(action);
+	};
+
+	void apply() {
+		camera->rotateAround(-10.0f * getSensibility());
+	};
+};
+
+class RotateAroundRight : public KeyCommandStrategy {
+	bool matches(int key, int action) {
+		return key == GLFW_KEY_D && isPressing(action);
+	};
+
+	void apply() {
+		camera->rotateAround(10.0f * getSensibility());
 	};
 };
 
@@ -173,12 +193,14 @@ KeyStrategyService::KeyStrategyService() {
 	strategies->push_back(new MoveDown());
 	strategies->push_back(new SwitchBetweenMovementTypes());
 	strategies->push_back(new SwitchBetweenMouseStatus());
+	strategies->push_back(new RotateAroundLeft());
+	strategies->push_back(new RotateAroundRight());
 }
 
 void KeyStrategyService::apply(int key, int action) {
 	for (auto strategy : *this->strategies) {
 		if (strategy->matches(key, action)) {
-			strategy->apply(0.1f);
+			strategy->apply();
 		}
 	}
 }

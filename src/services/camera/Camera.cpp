@@ -83,8 +83,9 @@ void Camera::goDown(float speed) {
 }
 
 void Camera::rotateAround(float x) {
-	position -= up * x;
-	this->update();
+	auto rotate = glm::rotate(glm::mat4(1.0f), glm::radians(x), this->up);
+	this->position = rotate * glm::vec4(this->position, 1.0f);
+	this->look(-x, 0.0f);
 }
 
 void Camera::requestReset() {

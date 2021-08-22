@@ -49,7 +49,7 @@ void OpenGLRenderer::display() {
 	}
 	glCullFace(GL_BACK);
 
-	glClearColor(0.5f, 0.8f, 0.5f, 1.0f);
+	glClearColor(0.75f, 0.75f, 0.75f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	float fov = *config->getFOV();

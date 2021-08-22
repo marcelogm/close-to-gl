@@ -50,7 +50,3 @@ void Application::detroy() {
 	glfwDestroyWindow(this->window);
 	glfwTerminate();
 }
-
-Application::~Application() {
-	delete this->window;
-}
