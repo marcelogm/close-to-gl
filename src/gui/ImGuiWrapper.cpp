@@ -31,10 +31,10 @@ void ImGuiWrapper::display() {
 	ImGui_ImplGlfw_NewFrame();
 	ImGui::NewFrame();
 	ImGui::Begin("Ferramentas", &open, ImGuiWindowFlags_AlwaysAutoResize);
-	ImGui::ColorEdit4("Color", config->getColor());
-	if (ImGui::Button("Restaurar")) {
+	if (ImGui::Button("Restaurar (R)")) {
 		camera->requestReset();
 	}
+	ImGui::ColorEdit4("Color", config->getColor());
 	if (ImGui::SliderInt("FOV", config->getFOV(), 1, 180)) {
 		camera->requestReset();
 	}
@@ -42,9 +42,30 @@ void ImGuiWrapper::display() {
 	ImGui::SliderInt("Z Far", config->getZFar(), 100, 10000, "%d", ImGuiSliderFlags_Logarithmic);
 	ImGui::Checkbox("Utilizar mouse", config->getMouseStatus());
 	ImGui::SliderFloat("Sensibilidade do mouse", config->getMouseSensibility(), 0.0f, 100.0f, "%.0f", ImGuiSliderFlags_Logarithmic);
-	ImGui::Checkbox("Girar camera no proprio eixo (cntrl)", config->getMove());
+	ImGui::Checkbox("Girar camera no proprio eixo (CNTRL)", config->getMove());
 	ImGui::SliderFloat("Sensibilidade da movimentacao", config->getSensibility(), 0.0f, 100.0f, "%.0f", ImGuiSliderFlags_Logarithmic);
 	ImGui::Checkbox("Clockwise", config->getCW());
+	ImGui::End();
+
+	ImGui::Begin("Configurado atualmente para:", &open, ImGuiWindowFlags_AlwaysAutoResize);
+	if (*config->getMove()) {
+		ImGui::Text("Setas fazem pitch e yaw. Z e X fazem roll.");
+	} else {
+		ImGui::Text("Setas movimentam a camera. Z e X sobem e descem a camera.");
+	}
+	ImGui::Text("A e D giram ao redor do objeto.");
+	if (*config->getCW()) {
+		ImGui::Text("Backface culling configurado como clockwise.");
+	}
+	else {
+		ImGui::Text("Backface culling configurado como counter-clockwise.");
+	}
+	if (*config->getMouseStatus()) {
+		ImGui::Text("Mouse esta sendo utilizado para pitch e yaw.");
+	}
+	else {
+		ImGui::Text("Mouse nao esta sendo utilizado.");
+	}
 	ImGui::End();
 	ImGui::Render();
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());

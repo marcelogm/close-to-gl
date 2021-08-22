@@ -177,6 +177,16 @@ class RotateAroundRight : public KeyCommandStrategy {
 	};
 };
 
+class ResetCamera : public KeyCommandStrategy {
+	bool matches(int key, int action) {
+		return key == GLFW_KEY_R && action == GLFW_PRESS;
+	};
+
+	void apply() {
+		camera->requestReset();
+	};
+};
+
 KeyStrategyService::KeyStrategyService() {
 	strategies = new std::vector<KeyCommandStrategy*>();
 	strategies->push_back(new PitchUp());
@@ -195,6 +205,7 @@ KeyStrategyService::KeyStrategyService() {
 	strategies->push_back(new SwitchBetweenMouseStatus());
 	strategies->push_back(new RotateAroundLeft());
 	strategies->push_back(new RotateAroundRight());
+	strategies->push_back(new ResetCamera());
 }
 
 void KeyStrategyService::apply(int key, int action) {
@@ -230,7 +241,7 @@ void MouseService::apply(double x, double y) {
 	lastX = x;
 	lastY = y;
 	float sensibility = *config->getMouseSensibility() / 100;
-	camera->look(-xoffset * sensibility, -yoffset * sensibility);
+	camera->look(xoffset * sensibility, yoffset * sensibility);
 }
 
 void MouseService::mouseLeft() {
