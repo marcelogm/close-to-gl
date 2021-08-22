@@ -257,6 +257,12 @@
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 1,
+			"path" : "src/gui/Command.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
 			"path" : "src/data/Model.cpp",
 			"sourceGroupIndex" : 0
 		},
@@ -281,6 +287,12 @@
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 1,
+			"path" : "src/services/Config.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
 			"path" : "src/services/ModelFactory.cpp",
 			"sourceGroupIndex" : 0
 		},
@@ -294,18 +306,6 @@
 			"backtrace" : 1,
 			"compileGroupIndex" : 1,
 			"path" : "src/services/camera/Camera.cpp",
-			"sourceGroupIndex" : 0
-		},
-		{
-			"backtrace" : 1,
-			"compileGroupIndex" : 1,
-			"path" : "src/gui/Command.cpp",
-			"sourceGroupIndex" : 0
-		},
-		{
-			"backtrace" : 1,
-			"compileGroupIndex" : 1,
-			"path" : "src/services/Config.cpp",
 			"sourceGroupIndex" : 0
 		}
 	],

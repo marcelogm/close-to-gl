@@ -1,5 +1,4 @@
 #include "camera.hpp"
-#include <ctime>
 
 void Camera::reset(glm::vec2 u, glm::vec2 v, float fov) {
 	auto uNorm = glm::distance(u.x, u.y);
@@ -90,6 +89,14 @@ void Camera::rotateAround(float z) {
 
 void Camera::requestReset() {
 	this->shouldReset = true;
+}
+
+bool Camera::getResetRequest() {
+	return this->shouldReset;
+}
+
+void Camera::setResetRequest(bool request) {
+	shouldReset = request;
 }
 
 Camera* Camera::getInstance() {

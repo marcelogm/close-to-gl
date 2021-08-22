@@ -5,128 +5,143 @@ KeyCommandStrategy::KeyCommandStrategy() {
 	this->config = Config::getInstance();
 }
 
-bool PitchUp::matches(int key, int action) {
-	return action == GLFW_PRESS && key == GLFW_KEY_UP && *config->getMove();
+bool KeyCommandStrategy::isPressing(int action) {
+	return (action == GLFW_PRESS || action == GLFW_REPEAT);
+}
+
+float KeyCommandStrategy::getSensibility() {
+	return (*config->getSensibility() / 100);
+}
+
+class SwitchBetweenMovementTypes : public KeyCommandStrategy {
+	bool matches(int key, int action) {
+		return key == GLFW_KEY_LEFT_CONTROL && action == GLFW_PRESS;
+	};
+
+	void apply(float angle) {
+		bool* move = config->getMove();
+		*move = !*move;
+	};
 };
 
-void PitchUp::apply(float angle) {
-	camera->look(0.0f, 10.0f);
+class PitchUp : public KeyCommandStrategy {
+	bool matches(int key, int action) {
+		return key == GLFW_KEY_UP && isPressing(action) && *config->getMove();
+	};
+
+	void apply(float angle) {
+		camera->look(0.0f, 10.0f * getSensibility());
+	};
 };
 
-bool PitchDown::matches(int key, int action) {
-	return action == GLFW_PRESS && key == GLFW_KEY_DOWN && *config->getMove();
+class PitchDown : public KeyCommandStrategy {
+	bool matches(int key, int action) {
+		return key == GLFW_KEY_DOWN && isPressing(action) && *config->getMove();
+	};
+
+	void apply(float angle) {
+		camera->look(0.0f, -10.0f * getSensibility());
+	};
 };
 
-void PitchDown::apply(float angle) {
-	camera->look(0.0f, -10.0f);
+class YawLeft : public KeyCommandStrategy {
+	bool matches(int key, int action) {
+		return  key == GLFW_KEY_LEFT && isPressing(action) &&*config->getMove();
+	};
+
+	void apply(float angle) {
+		camera->look(-10.0f * getSensibility(), 0.0f);
+	};
 };
 
-bool RollRight::matches(int key, int action) {
-	return action == GLFW_PRESS && key == GLFW_KEY_Z && *config->getMove();
+class YawRight : public KeyCommandStrategy {
+	bool matches(int key, int action) {
+		return  key == GLFW_KEY_RIGHT && isPressing(action) &&*config->getMove();
+	};
+
+	void apply(float angle) {
+		camera->look(10.0f * getSensibility(), 0.0f);
+	};
 };
 
-void RollRight::apply(float angle) {
-	camera->roll(10.0f);
+class RollRight : public KeyCommandStrategy {
+	bool matches(int key, int action) {
+		return key == GLFW_KEY_Z && isPressing(action) && *config->getMove();
+	};
+
+	void apply(float angle) {
+		camera->roll(10.0f * getSensibility());
+	};
 };
 
-bool RollLeft::matches(int key, int action) {
-	return action == GLFW_PRESS && key == GLFW_KEY_X && *config->getMove();
+class RollLeft : public KeyCommandStrategy {
+	bool matches(int key, int action) {
+		return key == GLFW_KEY_X && isPressing(action) && *config->getMove();
+	};
+
+	void apply(float angle) {
+		camera->roll(-10.0f * getSensibility());
+	};
 };
 
-void RollLeft::apply(float angle) {
-	camera->roll(-10.0f);
+class MoveLeft : public KeyCommandStrategy {
+	bool matches(int key, int action) {
+		return key == GLFW_KEY_LEFT && isPressing(action) && !*config->getMove();
+	};
+
+	void apply(float angle) {
+		camera->goLeft(100.0f * getSensibility());
+	};
 };
 
-bool YawLeft::matches(int key, int action) {
-	return action == GLFW_PRESS && key == GLFW_KEY_LEFT && *config->getMove();
+class MoveRight : public KeyCommandStrategy {
+	bool matches(int key, int action) {
+		return  key == GLFW_KEY_RIGHT && isPressing(action) && !*config->getMove();
+	};
+
+	void apply(float angle) {
+		camera->goRight(100.0f * getSensibility());
+	};
 };
 
-void YawLeft::apply(float angle) {
-	camera->look(-10.0f, 0.0f);
+class MoveFront : public KeyCommandStrategy {
+	bool matches(int key, int action) {
+		return  key == GLFW_KEY_UP && isPressing(action) && !*config->getMove();
+	};
+
+	void apply(float angle) {
+		camera->goFoward(100.0f * getSensibility());
+	};
 };
 
-bool YawRight::matches(int key, int action) {
-	return action == GLFW_PRESS && key == GLFW_KEY_RIGHT && *config->getMove();
+class MoveBack : public KeyCommandStrategy {
+	bool matches(int key, int action) {
+		return key == GLFW_KEY_DOWN && isPressing(action) && !*config->getMove();
+	};
+
+	void apply(float angle) {
+		camera->goBack(100.0f * getSensibility());
+	};
 };
 
-void YawRight::apply(float angle) {
-	camera->look(10.0f, 0.0f);
+class MoveUp : public KeyCommandStrategy {
+	bool matches(int key, int action) {
+		return key == GLFW_KEY_Z && isPressing(action) && !*config->getMove();
+	};
+
+	void apply(float angle) {
+		camera->goUp(100.0f * getSensibility());
+	};
 };
 
-bool Reset::matches(int key, int action) {
-	return action == GLFW_PRESS && key == GLFW_KEY_R;
-};
+class MoveDown : public KeyCommandStrategy {
+	bool matches(int key, int action) {
+		return key == GLFW_KEY_X && isPressing(action) && !*config->getMove();
+	};
 
-void Reset::apply(float angle) {
-	camera->requestReset();
-};
-
-bool RotateLeft::matches(int key, int action) {
-	return action == GLFW_PRESS && key == GLFW_KEY_4;
-};
-
-void RotateLeft::apply(float angle) {
-	camera->rotateAround(10.0f);
-};
-
-bool RotateRight::matches(int key, int action) {
-	//return action == GLFW_PRESS && key == GLFW_KEY_RIGHT;
-	return false;
-};
-
-void RotateRight::apply(float angle) {
-	//camera->rotateAround(-10.0f);
-};
-
-bool MoveLeft::matches(int key, int action) {
-	return action == GLFW_PRESS && key == GLFW_KEY_LEFT && !*config->getMove();
-};
-
-void MoveLeft::apply(float angle) {
-	camera->goLeft(100.0f);
-};
-
-bool MoveRight::matches(int key, int action) {
-	return action == GLFW_PRESS && key == GLFW_KEY_RIGHT && !*config->getMove();
-};
-
-void MoveRight::apply(float angle) {
-	camera->goRight(100.0f);
-};
-
-
-bool MoveFront::matches(int key, int action) {
-	return action == GLFW_PRESS && key == GLFW_KEY_UP && !*config->getMove();
-};
-
-void MoveFront::apply(float angle) {
-	camera->goFoward(100.0f);
-};
-
-
-bool MoveBack::matches(int key, int action) {
-	return action == GLFW_PRESS && key == GLFW_KEY_DOWN && !*config->getMove();
-};
-
-void MoveBack::apply(float angle) {
-	camera->goBack(100.0f);
-};
-
-
-bool MoveUp::matches(int key, int action) {
-	return action == GLFW_PRESS && key == GLFW_KEY_Z && !*config->getMove();
-};
-
-void MoveUp::apply(float angle) {
-	camera->goUp(100.0f);
-};
-
-bool MoveDown::matches(int key, int action) {
-	return action == GLFW_PRESS && key == GLFW_KEY_X && !*config->getMove();
-};
-
-void MoveDown::apply(float angle) {
-	camera->goDown(100.0f);
+	void apply(float angle) {
+		camera->goDown(100.0f * getSensibility());
+	};
 };
 
 KeyStrategyService::KeyStrategyService() {
@@ -137,15 +152,13 @@ KeyStrategyService::KeyStrategyService() {
 	strategies->push_back(new RollRight());
 	strategies->push_back(new YawLeft());
 	strategies->push_back(new YawRight());
-	strategies->push_back(new Reset());
-	strategies->push_back(new RotateLeft());
-	strategies->push_back(new RotateRight());
 	strategies->push_back(new MoveFront());
 	strategies->push_back(new MoveBack());
 	strategies->push_back(new MoveRight());
 	strategies->push_back(new MoveLeft());
 	strategies->push_back(new MoveUp());
 	strategies->push_back(new MoveDown());
+	strategies->push_back(new SwitchBetweenMovementTypes());
 }
 
 std::vector<KeyCommandStrategy*>* KeyStrategyService::getKeyStrategies() {

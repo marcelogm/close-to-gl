@@ -1,10 +1,12 @@
 #include <vgl.h>
+#include <backends/imgui_impl_opengl3.h>
+#include <backends/imgui_impl_glfw.h>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include <LoadShaders.h>
 #include "../../data/data.hpp"
-#include "../services.hpp"
+#include "../../services/services.hpp"
 #include "../camera/camera.hpp"
 
 using namespace std;
@@ -52,7 +54,6 @@ private:
 	long viewSpace;
 	long projectionSpace;
 	long customColor;
-
 	vector<VertexData>* getVertexDataFromDataModel(data::Model* model);
 	VertexDataRange getRange(vector<VertexData>* vertices);
 };

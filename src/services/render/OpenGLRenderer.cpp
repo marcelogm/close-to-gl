@@ -1,7 +1,4 @@
 #include "render.hpp"
-#include <backends/imgui_impl_opengl3.h>
-#include <backends/imgui_impl_glfw.h>
-#include "../../services/services.hpp"
 
 using namespace std;
 
@@ -60,19 +57,22 @@ void OpenGLRenderer::display() {
 	if (ImGui::Button("Restaurar")) {
 		camera->requestReset();
 	}
-	ImGui::InputInt("FOV:", config->getFOV());
-	ImGui::InputInt("Z Near:", config->getZNear());
-	ImGui::InputInt("Z Far:", config->getZFar());
-	ImGui::Checkbox("Girar camera no proprio eixo", config->getMove());
-	ImGui::Checkbox("CW", config->getCW());
+	if (ImGui::InputInt("FOV:", config->getFOV())) {
+		camera->requestReset();
+	}
+	ImGui::InputInt("Z Near:", config->getZNear(), 10, 100);
+	ImGui::InputInt("Z Far:", config->getZFar(), 10, 100);
+	ImGui::Checkbox("Girar camera no proprio eixo (cntrl)", config->getMove());
+	ImGui::Checkbox("Clockwise", config->getCW());
+	ImGui::SliderFloat("Sensibilidade", config->getSensibility(), 0.0f, 100.0f, "%.0f", ImGuiSliderFlags_Logarithmic);
 	ImGui::End();
 	ImGui::Render();
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
 	float fov = *config->getFOV();
-	if (camera->shouldReset) {
+	if (camera->getResetRequest()) {
 		camera->reset(this->range.x, this->range.y, glm::radians(fov));
-		camera->shouldReset = false;
+		camera->setResetRequest(false);
 	}
 
 	glm::mat4 model = glm::mat4(1.0f);
@@ -83,12 +83,12 @@ void OpenGLRenderer::display() {
 		*config->getZNear() * 10.0f, 
 		*config->getZFar() * 10.0f
 	);
+
+	float* rgba = config->getColor();
+	glUniform4f(customColor, rgba[0], rgba[1], rgba[2], rgba[3]);
 	glUniformMatrix4fv(modelSpace, 1, GL_FALSE, glm::value_ptr(model));
 	glUniformMatrix4fv(viewSpace, 1, GL_FALSE, glm::value_ptr(view));
 	glUniformMatrix4fv(projectionSpace, 1, GL_FALSE, glm::value_ptr(projection));
-	float* rgba = config->getColor();
-	glUniform4f(customColor, rgba[0], rgba[1], rgba[2], rgba[3]);
-
 	glBindVertexArray(VAOs[Triangles]);
 	glDrawArrays(GL_TRIANGLES, 0, this->verticesCount);
 

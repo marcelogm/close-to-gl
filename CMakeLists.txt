@@ -39,15 +39,15 @@ add_library(close-to-gl
 			${IMGUI_SOURCE_DIR}/backends/imgui_impl_opengl3.cpp
 			${IMGUI_SOURCE_DIR}/backends/imgui_impl_glfw.cpp
 			"src/gui/Application.cpp" 
+			"src/gui/Command.cpp" 
 			"src/data/Model.cpp" 
 			"src/data/Vertex.cpp" 
 			"src/data/Triangle.cpp" 
 			"src/data/Material.cpp" 
+			"src/services/Config.cpp"
 			"src/services/ModelFactory.cpp"
 			"src/services/render/OpenGLRenderer.cpp" 
-			"src/services/camera/Camera.cpp" 
-			"src/gui/Command.cpp" 
-			"src/services/Config.cpp")
+			"src/services/camera/Camera.cpp" )
 
 find_package(OpenMP)
 if (OPENMP_FOUND)

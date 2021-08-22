@@ -135,6 +135,14 @@ build CMakeFiles\close-to-gl.dir\src\gui\Application.cpp.obj: CXX_COMPILER__clos
   TARGET_COMPILE_PDB = CMakeFiles\close-to-gl.dir\close-to-gl.pdb
   TARGET_PDB = lib\close-to-gl.pdb
 
+build CMakeFiles\close-to-gl.dir\src\gui\Command.cpp.obj: CXX_COMPILER__close-to-gl_Debug ..\..\..\src\gui\Command.cpp || cmake_object_order_depends_target_close-to-gl
+  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc -openmp /MDd /Zi /Ob0 /Od /RTC1
+  INCLUDES = -I..\..\..\include -I..\..\..\lib\glfw\include -I..\..\..\lib\glm -I..\..\..\lib\imgui
+  OBJECT_DIR = CMakeFiles\close-to-gl.dir
+  OBJECT_FILE_DIR = CMakeFiles\close-to-gl.dir\src\gui
+  TARGET_COMPILE_PDB = CMakeFiles\close-to-gl.dir\close-to-gl.pdb
+  TARGET_PDB = lib\close-to-gl.pdb
+
 build CMakeFiles\close-to-gl.dir\src\data\Model.cpp.obj: CXX_COMPILER__close-to-gl_Debug ..\..\..\src\data\Model.cpp || cmake_object_order_depends_target_close-to-gl
   FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc -openmp /MDd /Zi /Ob0 /Od /RTC1
   INCLUDES = -I..\..\..\include -I..\..\..\lib\glfw\include -I..\..\..\lib\glm -I..\..\..\lib\imgui
@@ -167,6 +175,14 @@ build CMakeFiles\close-to-gl.dir\src\data\Material.cpp.obj: CXX_COMPILER__close-
   TARGET_COMPILE_PDB = CMakeFiles\close-to-gl.dir\close-to-gl.pdb
   TARGET_PDB = lib\close-to-gl.pdb
 
+build CMakeFiles\close-to-gl.dir\src\services\Config.cpp.obj: CXX_COMPILER__close-to-gl_Debug ..\..\..\src\services\Config.cpp || cmake_object_order_depends_target_close-to-gl
+  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc -openmp /MDd /Zi /Ob0 /Od /RTC1
+  INCLUDES = -I..\..\..\include -I..\..\..\lib\glfw\include -I..\..\..\lib\glm -I..\..\..\lib\imgui
+  OBJECT_DIR = CMakeFiles\close-to-gl.dir
+  OBJECT_FILE_DIR = CMakeFiles\close-to-gl.dir\src\services
+  TARGET_COMPILE_PDB = CMakeFiles\close-to-gl.dir\close-to-gl.pdb
+  TARGET_PDB = lib\close-to-gl.pdb
+
 build CMakeFiles\close-to-gl.dir\src\services\ModelFactory.cpp.obj: CXX_COMPILER__close-to-gl_Debug ..\..\..\src\services\ModelFactory.cpp || cmake_object_order_depends_target_close-to-gl
   FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc -openmp /MDd /Zi /Ob0 /Od /RTC1
   INCLUDES = -I..\..\..\include -I..\..\..\lib\glfw\include -I..\..\..\lib\glm -I..\..\..\lib\imgui
@@ -191,22 +207,6 @@ build CMakeFiles\close-to-gl.dir\src\services\camera\Camera.cpp.obj: CXX_COMPILE
   TARGET_COMPILE_PDB = CMakeFiles\close-to-gl.dir\close-to-gl.pdb
   TARGET_PDB = lib\close-to-gl.pdb
 
-build CMakeFiles\close-to-gl.dir\src\gui\Command.cpp.obj: CXX_COMPILER__close-to-gl_Debug ..\..\..\src\gui\Command.cpp || cmake_object_order_depends_target_close-to-gl
-  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc -openmp /MDd /Zi /Ob0 /Od /RTC1
-  INCLUDES = -I..\..\..\include -I..\..\..\lib\glfw\include -I..\..\..\lib\glm -I..\..\..\lib\imgui
-  OBJECT_DIR = CMakeFiles\close-to-gl.dir
-  OBJECT_FILE_DIR = CMakeFiles\close-to-gl.dir\src\gui
-  TARGET_COMPILE_PDB = CMakeFiles\close-to-gl.dir\close-to-gl.pdb
-  TARGET_PDB = lib\close-to-gl.pdb
-
-build CMakeFiles\close-to-gl.dir\src\services\Config.cpp.obj: CXX_COMPILER__close-to-gl_Debug ..\..\..\src\services\Config.cpp || cmake_object_order_depends_target_close-to-gl
-  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc -openmp /MDd /Zi /Ob0 /Od /RTC1
-  INCLUDES = -I..\..\..\include -I..\..\..\lib\glfw\include -I..\..\..\lib\glm -I..\..\..\lib\imgui
-  OBJECT_DIR = CMakeFiles\close-to-gl.dir
-  OBJECT_FILE_DIR = CMakeFiles\close-to-gl.dir\src\services
-  TARGET_COMPILE_PDB = CMakeFiles\close-to-gl.dir\close-to-gl.pdb
-  TARGET_PDB = lib\close-to-gl.pdb
-
 
 # =============================================================================
 # Link build statements for STATIC_LIBRARY target close-to-gl
@@ -215,7 +215,7 @@ build CMakeFiles\close-to-gl.dir\src\services\Config.cpp.obj: CXX_COMPILER__clos
 #############################################
 # Link the static library lib\close-to-gl.lib
 
-build lib\close-to-gl.lib: CXX_STATIC_LIBRARY_LINKER__close-to-gl_Debug CMakeFiles\close-to-gl.dir\lib\gl3w.c.obj CMakeFiles\close-to-gl.dir\lib\LoadShaders.cpp.obj CMakeFiles\close-to-gl.dir\lib\imgui\imgui.cpp.obj CMakeFiles\close-to-gl.dir\lib\imgui\imgui_demo.cpp.obj CMakeFiles\close-to-gl.dir\lib\imgui\imgui_draw.cpp.obj CMakeFiles\close-to-gl.dir\lib\imgui\imgui_widgets.cpp.obj CMakeFiles\close-to-gl.dir\lib\imgui\imgui_tables.cpp.obj CMakeFiles\close-to-gl.dir\lib\imgui\backends\imgui_impl_opengl3.cpp.obj CMakeFiles\close-to-gl.dir\lib\imgui\backends\imgui_impl_glfw.cpp.obj CMakeFiles\close-to-gl.dir\src\gui\Application.cpp.obj CMakeFiles\close-to-gl.dir\src\data\Model.cpp.obj CMakeFiles\close-to-gl.dir\src\data\Vertex.cpp.obj CMakeFiles\close-to-gl.dir\src\data\Triangle.cpp.obj CMakeFiles\close-to-gl.dir\src\data\Material.cpp.obj CMakeFiles\close-to-gl.dir\src\services\ModelFactory.cpp.obj CMakeFiles\close-to-gl.dir\src\services\render\OpenGLRenderer.cpp.obj CMakeFiles\close-to-gl.dir\src\services\camera\Camera.cpp.obj CMakeFiles\close-to-gl.dir\src\gui\Command.cpp.obj CMakeFiles\close-to-gl.dir\src\services\Config.cpp.obj
+build lib\close-to-gl.lib: CXX_STATIC_LIBRARY_LINKER__close-to-gl_Debug CMakeFiles\close-to-gl.dir\lib\gl3w.c.obj CMakeFiles\close-to-gl.dir\lib\LoadShaders.cpp.obj CMakeFiles\close-to-gl.dir\lib\imgui\imgui.cpp.obj CMakeFiles\close-to-gl.dir\lib\imgui\imgui_demo.cpp.obj CMakeFiles\close-to-gl.dir\lib\imgui\imgui_draw.cpp.obj CMakeFiles\close-to-gl.dir\lib\imgui\imgui_widgets.cpp.obj CMakeFiles\close-to-gl.dir\lib\imgui\imgui_tables.cpp.obj CMakeFiles\close-to-gl.dir\lib\imgui\backends\imgui_impl_opengl3.cpp.obj CMakeFiles\close-to-gl.dir\lib\imgui\backends\imgui_impl_glfw.cpp.obj CMakeFiles\close-to-gl.dir\src\gui\Application.cpp.obj CMakeFiles\close-to-gl.dir\src\gui\Command.cpp.obj CMakeFiles\close-to-gl.dir\src\data\Model.cpp.obj CMakeFiles\close-to-gl.dir\src\data\Vertex.cpp.obj CMakeFiles\close-to-gl.dir\src\data\Triangle.cpp.obj CMakeFiles\close-to-gl.dir\src\data\Material.cpp.obj CMakeFiles\close-to-gl.dir\src\services\Config.cpp.obj CMakeFiles\close-to-gl.dir\src\services\ModelFactory.cpp.obj CMakeFiles\close-to-gl.dir\src\services\render\OpenGLRenderer.cpp.obj CMakeFiles\close-to-gl.dir\src\services\camera\Camera.cpp.obj
   LANGUAGE_COMPILE_FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc -openmp /MDd /Zi /Ob0 /Od /RTC1
   LINK_FLAGS = /machine:x64
   OBJECT_DIR = CMakeFiles\close-to-gl.dir

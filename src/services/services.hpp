@@ -36,6 +36,7 @@ private:
 	int zNear = 1;
 	int zFar = 200;
 	bool isCW = true;
+	float sensibility = 15.0f;
 public:
 	static Config* getInstance();
 	float* getColor();
@@ -44,4 +45,5 @@ public:
 	int* getZNear();
 	int* getZFar();
 	bool* getCW();
+	float* getSensibility();
 };

@@ -35,3 +35,7 @@ bool* Config::getMove() {
 bool* Config::getCW() {
 	return &this->isCW;
 }
+
+float* Config::getSensibility() {
+	return &this->sensibility;
+}
