@@ -8,5 +8,5 @@ out vec4 fColor;
 void
 main()
 {
-    fColor = color;
+    fColor = -((normal.x + normal.y + normal.z) / 3) * color;
 }

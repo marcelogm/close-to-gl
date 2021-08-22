@@ -37,8 +37,11 @@ void OpenGLRenderer::init(data::Model* model) {
 
 
 void OpenGLRenderer::display() {
+	glFlush();
 	Camera* camera = Camera::getInstance();
 	Config* config = Config::getInstance();
+	float* rgba = config->getColor();
+
 	if (*config->getCW()) {
 		glFrontFace(GL_CW);
 	} else {
@@ -46,28 +49,8 @@ void OpenGLRenderer::display() {
 	}
 	glCullFace(GL_BACK);
 
-	glClearColor(0.0f, 0.2f, 0.2f, 1.0f);
+	glClearColor(0.5f, 0.8f, 0.5f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-	ImGui_ImplOpenGL3_NewFrame();
-	ImGui_ImplGlfw_NewFrame();
-	ImGui::NewFrame();
-	ImGui::Begin("Ferramentas");
-	ImGui::ColorEdit4("Color", config->getColor());
-	if (ImGui::Button("Restaurar")) {
-		camera->requestReset();
-	}
-	if (ImGui::InputInt("FOV:", config->getFOV())) {
-		camera->requestReset();
-	}
-	ImGui::InputInt("Z Near:", config->getZNear(), 10, 100);
-	ImGui::InputInt("Z Far:", config->getZFar(), 10, 100);
-	ImGui::Checkbox("Girar camera no proprio eixo (cntrl)", config->getMove());
-	ImGui::Checkbox("Clockwise", config->getCW());
-	ImGui::SliderFloat("Sensibilidade", config->getSensibility(), 0.0f, 100.0f, "%.0f", ImGuiSliderFlags_Logarithmic);
-	ImGui::End();
-	ImGui::Render();
-	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
 	float fov = *config->getFOV();
 	if (camera->getResetRequest()) {
@@ -79,20 +62,16 @@ void OpenGLRenderer::display() {
 	glm::mat4 view = camera->getView();
 	glm::mat4 projection = glm::perspective(
 		glm::radians(fov), 
-		1200.0f / 800.0f, 
+		(float)*config->getWindowHeight() / *config->getWindowWidth(), 
 		*config->getZNear() * 10.0f, 
-		*config->getZFar() * 10.0f
-	);
+		*config->getZFar() * 10.0f);
 
-	float* rgba = config->getColor();
 	glUniform4f(customColor, rgba[0], rgba[1], rgba[2], rgba[3]);
 	glUniformMatrix4fv(modelSpace, 1, GL_FALSE, glm::value_ptr(model));
 	glUniformMatrix4fv(viewSpace, 1, GL_FALSE, glm::value_ptr(view));
 	glUniformMatrix4fv(projectionSpace, 1, GL_FALSE, glm::value_ptr(projection));
 	glBindVertexArray(VAOs[Triangles]);
 	glDrawArrays(GL_TRIANGLES, 0, this->verticesCount);
-
-	glFlush();
 }
 
 vector<ShaderInfo> OpenGLRenderer::getShaders() {

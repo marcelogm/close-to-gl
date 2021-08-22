@@ -10,35 +10,34 @@ void onKeyPress(GLFWwindow* window, int key, int scancode, int action, int mods)
 }
 
 void Application::init() {
-	glfwInit();
 	this->renderer = new OpenGLRenderer();
 	this->factory = new ModelFactory();
-	this->window = glfwCreateWindow(1200, 800, "CloseToGL", NULL, NULL);
+	this->ui = ImGuiWrapper::getInstance();
+	auto config = Config::getInstance();
+
+	glfwInit();
+	glfwWindowHint(GLFW_RESIZABLE, false);
+	this->window = glfwCreateWindow(800, 600, "Programming Assignment 1", NULL, NULL);
 	glfwSetKeyCallback(this->window, onKeyPress);
 	glfwMakeContextCurrent(window);
 	gl3wInit();
 
-	IMGUI_CHECKVERSION();
-	ImGui::CreateContext();
-	ImGuiIO& io = ImGui::GetIO();
-	ImGui_ImplGlfw_InitForOpenGL(window, true);
-	ImGui_ImplOpenGL3_Init("#version 410");
-	ImGui::StyleColorsDark();
-
+	this->ui->init(window);
 	this->renderer->init(this->factory->get("data/cow_up.in"));
+
+	glfwGetWindowSize(window, config->getWindowHeight(), config->getWindowWidth());
 }
 
 void Application::loop() {
 	while (!glfwWindowShouldClose(this->window)) {
 		this->renderer->display();
+		this->ui->display();
 		glfwSwapBuffers(this->window);
 		glfwPollEvents();
 	}
 }
 void Application::detroy() {
-	ImGui_ImplOpenGL3_Shutdown();
-	ImGui_ImplGlfw_Shutdown();
-	ImGui::DestroyContext();
+	this->ui->destroy();
 	glfwDestroyWindow(this->window);
 	glfwTerminate();
 }

@@ -39,3 +39,11 @@ bool* Config::getCW() {
 float* Config::getSensibility() {
 	return &this->sensibility;
 }
+
+int* Config::getWindowHeight() {
+	return &this->windowHeight;
+}
+
+int* Config::getWindowWidth() {
+	return &this->windowWidth;
+}

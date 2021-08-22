@@ -47,7 +47,7 @@ add_library(close-to-gl
 			"src/services/Config.cpp"
 			"src/services/ModelFactory.cpp"
 			"src/services/render/OpenGLRenderer.cpp" 
-			"src/services/camera/Camera.cpp" )
+			"src/services/camera/Camera.cpp"  "src/gui/ImGuiWrapper.cpp")
 
 find_package(OpenMP)
 if (OPENMP_FOUND)

@@ -30,13 +30,15 @@ class Config {
 private:
 	static Config* instance;
 	Config();
-	float color[4] = { 1.0f, 0.1f, 0.1f, 1.0f };
+	float color[4] = { 0.15f, 0.95f, 0.80f, 1.0f };
 	bool move = false;
 	int fov = 45;
 	int zNear = 1;
 	int zFar = 200;
 	bool isCW = true;
 	float sensibility = 15.0f;
+	int windowWidth;
+	int windowHeight;
 public:
 	static Config* getInstance();
 	float* getColor();
@@ -46,4 +48,6 @@ public:
 	int* getZFar();
 	bool* getCW();
 	float* getSensibility();
+	int* getWindowWidth();
+	int* getWindowHeight();
 };

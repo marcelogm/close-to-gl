@@ -8,11 +8,25 @@
 #include <backends/imgui_impl_opengl3.h>
 #include <backends/imgui_impl_glfw.h>
 
+class ImGuiWrapper {
+private:
+	Camera* camera;
+	Config* config;
+	static ImGuiWrapper* instance;
+	ImGuiWrapper();
+public:
+	static ImGuiWrapper* getInstance();
+	void init(GLFWwindow* window);
+	void display();
+	void destroy();
+};
+
 class Application {
 private:
 	GLFWwindow* window;
 	ModelFactory* factory;
 	OpenGLRenderer* renderer;
+	ImGuiWrapper* ui;
 public:
 	void init();
 	void loop();
