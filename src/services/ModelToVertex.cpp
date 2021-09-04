@@ -1,9 +1,7 @@
-#include "open.hpp"
+#include "services.hpp"
 
-using namespace open;
-
-std::vector<VertexData>* ModelToVertex::getVertexDataFromDataModel(data::Model* model) {
-	std::vector<VertexData>* vertices = new std::vector<VertexData>();
+std::vector<data::VertexData>* ModelToVertex::getVertexDataFromDataModel(data::Model* model) {
+	std::vector<data::VertexData>* vertices = new std::vector<data::VertexData>();
 	for (auto triangle : *model->getTriangles()) {
 		for (auto vertex : *triangle->getVertices()) {
 			auto position = vertex->getPosition();
@@ -19,11 +17,9 @@ std::vector<VertexData>* ModelToVertex::getVertexDataFromDataModel(data::Model* 
 	return vertices;
 }
 
-#undef max 
-#undef min
-VertexDataRange ModelToVertex::getRange(std::vector<VertexData>* vertices) {
+data::VertexDataRange ModelToVertex::getRange(std::vector<data::VertexData>* vertices) {
 	float minX = 0, minY = 0, minZ = 0, maxX = 0, maxY = 0, maxZ = 0;
-	for (VertexData vertex : *vertices) {
+	for (data::VertexData vertex : *vertices) {
 		minX = glm::min(minX, vertex.position[0]);
 		minY = glm::min(minY, vertex.position[1]);
 		minZ = glm::min(minZ, vertex.position[2]);

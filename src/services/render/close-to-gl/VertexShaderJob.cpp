@@ -2,6 +2,6 @@
 
 using namespace close;
 
-std::vector<glm::vec4> VertexShaderJob::apply(std::vector<VertexData>* vertices) {
+std::vector<glm::vec4> VertexShaderJob::apply(std::vector<data::VertexData>* vertices) {
 	return std::vector<glm::vec4>();
 }

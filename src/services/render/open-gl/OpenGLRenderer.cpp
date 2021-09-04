@@ -18,13 +18,13 @@ void OpenGLRenderer::init(data::Model* model) {
 	glBindVertexArray(this->VAOs[Triangles]);
 
 	glBindBuffer(GL_ARRAY_BUFFER, this->buffers[VertexBuffer]);
-	glBufferData(GL_ARRAY_BUFFER, this->vertices->size() * sizeof(VertexData), &this->vertices->front(), GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, this->vertices->size() * sizeof(data::VertexData), &this->vertices->front(), GL_STATIC_DRAW);
 
-	glVertexAttribPointer(vPosition, 3, GL_FLOAT, GL_FALSE, sizeof(VertexData), BUFFER_OFFSET(0));
+	glVertexAttribPointer(vPosition, 3, GL_FLOAT, GL_FALSE, sizeof(data::VertexData), BUFFER_OFFSET(0));
 	glEnableVertexAttribArray(vPosition);
 
 	int normalOffset = sizeof(this->vertices->at(0).position);
-	glVertexAttribPointer(vNormalVertex, 3, GL_FLOAT, GL_FALSE, sizeof(VertexData), BUFFER_OFFSET(normalOffset));
+	glVertexAttribPointer(vNormalVertex, 3, GL_FLOAT, GL_FALSE, sizeof(data::VertexData), BUFFER_OFFSET(normalOffset));
 	glEnableVertexAttribArray(vNormalVertex);
 	
 	this->modelSpace = glGetUniformLocation(program, "model");

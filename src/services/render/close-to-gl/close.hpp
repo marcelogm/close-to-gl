@@ -12,32 +12,13 @@ namespace close {
 
 	enum BufferIDs {
 		VertexBuffer = 0,
-		NormalBuffer = 1,
-		NumBuffers = 2
+		NumBuffers = 1
 	};
 
 	enum AttribIDs {
 		vPosition = 0,
 		vNormalVertex = 1
 	};
-
-	struct VertexData {
-		float position[3];
-		float normal[3];
-		unsigned char color[3];
-	};
-
-	struct VertexData2D {
-		float position[2];
-		unsigned char color[3];
-	};
-
-	struct VertexDataRange {
-		glm::vec2 x;
-		glm::vec2 y;
-		glm::vec2 z;
-	};
-
 
 	template<typename I, typename O>
 	class Job {
@@ -51,9 +32,9 @@ namespace close {
 		virtual O apply(I) = 0;
 	};
 
-	class VertexShaderJob : public Job<std::vector<glm::vec4>, std::vector<VertexData>*> {
+	class VertexShaderJob : public Job<std::vector<glm::vec4>, std::vector<data::VertexData>*> {
 	public:
-		std::vector<glm::vec4> apply(std::vector<VertexData>*);
+		std::vector<glm::vec4> apply(std::vector<data::VertexData>*);
 	};
 
 	class ClippingJob : public Job<std::vector<glm::vec4>, std::vector<glm::vec4>> {
@@ -68,12 +49,12 @@ namespace close {
 
 	class ViewportTransformJob : public Job<std::vector<glm::vec4>, std::vector<glm::vec2>> {
 	public:
-		std::vector<VertexData2D> apply(std::vector<glm::vec3>);
+		std::vector<data::VertexData2D> apply(std::vector<glm::vec3>);
 	};
 
-	class CloseToGLPipeline : public Pipeline<std::unique_ptr<std::vector<glm::vec2>>, std::vector<VertexData*>> {
+	class CloseToGLPipeline : public Pipeline<std::unique_ptr<std::vector<glm::vec2>>, std::vector<data::VertexData*>> {
 	public:
-		std::unique_ptr<std::vector<VertexData2D>> apply(std::vector<VertexData>*);
+		std::unique_ptr<std::vector<data::VertexData2D>> apply(std::vector<data::VertexData>*);
 		CloseToGLPipeline();
 	private:
 		std::unique_ptr<VertexShaderJob> toHomogeneousClipSpace;
@@ -84,8 +65,8 @@ namespace close {
 
 	class ModelToVertex {
 	public:
-		std::vector<VertexData>* getVertexDataFromDataModel(data::Model* model);
-		VertexDataRange getRange(std::vector<VertexData>* vertices);
+		std::vector<data::VertexData>* getVertexDataFromDataModel(data::Model* model);
+		data::VertexDataRange getRange(std::vector<data::VertexData>* vertices);
 	};
 
 	class CloseToGLRenderer : public renderer::Renderer {

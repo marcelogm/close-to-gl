@@ -21,24 +21,6 @@ namespace open {
 		vNormalVertex = 1
 	};
 
-	struct VertexData {
-		float position[3];
-		float normal[3];
-		unsigned char color[3];
-	};
-
-	struct VertexDataRange {
-		glm::vec2 x;
-		glm::vec2 y;
-		glm::vec2 z;
-	};
-
-	class ModelToVertex {
-	public:
-		std::vector<VertexData>* getVertexDataFromDataModel(data::Model* model);
-		VertexDataRange getRange(std::vector<VertexData>* vertices);
-	};
-
 	class OpenGLRenderer : public renderer::Renderer {
 	public:
 		void init(data::Model*);
@@ -46,8 +28,8 @@ namespace open {
 		bool test();
 		OpenGLRenderer();
 	private:
-		std::vector<VertexData>* vertices;
-		VertexDataRange range;
+		std::vector<data::VertexData>* vertices;
+		data::VertexDataRange range;
 		GLuint VAOs[NumVAOs];
 		GLuint buffers[NumBuffers];
 		unsigned int verticesCount;

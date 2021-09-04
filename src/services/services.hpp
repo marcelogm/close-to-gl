@@ -6,6 +6,12 @@
 #include <stdexcept>
 #include <memory>
 
+class ModelToVertex {
+public:
+	std::vector<data::VertexData>* getVertexDataFromDataModel(data::Model* model);
+	data::VertexDataRange getRange(std::vector<data::VertexData>* vertices);
+};
+
 class ModelFactory {
 private:
 	FILE* open(std::string path);

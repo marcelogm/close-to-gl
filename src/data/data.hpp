@@ -13,6 +13,23 @@ namespace data {
 		unsigned char b;
 	};
 
+	struct VertexData {
+		float position[3];
+		float normal[3];
+		unsigned char color[3];
+	};
+
+	struct VertexData2D {
+		float position[2];
+		unsigned char color[3];
+	};
+
+	struct VertexDataRange {
+		glm::vec2 x;
+		glm::vec2 y;
+		glm::vec2 z;
+	};
+
 	class Vertex {
 	public:
 		Vertex(const Vertex&);
