@@ -31,6 +31,10 @@ void ImGuiWrapper::display() {
 	ImGui_ImplGlfw_NewFrame();
 	ImGui::NewFrame();
 	ImGui::Begin("Ferramentas", &open, ImGuiWindowFlags_AlwaysAutoResize);
+	ImGui::Text("Render mode:");
+	ImGui::RadioButton("Triangulos", config->getRenderMode(), 0);
+	ImGui::RadioButton("Pontos", config->getRenderMode(), 1);
+	ImGui::RadioButton("Frame", config->getRenderMode(), 2);
 	if (ImGui::Button("Restaurar (R)")) {
 		camera->requestReset();
 	}
@@ -48,6 +52,17 @@ void ImGuiWrapper::display() {
 	ImGui::End();
 
 	ImGui::Begin("Configurado atualmente para:", &open, ImGuiWindowFlags_AlwaysAutoResize);
+	switch (*config->getRenderMode()) {
+	case 0:
+		ImGui::Text("Renderizando os triangulos.");
+		break;
+	case 1:
+		ImGui::Text("Renderizando os pontos.");
+		break;
+	case 2:
+		ImGui::Text("Renderizando os wireframes.");
+		break;
+	}
 	if (*config->getMove()) {
 		ImGui::Text("Setas fazem pitch e yaw. Z e X fazem roll.");
 	} else {

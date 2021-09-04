@@ -1,29 +1,28 @@
 #pragma once
 
 #include "../data/data.hpp"
+#include <glm/glm.hpp>
 #include <string>
 #include <stdexcept>
 #include <memory>
 
-using namespace std;
-
 class ModelFactory {
 private:
-	FILE* open(string path);
+	FILE* open(std::string path);
 
-	string* fetchName(FILE*);
-	vector<data::Material*>* fetchMaterials(FILE*);
+	std::string* fetchName(FILE*);
+	std::vector<data::Material*>* fetchMaterials(FILE*);
 	data::Material* fetchMaterial(FILE*);
-	vector<data::Triangle*>* fetchTriangles(FILE*, int);
+	std::vector<data::Triangle*>* fetchTriangles(FILE*, int);
 	data::Triangle* fetchTriangle(FILE*);
-	vector<data::Vertex*>* fetchVertices(FILE*);
+	std::vector<data::Vertex*>* fetchVertices(FILE*);
 	data::Vertex* fetchVertex(FILE*);
 
 	void colorPreprocessing(data::Model* model);
 	int getTriangleCount(FILE*);
 	void skipLine(FILE*);
 public:
-	data::Model* get(string);
+	data::Model* get(std::string);
 };
 
 class Config {
@@ -33,14 +32,16 @@ private:
 	float color[4] = { 0.0f, 0.90f, 1.0f, 1.0f };
 	bool move = false;
 	bool mouseStatus = false;
-	int fov = 45;
+	int fov = 20;
 	int zNear = 1;
-	int zFar = 200;
+	int zFar = 1000;
 	bool isCW = true;
 	float sensibility = 15.0f;
 	float mouseSensibility = 15.0f;
 	int windowWidth = 0;
 	int windowHeight = 0;
+	int renderMode = 0;
+	bool useOpenGL = true;
 public:
 	static Config* getInstance();
 	float* getColor();
@@ -54,4 +55,6 @@ public:
 	int* getWindowWidth();
 	int* getWindowHeight();
 	bool* getMouseStatus();
+	int* getRenderMode();
+	bool* getOpenGLUse();
 };

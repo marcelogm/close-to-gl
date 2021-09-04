@@ -55,3 +55,11 @@ int* Config::getWindowHeight() {
 int* Config::getWindowWidth() {
 	return &this->windowWidth;
 }
+
+int* Config::getRenderMode() {
+	return &this->renderMode;
+}
+
+bool* Config::getOpenGLUse() {
+	return &this->useOpenGL;
+}

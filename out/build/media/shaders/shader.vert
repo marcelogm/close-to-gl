@@ -17,4 +17,5 @@ main()
     color = customColor;
     normal = vec4(vNormal, 1.0f);
     gl_Position = projection * view * model * vec4(vPosition, 1.0f);
+    gl_PointSize = 2.0;
 }

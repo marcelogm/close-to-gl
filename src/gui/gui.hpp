@@ -3,6 +3,8 @@
 #include "vgl.h"
 #include "../services/services.hpp"
 #include "../services/render/render.hpp"
+#include "../services/render/close-to-gl/close.hpp"
+#include "../services/render/open-gl/open.hpp"
 #include "../data/data.hpp"
 #include <imgui.h>
 #include <backends/imgui_impl_opengl3.h>
@@ -25,7 +27,7 @@ class Application {
 private:
 	GLFWwindow* window;
 	ModelFactory* factory;
-	OpenGLRenderer* renderer;
+	std::vector<renderer::Renderer*>* renderers;
 	ImGuiWrapper* ui;
 public:
 	void init();
@@ -47,7 +49,7 @@ public:
 
 class KeyStrategyService {
 private:
-	vector<KeyCommandStrategy*>* strategies;
+	std::vector<KeyCommandStrategy*>* strategies;
 	static KeyStrategyService* instance;
 	KeyStrategyService();
 public:

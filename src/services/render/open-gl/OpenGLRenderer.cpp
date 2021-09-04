@@ -1,14 +1,16 @@
-#include "render.hpp"
+#include "open.hpp"
 
-using namespace std;
+using namespace open;
 
 void OpenGLRenderer::init(data::Model* model) {
-	this->vertices = this->getVertexDataFromDataModel(model);
+	this->vertices = this->converter->getVertexDataFromDataModel(model);
 	this->verticesCount = this->vertices->size();
-	this->range = this->getRange(this->vertices);
+	this->range = this->converter->getRange(this->vertices);
 
-	vector<ShaderInfo> shaders = this->getShaders();
-	GLuint program = LoadShaders(&shaders.front());
+	std::vector<ShaderInfo> shaders = this->getShaders();
+	this->program = LoadShaders(&shaders.front());
+
+	glUseProgram(this->program);
 
 	glGenVertexArrays(NumVAOs, this->VAOs);
 	glGenBuffers(NumBuffers, this->buffers);
@@ -24,8 +26,6 @@ void OpenGLRenderer::init(data::Model* model) {
 	int normalOffset = sizeof(this->vertices->at(0).position);
 	glVertexAttribPointer(vNormalVertex, 3, GL_FLOAT, GL_FALSE, sizeof(VertexData), BUFFER_OFFSET(normalOffset));
 	glEnableVertexAttribArray(vNormalVertex);
-
-	glUseProgram(program);
 	
 	this->modelSpace = glGetUniformLocation(program, "model");
 	this->viewSpace = glGetUniformLocation(program, "view");
@@ -33,13 +33,13 @@ void OpenGLRenderer::init(data::Model* model) {
 	this->customColor = glGetUniformLocation(program, "customColor");
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);
+	glEnable(GL_PROGRAM_POINT_SIZE);
 }
 
-
 void OpenGLRenderer::display() {
+	glUseProgram(this->program);
 	glFlush();
 	Camera* camera = Camera::getInstance();
-	Config* config = Config::getInstance();
 	float* rgba = config->getColor();
 
 	if (*config->getCW()) {
@@ -71,10 +71,23 @@ void OpenGLRenderer::display() {
 	glUniformMatrix4fv(viewSpace, 1, GL_FALSE, glm::value_ptr(view));
 	glUniformMatrix4fv(projectionSpace, 1, GL_FALSE, glm::value_ptr(projection));
 	glBindVertexArray(VAOs[Triangles]);
-	glDrawArrays(GL_TRIANGLES, 0, this->verticesCount);
+
+	switch (*config->getRenderMode()) {
+	case 0:
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+		glDrawArrays(GL_TRIANGLES, 0, this->verticesCount);
+		break;
+	case 1:
+		glDrawArrays(GL_POINTS, 0, this->verticesCount);
+		break;
+	case 2:
+		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+		glDrawArrays(GL_TRIANGLES, 0, this->verticesCount);
+		break;
+	}
 }
 
-vector<ShaderInfo> OpenGLRenderer::getShaders() {
+std::vector<ShaderInfo> OpenGLRenderer::getShaders() {
 	return {
 		{ GL_VERTEX_SHADER, "media/shaders/shader.vert" },
 		{ GL_FRAGMENT_SHADER, "media/shaders/shader.frag" },
@@ -82,34 +95,12 @@ vector<ShaderInfo> OpenGLRenderer::getShaders() {
 	};
 }
 
-vector<VertexData>* OpenGLRenderer::getVertexDataFromDataModel(data::Model* model) {
-	vector<VertexData>* vertices = new vector<VertexData>();
-	for (auto triangle : *model->getTriangles()) {
-		for (auto vertex : *triangle->getVertices()) {
-			auto position = vertex->getPosition();
-			auto normal = vertex->getNormal();
-			auto color = vertex->getColor();
-			vertices->push_back({
-				{ position->x, position->y, position->z },
-				{ normal->x, normal->y, normal->z },
-				{ color->r, color->g, color->b }
-			});
-		}
-	}
-	return vertices;
+bool OpenGLRenderer::test() {
+	return *this->config->getOpenGLUse();
 }
 
-VertexDataRange OpenGLRenderer::getRange(vector<VertexData>* vertices) {
-	float minX = 0, minY = 0, minZ = 0, maxX = 0, maxY = 0, maxZ = 0;
-	for (auto vertex : *vertices) {
-		minX = glm::min(minX, vertex.position[0]);
-		minY = glm::min(minY, vertex.position[1]);
-		minZ = glm::min(minZ, vertex.position[2]);
-		maxX = glm::max(maxX, vertex.position[0]);
-		maxY = glm::max(maxY, vertex.position[1]);
-		maxZ = glm::max(maxZ, vertex.position[2]);
-	}
-	return {
-		glm::vec2(minX, maxX), glm::vec2(minY, maxY), glm::vec2(minZ, maxZ)
-	};
+OpenGLRenderer::OpenGLRenderer() {
+	this->converter = new ModelToVertex();
+	this->config = Config::getInstance();
 }
+

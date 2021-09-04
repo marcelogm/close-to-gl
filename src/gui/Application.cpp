@@ -18,7 +18,10 @@ void onMouseEnter(GLFWwindow* window, int entered) {
 }
 
 void Application::init() {
-	this->renderer = new OpenGLRenderer();
+	this->renderers = new std::vector<renderer::Renderer*>();
+	this->renderers->push_back(new open::OpenGLRenderer());
+	this->renderers->push_back(new close::CloseToGLRenderer());
+
 	this->factory = new ModelFactory();
 	this->ui = ImGuiWrapper::getInstance();
 	auto config = Config::getInstance();
@@ -32,14 +35,22 @@ void Application::init() {
 	gl3wInit();
 
 	this->ui->init(window);
-	this->renderer->init(this->factory->get("data/cow_up.in"));
+
+	data::Model* model = this->factory->get("data/cow_up.in");
+	for (auto renderer : *this->renderers) {
+		renderer->init(model);
+	}
 
 	glfwGetWindowSize(window, config->getWindowHeight(), config->getWindowWidth());
 }
 
 void Application::loop() {
 	while (!glfwWindowShouldClose(this->window)) {
-		this->renderer->display();
+		for (auto renderer : *this->renderers) {
+			if (renderer->test()) {
+				renderer->display();
+			}
+		}
 		this->ui->display();
 		glfwSwapBuffers(this->window);
 		glfwPollEvents();

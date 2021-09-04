@@ -187,6 +187,18 @@ class ResetCamera : public KeyCommandStrategy {
 	};
 };
 
+
+class SwitchOpenGL : public KeyCommandStrategy {
+	bool matches(int key, int action) {
+		return key == GLFW_KEY_TAB && action == GLFW_PRESS;
+	};
+
+	void apply() {
+		bool* pointer = this->config->getOpenGLUse();
+		*pointer = !*pointer;
+	};
+};
+
 KeyStrategyService::KeyStrategyService() {
 	strategies = new std::vector<KeyCommandStrategy*>();
 	strategies->push_back(new PitchUp());
@@ -206,6 +218,7 @@ KeyStrategyService::KeyStrategyService() {
 	strategies->push_back(new RotateAroundLeft());
 	strategies->push_back(new RotateAroundRight());
 	strategies->push_back(new ResetCamera());
+	strategies->push_back(new SwitchOpenGL());
 }
 
 void KeyStrategyService::apply(int key, int action) {

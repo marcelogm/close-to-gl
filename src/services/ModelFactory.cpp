@@ -1,8 +1,6 @@
 #include "services.hpp"
 
-using namespace std;
-
-data::Model* ModelFactory::get(string path) {
+data::Model* ModelFactory::get(std::string path) {
 	char ch;
 	auto file = open(path);
 	auto name = fetchName(file);
@@ -16,18 +14,18 @@ data::Model* ModelFactory::get(string path) {
 	return model;
 }
 
-FILE* ModelFactory::open(string path) {
+FILE* ModelFactory::open(std::string path) {
 	FILE* fp = fopen(path.c_str(), "r");
 	if (fp == NULL) {
-		throw runtime_error("Could not open file");
+		throw std::runtime_error("Could not open file");
 	}
 }
 
-string* ModelFactory::fetchName(FILE* file) {
-	string str(10, '\0');
+std::string* ModelFactory::fetchName(FILE* file) {
+	std::string str(10, '\0');
 	(void)fscanf(file, "Object name = %s\n", str.data());
 	str.resize(strlen(str.data()));
-	return new string(str);
+	return new std::string(str);
 }
 
 int ModelFactory::getTriangleCount(FILE* file) {
@@ -40,9 +38,9 @@ void ModelFactory::skipLine(FILE* file) {
 	(void)fscanf(file, "%*[^\n]\n");
 }
 
-vector<data::Material*>* ModelFactory::fetchMaterials(FILE* file) {
+std::vector<data::Material*>* ModelFactory::fetchMaterials(FILE* file) {
 	int count;
-	vector<data::Material*>* materials = new vector<data::Material*>();
+	std::vector<data::Material*>* materials = new std::vector<data::Material*>();
 	(void)fscanf(file, "Material count = %d\n", &count);
 	for (int i = 0; i < count; i++) {
 		materials->push_back(fetchMaterial(file));
@@ -64,8 +62,8 @@ data::Material* ModelFactory::fetchMaterial(FILE* file) {
 	return new data::Material(ambient, diffuse, specular, shine);
 }
 
-vector<data::Triangle*>* ModelFactory::fetchTriangles(FILE* file, int count) {
-	vector<data::Triangle*>* triangles = new vector<data::Triangle*>();
+std::vector<data::Triangle*>* ModelFactory::fetchTriangles(FILE* file, int count) {
+	std::vector<data::Triangle*>* triangles = new std::vector<data::Triangle*>();
 	for (int i = 0; i < count; i++) {
 		triangles->push_back(fetchTriangle(file));
 	}
@@ -73,7 +71,7 @@ vector<data::Triangle*>* ModelFactory::fetchTriangles(FILE* file, int count) {
 }
 
 data::Triangle* ModelFactory::fetchTriangle(FILE* file) {
-	vector<data::Vertex*>* vertices = new vector<data::Vertex*>();
+	std::vector<data::Vertex*>* vertices = new std::vector<data::Vertex*>();
 	glm::vec3* normal = new glm::vec3();
 
 	for (int i = 0; i < 3; i++) {
