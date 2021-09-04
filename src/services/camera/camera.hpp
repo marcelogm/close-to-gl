@@ -6,7 +6,7 @@
 
 class Camera {
 public:
-	void reset(glm::vec2 u, glm::vec2 v, float fov);
+	void reset(glm::vec2 u, glm::vec2 v);
 	glm::mat4 getView();
 	static Camera* getInstance();
 	void look(float yaw, float pitch);

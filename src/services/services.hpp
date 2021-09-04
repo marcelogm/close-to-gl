@@ -2,6 +2,7 @@
 
 #include "../data/data.hpp"
 #include <glm/glm.hpp>
+#include <glm/ext/matrix_clip_space.hpp>
 #include <string>
 #include <stdexcept>
 #include <memory>
@@ -38,7 +39,8 @@ private:
 	float color[4] = { 0.0f, 0.90f, 1.0f, 1.0f };
 	bool move = false;
 	bool mouseStatus = false;
-	int fov = 20;
+	int xfov = 90;
+	int yfov = 90;
 	int zNear = 1;
 	int zFar = 1000;
 	bool isCW = true;
@@ -52,7 +54,8 @@ public:
 	static Config* getInstance();
 	float* getColor();
 	bool* getMove();
-	int* getFOV();
+	int* getXFOV();
+	int* getYFOV();
 	int* getZNear();
 	int* getZFar();
 	bool* getCW();
@@ -63,4 +66,14 @@ public:
 	bool* getMouseStatus();
 	int* getRenderMode();
 	bool* getOpenGLUse();
+	void reset();
+};
+
+
+class ProjectionFromConfig {
+private:
+	Config* config;
+public:
+	glm::mat4 get();
+	ProjectionFromConfig();
 };

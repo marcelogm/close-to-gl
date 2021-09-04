@@ -1,12 +1,12 @@
 #include "camera.hpp"
 
-void Camera::reset(glm::vec2 u, glm::vec2 v, float fov) {
+void Camera::reset(glm::vec2 u, glm::vec2 v) {
 	auto uNorm = glm::distance(u.x, u.y);
 	auto vNorm = glm::distance(v.x, v.y);
 
 	auto x = glm::min(u.x, u.y) + (uNorm / 2.0f);
 	auto y = glm::min(v.x, v.y) + (vNorm / 2.0f);
-	auto z = glm::abs(glm::min(uNorm, vNorm) / glm::sin(fov / 2));
+	auto z = glm::abs(glm::min(uNorm, vNorm) / glm::sin(90 / 2));
 
 	this->position = glm::vec3(x, y, z);
 
@@ -15,6 +15,7 @@ void Camera::reset(glm::vec2 u, glm::vec2 v, float fov) {
 	this->pitch = 0.0f;
 
 	this->update();
+	this->setResetRequest(false);
 }
 
 glm::mat4 Camera::getView() {

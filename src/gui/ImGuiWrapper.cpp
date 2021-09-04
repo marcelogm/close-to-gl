@@ -36,12 +36,12 @@ void ImGuiWrapper::display() {
 	ImGui::RadioButton("Pontos", config->getRenderMode(), 1);
 	ImGui::RadioButton("Frame", config->getRenderMode(), 2);
 	if (ImGui::Button("Restaurar (R)")) {
+		config->reset();
 		camera->requestReset();
 	}
 	ImGui::ColorEdit4("Color", config->getColor());
-	if (ImGui::SliderInt("FOV", config->getFOV(), 1, 180)) {
-		camera->requestReset();
-	}
+	ImGui::SliderInt("FOV X", config->getXFOV(), 1, 180);
+	ImGui::SliderInt("FOV Y", config->getYFOV(), 1, 180);
 	ImGui::SliderInt("Z Near", config->getZNear(), 1, 1000, "%d", ImGuiSliderFlags_Logarithmic);
 	ImGui::SliderInt("Z Far", config->getZFar(), 100, 10000, "%d", ImGuiSliderFlags_Logarithmic);
 	ImGui::Checkbox("Utilizar mouse", config->getMouseStatus());

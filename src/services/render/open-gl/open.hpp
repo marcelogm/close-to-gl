@@ -40,6 +40,7 @@ namespace open {
 		GLuint program;
 		ModelToVertex* converter;
 		Config* config;
+		ProjectionFromConfig* projectionProvider;
 		std::vector<ShaderInfo> getShaders();
 	};
 }

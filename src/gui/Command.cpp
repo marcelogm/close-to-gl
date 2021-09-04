@@ -183,6 +183,7 @@ class ResetCamera : public KeyCommandStrategy {
 	};
 
 	void apply() {
+		config->reset();
 		camera->requestReset();
 	};
 };

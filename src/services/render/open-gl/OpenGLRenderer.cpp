@@ -36,6 +36,8 @@ void OpenGLRenderer::init(data::Model* model) {
 	glEnable(GL_PROGRAM_POINT_SIZE);
 }
 
+#undef min
+#undef max
 void OpenGLRenderer::display() {
 	glUseProgram(this->program);
 	glFlush();
@@ -48,23 +50,17 @@ void OpenGLRenderer::display() {
 		glFrontFace(GL_CCW);
 	}
 	glCullFace(GL_BACK);
-
+	
 	glClearColor(0.75f, 0.75f, 0.75f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	float fov = *config->getFOV();
 	if (camera->getResetRequest()) {
-		camera->reset(this->range.x, this->range.y, glm::radians(fov));
-		camera->setResetRequest(false);
+		camera->reset(this->range.x, this->range.y);
 	}
 
 	glm::mat4 model = glm::mat4(1.0f);
 	glm::mat4 view = camera->getView();
-	glm::mat4 projection = glm::perspective(
-		glm::radians(fov), 
-		(float)*config->getWindowHeight() / *config->getWindowWidth(), 
-		*config->getZNear() * 10.0f, 
-		*config->getZFar() * 10.0f);
+	glm::mat4 projection = this->projectionProvider->get();
 
 	glUniform4f(customColor, rgba[0], rgba[1], rgba[2], rgba[3]);
 	glUniformMatrix4fv(modelSpace, 1, GL_FALSE, glm::value_ptr(model));
@@ -102,5 +98,6 @@ bool OpenGLRenderer::test() {
 OpenGLRenderer::OpenGLRenderer() {
 	this->converter = new ModelToVertex();
 	this->config = Config::getInstance();
+	this->projectionProvider = new ProjectionFromConfig();
 }
 

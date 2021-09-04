@@ -28,7 +28,7 @@ void Application::init() {
 
 	glfwInit();
 	glfwWindowHint(GLFW_RESIZABLE, false);
-	this->window = glfwCreateWindow(800, 600, "Programming Assignment 1", NULL, NULL);
+	this->window = glfwCreateWindow(800, 800, "Programming Assignment 1", NULL, NULL);
 	glfwSetKeyCallback(this->window, onKeyPress);
 	glfwSetCursorPosCallback(this->window, onMouseMove);
 	glfwMakeContextCurrent(window);

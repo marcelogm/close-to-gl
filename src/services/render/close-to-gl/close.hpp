@@ -32,9 +32,15 @@ namespace close {
 		virtual O apply(I) = 0;
 	};
 
-	class VertexShaderJob : public Job<std::vector<glm::vec4>, std::vector<data::VertexData>*> {
+	class VertexShaderJob : public Job<std::vector<data::VertexData>*, std::vector<glm::vec4>> {
 	public:
 		std::vector<glm::vec4> apply(std::vector<data::VertexData>*);
+		VertexShaderJob();
+	private:
+		Camera* camera;
+		ProjectionFromConfig* projectionProvider;
+		glm::mat4 getMVP();
+		glm::vec4 toHomogeneous(data::VertexData);
 	};
 
 	class ClippingJob : public Job<std::vector<glm::vec4>, std::vector<glm::vec4>> {
@@ -47,26 +53,20 @@ namespace close {
 		std::vector<glm::vec3> apply(std::vector<glm::vec4>);
 	};
 
-	class ViewportTransformJob : public Job<std::vector<glm::vec4>, std::vector<glm::vec2>> {
+	class ViewportTransformJob : public Job<std::vector<glm::vec3>, std::vector<data::VertexData2D>> {
 	public:
 		std::vector<data::VertexData2D> apply(std::vector<glm::vec3>);
 	};
 
-	class CloseToGLPipeline : public Pipeline<std::unique_ptr<std::vector<glm::vec2>>, std::vector<data::VertexData*>> {
+	class CloseToGLPipeline : public Pipeline<std::vector<data::VertexData>*, std::unique_ptr<std::vector<data::VertexData2D>>> {
 	public:
 		std::unique_ptr<std::vector<data::VertexData2D>> apply(std::vector<data::VertexData>*);
 		CloseToGLPipeline();
 	private:
-		std::unique_ptr<VertexShaderJob> toHomogeneousClipSpace;
-		std::unique_ptr<ClippingJob> clipping;
-		std::unique_ptr<PerspectiveDivideJob> normalization;
-		std::unique_ptr<ViewportTransformJob> toViewport;
-	};
-
-	class ModelToVertex {
-	public:
-		std::vector<data::VertexData>* getVertexDataFromDataModel(data::Model* model);
-		data::VertexDataRange getRange(std::vector<data::VertexData>* vertices);
+		VertexShaderJob* toHomogeneousClipSpace;
+		ClippingJob* clipping;
+		PerspectiveDivideJob* normalization;
+		ViewportTransformJob* toViewport;
 	};
 
 	class CloseToGLRenderer : public renderer::Renderer {
@@ -75,5 +75,14 @@ namespace close {
 		void display();
 		bool test();
 		CloseToGLRenderer();
+	private:
+		std::vector<data::VertexData>* vertices;
+		data::VertexDataRange range;
+		GLuint VAOs[NumVAOs];
+		GLuint buffers[NumBuffers];
+		GLuint program;
+		Config* config;
+		unsigned int verticesCount;
+		CloseToGLPipeline* pipeline;
 	};
 }

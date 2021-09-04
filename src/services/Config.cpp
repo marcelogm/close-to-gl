@@ -16,8 +16,12 @@ float* Config::getColor() {
 	return this->color;
 }
 
-int* Config::getFOV() {
-	return &this->fov;
+int* Config::getXFOV() {
+	return &this->xfov;
+}
+
+int* Config::getYFOV() {
+	return &this->yfov;
 }
 
 int* Config::getZNear() {
@@ -62,4 +66,11 @@ int* Config::getRenderMode() {
 
 bool* Config::getOpenGLUse() {
 	return &this->useOpenGL;
+}
+
+void Config::reset() {
+	xfov = 90;
+	yfov = 90;
+	zNear = 1;
+	zFar = 1000;
 }
