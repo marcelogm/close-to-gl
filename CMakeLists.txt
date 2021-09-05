@@ -55,7 +55,7 @@ add_library(close-to-gl
 			 "src/services/render/close-to-gl/VertexShaderJob.cpp" 
 			 "src/services/render/close-to-gl/ClippingJob.cpp" 
 			 "src/services/render/close-to-gl/PerspectiveDivideJob.cpp" 
-			 "src/services/render/close-to-gl/ViewportTransformJob.cpp"  "src/services/ProjectionFromConfig.cpp")
+			 "src/services/render/close-to-gl/ViewportTransformJob.cpp"  "src/services/ProjectionFromConfig.cpp" "src/services/Debug.cpp")
 
 find_package(OpenMP)
 if (OPENMP_FOUND)

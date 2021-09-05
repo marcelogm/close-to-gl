@@ -32,6 +32,7 @@ void Application::init() {
 	glfwSetKeyCallback(this->window, onKeyPress);
 	glfwSetCursorPosCallback(this->window, onMouseMove);
 	glfwMakeContextCurrent(window);
+	glfwSwapInterval(0);
 	gl3wInit();
 
 	this->ui->init(window);
@@ -54,6 +55,7 @@ void Application::loop() {
 		this->ui->display();
 		glfwSwapBuffers(this->window);
 		glfwPollEvents();
+		Debug::getInstance()->countFrame();
 	}
 }
 void Application::detroy() {

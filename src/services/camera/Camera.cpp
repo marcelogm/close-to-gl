@@ -6,7 +6,7 @@ void Camera::reset(glm::vec2 u, glm::vec2 v) {
 
 	auto x = glm::min(u.x, u.y) + (uNorm / 2.0f);
 	auto y = glm::min(v.x, v.y) + (vNorm / 2.0f);
-	auto z = glm::abs(glm::min(uNorm, vNorm) / glm::sin(90 / 2));
+	auto z = glm::abs(glm::min(uNorm, vNorm) / glm::sin(glm::radians(60.0f) / 2));
 
 	this->position = glm::vec3(x, y, z);
 

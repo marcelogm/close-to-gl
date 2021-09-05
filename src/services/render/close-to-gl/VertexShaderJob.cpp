@@ -6,7 +6,7 @@ std::vector<glm::vec4> VertexShaderJob::apply(std::vector<data::VertexData>* ver
 	const glm::mat4 MVP = this->getMVP();
 	std::vector<glm::vec4> positions(vertices->size());
 	for (size_t i = 0; i < vertices->size(); i++) {
-		positions[i] = this->toHomogeneous(vertices->at(i)) * MVP;
+		positions[i] = MVP * this->toHomogeneous(vertices->at(i));
 	}
 	return positions;
 }
@@ -15,7 +15,7 @@ glm::mat4 VertexShaderJob::getMVP() {
 	glm::mat4 model = glm::mat4(1.0f);
 	glm::mat4 view = this->camera->getView();
 	glm::mat4 projection = this->projectionProvider->get();
-	return model * view * projection;
+	return projection * view * model;
 }
 
 glm::vec4 VertexShaderJob::toHomogeneous(data::VertexData vertex) {

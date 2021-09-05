@@ -32,15 +32,15 @@ void OpenGLRenderer::init(data::Model* model) {
 	this->projectionSpace = glGetUniformLocation(program, "projection");
 	this->customColor = glGetUniformLocation(program, "customColor");
 	glEnable(GL_DEPTH_TEST);
-	glEnable(GL_CULL_FACE);
 	glEnable(GL_PROGRAM_POINT_SIZE);
 }
 
 #undef min
 #undef max
 void OpenGLRenderer::display() {
-	glUseProgram(this->program);
 	glFlush();
+	glUseProgram(this->program);
+	glEnable(GL_CULL_FACE);
 	Camera* camera = Camera::getInstance();
 	float* rgba = config->getColor();
 

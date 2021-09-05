@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../data/data.hpp"
+#include <vgl.h>
 #include <glm/glm.hpp>
 #include <glm/ext/matrix_clip_space.hpp>
 #include <string>
@@ -39,10 +40,10 @@ private:
 	float color[4] = { 0.0f, 0.90f, 1.0f, 1.0f };
 	bool move = false;
 	bool mouseStatus = false;
-	int xfov = 90;
-	int yfov = 90;
+	int xfov = 60;
+	int yfov = 60;
 	int zNear = 1;
-	int zFar = 1000;
+	int zFar = 5000;
 	bool isCW = true;
 	float sensibility = 15.0f;
 	float mouseSensibility = 15.0f;
@@ -76,4 +77,23 @@ private:
 public:
 	glm::mat4 get();
 	ProjectionFromConfig();
+};
+
+class Debug {
+private:
+	static Debug* instance;
+	Debug();
+
+	double framerate;
+	double frametime;
+
+	double lastFrameTime = 0.0;
+	double currentFrameTime = 0.0;
+	double timeFrameDiff = 0.0;
+	size_t frameCounter = 0.0;
+public:
+	static Debug* getInstance();
+	void countFrame();
+	double getFramerate();
+	double getFrametime();
 };

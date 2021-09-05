@@ -82,6 +82,10 @@ void ImGuiWrapper::display() {
 		ImGui::Text("Mouse nao esta sendo utilizado.");
 	}
 	ImGui::End();
+	ImGui::Begin("Debug:", &open, ImGuiWindowFlags_AlwaysAutoResize);
+	ImGui::Text("FPS: %.2f", Debug::getInstance()->getFramerate());
+	ImGui::Text("Time: %.2fms", Debug::getInstance()->getFrametime());
+	ImGui::End();
 	ImGui::Render();
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 }

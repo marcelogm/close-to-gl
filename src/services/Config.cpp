@@ -69,8 +69,8 @@ bool* Config::getOpenGLUse() {
 }
 
 void Config::reset() {
-	xfov = 90;
-	yfov = 90;
+	xfov = 60;
+	yfov = 60;
 	zNear = 1;
-	zFar = 1000;
+	zFar = 5000;
 }

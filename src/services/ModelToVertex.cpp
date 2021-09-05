@@ -17,6 +17,8 @@ std::vector<data::VertexData>* ModelToVertex::getVertexDataFromDataModel(data::M
 	return vertices;
 }
 
+#undef min
+#undef max
 data::VertexDataRange ModelToVertex::getRange(std::vector<data::VertexData>* vertices) {
 	float minX = 0, minY = 0, minZ = 0, maxX = 0, maxY = 0, maxZ = 0;
 	for (data::VertexData vertex : *vertices) {

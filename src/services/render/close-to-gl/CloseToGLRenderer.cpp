@@ -1,4 +1,5 @@
 #include "close.hpp"
+#include<iostream>
 
 using namespace close;
 
@@ -26,22 +27,38 @@ void CloseToGLRenderer::init(data::Model* model) {
 	
 	glEnableVertexAttribArray(vPosition);
 	glVertexAttribPointer(vPosition, 2, GL_FLOAT, GL_FALSE, sizeof(data::VertexData2D), BUFFER_OFFSET(0));
+	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_PROGRAM_POINT_SIZE);
 }
 
 void CloseToGLRenderer::display() {
 	auto processed = pipeline->apply(this->vertices);
-	glUseProgram(this->program);
-	glCullFace(GL_FRONT);
 
 	glFlush();
-	glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
+	glUseProgram(this->program);
+	glDisable(GL_CULL_FACE);
+	glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	glBindVertexArray(this->VAOs[Triangles]);
 	glBindBuffer(GL_ARRAY_BUFFER, this->buffers[VertexBuffer]);
-	glBufferSubData(GL_ARRAY_BUFFER, 0, processed->size() * sizeof(data::VertexData2D), &processed.get()->front());
+	if (processed->size() > 0) {
+		glBufferSubData(GL_ARRAY_BUFFER, 0, processed->size() * sizeof(data::VertexData2D), &processed.get()->front());
+	}
 
-	glDrawArrays(GL_TRIANGLES, 0, processed->size());
+	switch (*config->getRenderMode()) {
+	case 0:
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+		glDrawArrays(GL_TRIANGLES, 0, processed->size());
+		break;
+	case 1:
+		glDrawArrays(GL_POINTS, 0, processed->size());
+		break;
+	case 2:
+		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+		glDrawArrays(GL_TRIANGLES, 0, processed->size());
+		break;
+	}
 }
 
 bool CloseToGLRenderer::test() {
