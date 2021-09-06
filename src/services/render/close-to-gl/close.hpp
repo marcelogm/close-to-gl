@@ -46,7 +46,7 @@ namespace close {
 	class ClippingJob : public Job<std::vector<glm::vec4>*, std::vector<glm::vec4>> {
 	public:
 		std::vector<glm::vec4> apply(std::vector<glm::vec4>*);
-		bool isInsideClippingSpace(float, float);
+		bool isInsideClippingSpace(float x, float y, float z, float w);
 		bool backfaceCullingTest(glm::vec4, glm::vec4, glm::vec4);
 	};
 

@@ -10,7 +10,8 @@ std::vector<glm::vec4> ClippingJob::apply(std::vector<glm::vec4>* vertices) {
 	const size_t size = vertices->size();
 	for (size_t i = 0; i < size; i++) {
 		const auto j = i % TRIANGLE_VERTICES;
-		if (!this->isInsideClippingSpace(vertices->at(i).z, vertices->at(i).w)) {
+		const auto vertice = vertices->at(i);
+		if (!this->isInsideClippingSpace(vertice.x, vertice.y, vertice.z, vertice.w)) {
 			// reject triangle 
 			i += 3 - j;
 		} else if (j == 2) {
@@ -27,8 +28,11 @@ std::vector<glm::vec4> ClippingJob::apply(std::vector<glm::vec4>* vertices) {
 	return clipped;
 }
 
-bool ClippingJob::isInsideClippingSpace(float z, float w) {
-	return (-w <= z && z <= w) || (w < 0);
+bool ClippingJob::isInsideClippingSpace(float x, float y, float z, float w) {
+	return ((-w <= x) && (x <= w)) &&
+		((-w <= y) && (y <= w)) &&
+		((-w <= z) && (z <= w)) &&
+		(0 < w);
 }
 
 bool ClippingJob::backfaceCullingTest(glm::vec4 p0, glm::vec4 p1, glm::vec4 p2) {
