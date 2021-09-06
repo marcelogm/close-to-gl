@@ -38,49 +38,30 @@ void OpenGLRenderer::init(data::Model* model) {
 #undef min
 #undef max
 void OpenGLRenderer::display() {
-	glFlush();
 	glUseProgram(this->program);
-	glEnable(GL_CULL_FACE);
-	Camera* camera = Camera::getInstance();
-	float* rgba = config->getColor();
 
+	glEnable(GL_CULL_FACE);
 	if (*config->getCW()) {
 		glFrontFace(GL_CW);
 	} else {
 		glFrontFace(GL_CCW);
 	}
 	glCullFace(GL_BACK);
-	
-	glClearColor(0.75f, 0.75f, 0.75f, 1.0f);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-	if (camera->getResetRequest()) {
-		camera->reset(this->range.x, this->range.y);
-	}
 
 	glm::mat4 model = glm::mat4(1.0f);
 	glm::mat4 view = camera->getView();
 	glm::mat4 projection = this->projectionProvider->get();
+	float* rgba = config->getColor();
 
 	glUniform4f(customColor, rgba[0], rgba[1], rgba[2], rgba[3]);
 	glUniformMatrix4fv(modelSpace, 1, GL_FALSE, glm::value_ptr(model));
 	glUniformMatrix4fv(viewSpace, 1, GL_FALSE, glm::value_ptr(view));
 	glUniformMatrix4fv(projectionSpace, 1, GL_FALSE, glm::value_ptr(projection));
 	glBindVertexArray(VAOs[Triangles]);
-
-	switch (*config->getRenderMode()) {
-	case 0:
-		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-		glDrawArrays(GL_TRIANGLES, 0, this->verticesCount);
-		break;
-	case 1:
-		glDrawArrays(GL_POINTS, 0, this->verticesCount);
-		break;
-	case 2:
-		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-		glDrawArrays(GL_TRIANGLES, 0, this->verticesCount);
-		break;
-	}
+	
+	this->background->process();
+	this->drawer->process(this->verticesCount);	
+	this->reset->process(this->range);
 }
 
 std::vector<ShaderInfo> OpenGLRenderer::getShaders() {
@@ -97,7 +78,11 @@ bool OpenGLRenderer::test() {
 
 OpenGLRenderer::OpenGLRenderer() {
 	this->converter = new ModelToVertex();
+	this->drawer = new renderer::OpenGLDrawProcessor();
+	this->reset = new renderer::CameraResetProcessor();
+	this->background = new renderer::BackgroundProcessor();
 	this->config = Config::getInstance();
+	this->camera = Camera::getInstance();
 	this->projectionProvider = new ProjectionFromConfig();
 }
 

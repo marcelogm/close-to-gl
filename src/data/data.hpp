@@ -21,7 +21,6 @@ namespace data {
 
 	struct VertexData2D {
 		float position[2];
-		unsigned char color[3];
 	};
 
 	struct VertexDataRange {

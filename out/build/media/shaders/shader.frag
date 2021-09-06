@@ -5,8 +5,6 @@ in  vec4 normal;
 
 out vec4 fColor;
 
-void
-main()
-{
+void main() {
     fColor = ((normal.x + normal.y + -normal.z) / 3) * color;
 }

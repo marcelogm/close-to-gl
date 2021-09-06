@@ -26,32 +26,53 @@ void ImGuiWrapper::init(GLFWwindow* window) {
 }
 
 void ImGuiWrapper::display() {
-	bool open = true;
 	ImGui_ImplOpenGL3_NewFrame();
 	ImGui_ImplGlfw_NewFrame();
 	ImGui::NewFrame();
-	ImGui::Begin("Ferramentas", &open, ImGuiWindowFlags_AlwaysAutoResize);
+	ImGui::Begin("Ferramentas", NULL, ImGuiWindowFlags_AlwaysAutoResize);
 	ImGui::Text("Render mode:");
+
 	ImGui::RadioButton("Triangulos", config->getRenderMode(), 0);
+	ImGui::SameLine();
 	ImGui::RadioButton("Pontos", config->getRenderMode(), 1);
+	ImGui::SameLine();
 	ImGui::RadioButton("Frame", config->getRenderMode(), 2);
+
+	ImGui::Text("Cor e sombreamento:");
+	ImGui::Checkbox("Habilitar", config->getShadingUse());
+
+	if (*config->getShadingUse()) {
+		ImGui::RadioButton("Gouraud Shading AD", config->getShading(), 1);
+		ImGui::SameLine();
+		ImGui::RadioButton("Gouraud Shading ADS", config->getShading(), 2);
+		ImGui::SameLine();
+		ImGui::RadioButton("Phong Shading", config->getShading(), 3);
+	}
+
+	ImGui::ColorEdit4("Cor", config->getColor());
+
+
+	ImGui::Text("Camera:");
 	if (ImGui::Button("Restaurar (R)")) {
 		config->reset();
 		camera->requestReset();
 	}
-	ImGui::ColorEdit4("Color", config->getColor());
 	ImGui::SliderInt("FOV X", config->getXFOV(), 1, 180);
 	ImGui::SliderInt("FOV Y", config->getYFOV(), 1, 180);
-	ImGui::SliderInt("Z Near", config->getZNear(), 1, 1000, "%d", ImGuiSliderFlags_Logarithmic);
-	ImGui::SliderInt("Z Far", config->getZFar(), 100, 10000, "%d", ImGuiSliderFlags_Logarithmic);
+	ImGui::SliderInt("Z Near", config->getZNear(), 1, 10000, "%d", ImGuiSliderFlags_Logarithmic);
+	ImGui::SliderInt("Z Far", config->getZFar(), 100, 20000, "%d", ImGuiSliderFlags_Logarithmic);
 	ImGui::Checkbox("Utilizar mouse", config->getMouseStatus());
 	ImGui::SliderFloat("Sensibilidade do mouse", config->getMouseSensibility(), 0.0f, 100.0f, "%.0f", ImGuiSliderFlags_Logarithmic);
 	ImGui::Checkbox("Girar camera no proprio eixo (CNTRL)", config->getMove());
 	ImGui::SliderFloat("Sensibilidade da movimentacao", config->getSensibility(), 0.0f, 100.0f, "%.0f", ImGuiSliderFlags_Logarithmic);
+	
+	ImGui::Text("Configuracao:");
 	ImGui::Checkbox("Clockwise", config->getCW());
+	ImGui::SameLine();
+	ImGui::Checkbox("OpenGL", config->getOpenGLUse());
 	ImGui::End();
 
-	ImGui::Begin("Configurado atualmente para:", &open, ImGuiWindowFlags_AlwaysAutoResize);
+	ImGui::Begin("Configurado atualmente para:", NULL, ImGuiWindowFlags_AlwaysAutoResize);
 	switch (*config->getRenderMode()) {
 	case 0:
 		ImGui::Text("Renderizando os triangulos.");
@@ -82,7 +103,8 @@ void ImGuiWrapper::display() {
 		ImGui::Text("Mouse nao esta sendo utilizado.");
 	}
 	ImGui::End();
-	ImGui::Begin("Debug:", &open, ImGuiWindowFlags_AlwaysAutoResize);
+	ImGui::Begin("Debug:", NULL, ImGuiWindowFlags_AlwaysAutoResize);
+	ImGui::Text("Renderizando com %s", *config->getOpenGLUse() ? "OpenGL" : "Close2GL");
 	ImGui::Text("FPS: %.2f", Debug::getInstance()->getFramerate());
 	ImGui::Text("Time: %.2fms", Debug::getInstance()->getFrametime());
 	ImGui::End();

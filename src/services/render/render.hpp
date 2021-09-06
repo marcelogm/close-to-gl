@@ -19,5 +19,25 @@ namespace renderer {
 		virtual bool test() = 0;
 	};
 
+	class OpenGLDrawProcessor {
+	public:
+		void process(size_t);
+		OpenGLDrawProcessor();
+	private:
+		Config* config;
+	};
+
+	class CameraResetProcessor {
+	public:
+		void process(data::VertexDataRange);
+		CameraResetProcessor();
+	private:
+		Camera* camera;
+	};
+
+	class BackgroundProcessor {
+	public:
+		void process();
+	};
 }
 

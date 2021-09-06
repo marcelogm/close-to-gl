@@ -40,8 +40,8 @@ private:
 	float color[4] = { 0.0f, 0.90f, 1.0f, 1.0f };
 	bool move = false;
 	bool mouseStatus = false;
-	int xfov = 60;
-	int yfov = 60;
+	int xfov = 45;
+	int yfov = 45;
 	int zNear = 1;
 	int zFar = 5000;
 	bool isCW = true;
@@ -51,6 +51,8 @@ private:
 	int windowHeight = 0;
 	int renderMode = 0;
 	bool useOpenGL = true;
+	bool useShading = true;
+	int shading = 1;
 public:
 	static Config* getInstance();
 	float* getColor();
@@ -67,6 +69,8 @@ public:
 	bool* getMouseStatus();
 	int* getRenderMode();
 	bool* getOpenGLUse();
+	bool* getShadingUse();
+	int* getShading();
 	void reset();
 };
 

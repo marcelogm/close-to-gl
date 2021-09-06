@@ -43,19 +43,16 @@ namespace close {
 		glm::vec4 toHomogeneous(data::VertexData);
 	};
 
-	class ClippingJob : public Job<std::vector<glm::vec4>, std::vector<glm::vec4>> {
+	class ClippingJob : public Job<std::vector<glm::vec4>*, std::vector<glm::vec4>> {
 	public:
-		std::vector<glm::vec4> apply(std::vector<glm::vec4>);
+		std::vector<glm::vec4> apply(std::vector<glm::vec4>*);
+		bool isInsideClippingSpace(float, float);
+		bool backfaceCullingTest(glm::vec4, glm::vec4, glm::vec4);
 	};
 
-	class PerspectiveDivideJob : public Job<std::vector<glm::vec4>, std::vector<glm::vec3>> {
+	class PerspectiveDivideJob : public Job<std::vector<glm::vec4>*, std::vector<data::VertexData2D>> {
 	public:
-		std::vector<glm::vec3> apply(std::vector<glm::vec4>);
-	};
-
-	class ViewportTransformJob : public Job<std::vector<glm::vec3>, std::vector<data::VertexData2D>> {
-	public:
-		std::vector<data::VertexData2D> apply(std::vector<glm::vec3>);
+		std::vector<data::VertexData2D> apply(std::vector<glm::vec4>*);
 	};
 
 	class CloseToGLPipeline : public Pipeline<std::vector<data::VertexData>*, std::unique_ptr<std::vector<data::VertexData2D>>> {
@@ -66,7 +63,6 @@ namespace close {
 		VertexShaderJob* toHomogeneousClipSpace;
 		ClippingJob* clipping;
 		PerspectiveDivideJob* normalization;
-		ViewportTransformJob* toViewport;
 	};
 
 	class CloseToGLRenderer : public renderer::Renderer {
@@ -82,7 +78,12 @@ namespace close {
 		GLuint buffers[NumBuffers];
 		GLuint program;
 		Config* config;
+		long customColor;
 		unsigned int verticesCount;
+		renderer::OpenGLDrawProcessor* drawer;
+		renderer::BackgroundProcessor* background;
+		renderer::CameraResetProcessor* reset;
 		CloseToGLPipeline* pipeline;
+		std::vector<ShaderInfo> getShaders();
 	};
 }

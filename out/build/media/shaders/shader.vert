@@ -12,8 +12,7 @@ uniform mat4 projection;
 uniform vec4 customColor;
 
 void
-main()
-{
+main() {
     color = customColor;
     normal = vec4(vNormal, 1.0f);
     gl_Position = projection * view * model * vec4(vPosition, 1.0f);

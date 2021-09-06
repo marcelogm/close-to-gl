@@ -40,6 +40,10 @@ namespace open {
 		GLuint program;
 		ModelToVertex* converter;
 		Config* config;
+		Camera* camera;
+		renderer::OpenGLDrawProcessor* drawer;
+		renderer::BackgroundProcessor* background;
+		renderer::CameraResetProcessor* reset;
 		ProjectionFromConfig* projectionProvider;
 		std::vector<ShaderInfo> getShaders();
 	};

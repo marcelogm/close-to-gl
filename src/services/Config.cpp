@@ -68,9 +68,17 @@ bool* Config::getOpenGLUse() {
 	return &this->useOpenGL;
 }
 
+bool* Config::getShadingUse() {
+	return &this->useShading;
+}
+
+int* Config::getShading() {
+	return &this->shading;
+}
+
 void Config::reset() {
-	xfov = 60;
-	yfov = 60;
+	yfov = 45;
+	xfov = ((float)this->windowWidth / (float)this->windowHeight) * yfov;
 	zNear = 1;
 	zFar = 5000;
 }

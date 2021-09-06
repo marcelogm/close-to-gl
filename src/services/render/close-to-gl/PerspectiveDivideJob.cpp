@@ -2,20 +2,15 @@
 
 using namespace close;
 
-std::vector<glm::vec3> PerspectiveDivideJob::apply(std::vector<glm::vec4> vertices) {
-	std::vector<glm::vec3> positions(0);
-	for (size_t i = 0; i < vertices.size(); i++) {
-		auto w = vertices[i].w;
-		if ((-w <= vertices[i].x <= w) ||
-			(-w <= vertices[i].y <= w) ||
-			(-w <= vertices[i].z <= w)) {
-			positions.push_back(glm::vec3(
-				vertices[i].x / w,
-				vertices[i].y / w,
-				vertices[i].z / w
-			));
-		}
-		
+std::vector<data::VertexData2D> PerspectiveDivideJob::apply(std::vector<glm::vec4>* vertices) {
+	std::vector<data::VertexData2D> positions(vertices->size());
+	for (size_t i = 0; i < vertices->size(); i++) {
+		const auto w = vertices->at(i).w;
+		positions[i] = {
+			vertices->at(i).x / w,
+			vertices->at(i).y / w 
+		};
 	}
 	return positions;
 };
+

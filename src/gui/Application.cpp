@@ -17,6 +17,14 @@ void onMouseEnter(GLFWwindow* window, int entered) {
 	}
 }
 
+void onWindowSizeChange(GLFWwindow* window, int width, int height) {
+	auto config = Config::getInstance();
+	*config->getWindowHeight() = height;
+	*config->getWindowWidth() = width;
+	*config->getXFOV() = ((float)width / (float)height) * *config->getYFOV();
+	glViewport(0, 0, width, height);
+}
+
 void Application::init() {
 	this->renderers = new std::vector<renderer::Renderer*>();
 	this->renderers->push_back(new open::OpenGLRenderer());
@@ -27,10 +35,10 @@ void Application::init() {
 	auto config = Config::getInstance();
 
 	glfwInit();
-	glfwWindowHint(GLFW_RESIZABLE, false);
 	this->window = glfwCreateWindow(800, 800, "Programming Assignment 1", NULL, NULL);
 	glfwSetKeyCallback(this->window, onKeyPress);
 	glfwSetCursorPosCallback(this->window, onMouseMove);
+	glfwSetWindowSizeCallback(this->window, onWindowSizeChange);
 	glfwMakeContextCurrent(window);
 	glfwSwapInterval(0);
 	gl3wInit();
