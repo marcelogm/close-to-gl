@@ -37,6 +37,8 @@ namespace open {
 		long viewSpace;
 		long projectionSpace;
 		long customColor;
+		long lightPosition;
+		long ambientLight;
 		GLuint program;
 		ModelToVertex* converter;
 		Config* config;

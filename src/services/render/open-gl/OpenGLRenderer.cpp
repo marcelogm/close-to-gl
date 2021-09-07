@@ -31,6 +31,8 @@ void OpenGLRenderer::init(data::Model* model) {
 	this->viewSpace = glGetUniformLocation(program, "view");
 	this->projectionSpace = glGetUniformLocation(program, "projection");
 	this->customColor = glGetUniformLocation(program, "customColor");
+	this->ambientLight = glGetUniformLocation(program, "ambientLight");
+	this->lightPosition = glGetUniformLocation(program, "lightPosition");
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_PROGRAM_POINT_SIZE);
 }
@@ -52,7 +54,10 @@ void OpenGLRenderer::display() {
 	glm::mat4 view = camera->getView();
 	glm::mat4 projection = this->projectionProvider->get();
 	float* rgba = config->getColor();
-
+	glm::vec3 ambientLightValue(0.0f, 3.0f, 0.0f);
+	glm::vec3* lightPositionValue = config->getLightPosition();
+	glUniform3f(ambientLight, ambientLightValue.x, ambientLightValue.y, ambientLightValue.z);
+	glUniform3f(lightPosition, lightPositionValue->x, lightPositionValue->y, lightPositionValue->z);
 	glUniform4f(customColor, rgba[0], rgba[1], rgba[2], rgba[3]);
 	glUniformMatrix4fv(modelSpace, 1, GL_FALSE, glm::value_ptr(model));
 	glUniformMatrix4fv(viewSpace, 1, GL_FALSE, glm::value_ptr(view));

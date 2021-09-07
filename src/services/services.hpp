@@ -53,6 +53,7 @@ private:
 	bool useOpenGL = true;
 	bool useShading = true;
 	int shading = 1;
+	glm::vec3 lightPosition = glm::vec3(0.0f, 0.3f, 0.0f);
 public:
 	static Config* getInstance();
 	float* getColor();
@@ -71,6 +72,7 @@ public:
 	bool* getOpenGLUse();
 	bool* getShadingUse();
 	int* getShading();
+	glm::vec3* getLightPosition();
 	void reset();
 };
 

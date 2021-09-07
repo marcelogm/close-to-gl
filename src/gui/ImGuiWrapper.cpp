@@ -47,6 +47,13 @@ void ImGuiWrapper::display() {
 		ImGui::RadioButton("Gouraud Shading ADS", config->getShading(), 2);
 		ImGui::SameLine();
 		ImGui::RadioButton("Phong Shading", config->getShading(), 3);
+
+		ImGui::Text("Light position:");
+		ImGui::SliderFloat("X", &config->getLightPosition()->x, -1000.0f, 1000.0f, "");
+		ImGui::SameLine();
+		ImGui::SliderFloat("Y", &config->getLightPosition()->y, -1000.0f, 1000.0f, "");
+		ImGui::SameLine();
+		ImGui::SliderFloat("Z", &config->getLightPosition()->z, -1000.0f, 1000.0f, "");
 	}
 
 	ImGui::ColorEdit4("Cor", config->getColor());

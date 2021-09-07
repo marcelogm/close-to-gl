@@ -76,9 +76,14 @@ int* Config::getShading() {
 	return &this->shading;
 }
 
+glm::vec3* Config::getLightPosition() {
+	return &this->lightPosition;
+}
+
 void Config::reset() {
 	yfov = 45;
 	xfov = ((float)this->windowWidth / (float)this->windowHeight) * yfov;
 	zNear = 1;
 	zFar = 5000;
+	lightPosition = glm::vec3(0.0f, 3.0f, 0.0f);
 }

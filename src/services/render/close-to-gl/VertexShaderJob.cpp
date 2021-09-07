@@ -1,4 +1,6 @@
 #include "close.hpp"
+#include <algorithm>
+#include <functional>
 
 using namespace close;
 
@@ -6,7 +8,7 @@ std::vector<glm::vec4> VertexShaderJob::apply(std::vector<data::VertexData>* ver
 	const glm::mat4 MVP = this->getMVP();
 	std::vector<glm::vec4> positions(vertices->size());
 	for (size_t i = 0; i < vertices->size(); i++) {
-		positions[i] = MVP * this->toHomogeneous(vertices->at(i));
+		positions[i] = MVP * this->toHomogeneous(&vertices->at(i));
 	}
 	return positions;
 }
@@ -18,11 +20,11 @@ glm::mat4 VertexShaderJob::getMVP() {
 	return projection * view * model;
 }
 
-glm::vec4 VertexShaderJob::toHomogeneous(data::VertexData vertex) {
+glm::vec4 VertexShaderJob::toHomogeneous(data::VertexData* vertex) {
 	return glm::vec4(
-		vertex.position[0], 
-		vertex.position[1], 
-		vertex.position[2], 
+		vertex->position[0], 
+		vertex->position[1], 
+		vertex->position[2], 
 		1.0f
 	);
 }

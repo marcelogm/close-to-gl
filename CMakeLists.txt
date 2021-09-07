@@ -51,11 +51,15 @@ add_library(close-to-gl
 			"src/services/camera/Camera.cpp"  
 			"src/gui/ImGuiWrapper.cpp" 
 			"src/services/ModelToVertex.cpp" 
-			 "src/services/render/close-to-gl/CloseToGLPipeline.cpp"
-			 "src/services/render/close-to-gl/VertexShaderJob.cpp" 
-			 "src/services/render/close-to-gl/ClippingJob.cpp" 
-			 "src/services/render/close-to-gl/PerspectiveDivideJob.cpp" 
-			 "src/services/ProjectionFromConfig.cpp" "src/services/Debug.cpp" "src/services/render/CameraResetProcessor.cpp" "src/services/render/RenderModeProcessor.cpp" "src/services/render/BackgroundProcessor.cpp")
+			"src/services/render/close-to-gl/CloseToGLPipeline.cpp"
+			"src/services/render/close-to-gl/VertexShaderJob.cpp" 
+			"src/services/render/close-to-gl/CullingJob.cpp" 
+			"src/services/render/close-to-gl/PerspectiveDivideJob.cpp" 
+			"src/services/ProjectionFromConfig.cpp" 
+			"src/services/Debug.cpp" 
+			"src/services/render/CameraResetProcessor.cpp" 
+			"src/services/render/RenderModeProcessor.cpp" 
+			"src/services/render/BackgroundProcessor.cpp")
 
 find_package(OpenMP)
 if (OPENMP_FOUND)

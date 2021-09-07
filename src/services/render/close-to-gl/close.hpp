@@ -40,14 +40,18 @@ namespace close {
 		Camera* camera;
 		ProjectionFromConfig* projectionProvider;
 		glm::mat4 getMVP();
-		glm::vec4 toHomogeneous(data::VertexData);
+		glm::vec4 toHomogeneous(data::VertexData* vertex);
 	};
 
-	class ClippingJob : public Job<std::vector<glm::vec4>*, std::vector<glm::vec4>> {
+	class CullingJob : public Job<std::vector<glm::vec4>*, std::vector<glm::vec4>> {
 	public:
 		std::vector<glm::vec4> apply(std::vector<glm::vec4>*);
-		bool isInsideClippingSpace(float x, float y, float z, float w);
-		bool backfaceCullingTest(glm::vec4, glm::vec4, glm::vec4);
+		bool shouldDiscard(std::vector<glm::vec4>* primitive, size_t start);
+		bool allVerticesOutsideFrustumAtXAndY(std::vector<glm::vec4>* primitive, size_t start);
+		bool atLeastOneVerticeOutsideFrustumAtZ(std::vector<glm::vec4>* primitive, size_t start);
+		bool backfaceCullingTest(std::vector<glm::vec4>* primitive, size_t start);
+		bool isXYInsideFrustum(glm::vec4* point);
+		bool isZInsideFrustum(glm::vec4* point);
 	};
 
 	class PerspectiveDivideJob : public Job<std::vector<glm::vec4>*, std::vector<data::VertexData2D>> {
@@ -61,7 +65,7 @@ namespace close {
 		CloseToGLPipeline();
 	private:
 		VertexShaderJob* toHomogeneousClipSpace;
-		ClippingJob* clipping;
+		CullingJob* culling;
 		PerspectiveDivideJob* normalization;
 	};
 
