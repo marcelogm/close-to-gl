@@ -37,7 +37,7 @@ void ImGuiWrapper::display() {
 	this->debug();
 
 	ImGui::Render();
-	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());	
 }
 
 void ImGuiWrapper::destroy() {
@@ -49,21 +49,24 @@ void ImGuiWrapper::destroy() {
 void ImGuiWrapper::shading() {
 	ImGui::Begin("Cor e sombreamento", NULL, ImGuiWindowFlags_AlwaysAutoResize);
 
-	ImGui::Text("Shading mode:");
+	ImGui::ColorEdit4("Cor do objeto", config->getColor());
+
+	ImGui::Text("Shading:");
 	ImGui::RadioButton("No shading", config->getShading(), 1);
 	ImGui::RadioButton("Gouraud Shading AD", config->getShading(), 2);
 	ImGui::RadioButton("Gouraud Shading ADS", config->getShading(), 3);
 	ImGui::RadioButton("Phong Shading", config->getShading(), 4);
 
-	ImGui::Text("Light position:");
+	ImGui::Text("Diffuse light position:");
 	ImGui::SliderFloat("X", &config->getLightPosition()->x, -1000.0f, 1000.0f, "");
 	ImGui::SliderFloat("Y", &config->getLightPosition()->y, -1000.0f, 1000.0f, "");
 	ImGui::SliderFloat("Z", &config->getLightPosition()->z, -1000.0f, 1000.0f, "");
-	ImGui::ColorEdit4("Cor do objeto", config->getColor());
-	ImGui::ColorEdit4("Cor da luz", config->getLightColor());
-	ImGui::SliderFloat("Intensidade da luz ambiente", config->getAmbientStrength(), 0.0f, 1.0f);
-	ImGui::SliderFloat("Intensidade da luz difusa", config->getDiffuseStrength(), 0.0f, 1.0f);
-	ImGui::SliderFloat("Intensidade da luz especular", config->getSpecularStrength(), 0.0f, 1.0f);
+	ImGui::ColorEdit4("Cor", config->getLightColor());
+
+	ImGui::Text("Intesidade");
+	ImGui::SliderFloat("Luz ambiente", config->getAmbientStrength(), 0.0f, 1.0f);
+	ImGui::SliderFloat("Luz difusa", config->getDiffuseStrength(), 0.0f, 1.0f);
+	ImGui::SliderFloat("Luz especular", config->getSpecularStrength(), 0.0f, 1.0f);
 	ImGui::End();
 }
 

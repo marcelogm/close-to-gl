@@ -112,3 +112,6 @@
 807	947	6527465365396910	lib/close-to-gl.lib	cb69bbee39b64dd7
 10	955	6527465366286889	CMakeFiles/main.dir/src/main.cpp.obj	5a18a4ee53c0f2f9
 956	1125	6527465367666903	../main.exe	2bf98178a8e1d99e
+3	960	6527539958787785	CMakeFiles/close-to-gl.dir/src/gui/ImGuiWrapper.cpp.obj	d3e046a304ec9f61
+961	1045	6527539959437629	lib/close-to-gl.lib	cb69bbee39b64dd7
+1045	1205	6527539960947782	../main.exe	2bf98178a8e1d99e
