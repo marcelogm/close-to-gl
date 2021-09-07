@@ -211,3 +211,12 @@
 3	844	6526843716053315	CMakeFiles/close-to-gl.dir/src/gui/ImGuiWrapper.cpp.obj	d3e046a304ec9f61
 845	926	6526843716663309	lib/close-to-gl.lib	ed0f571ace9b53cc
 926	1069	6526843718063326	../main.exe	2bf98178a8e1d99e
+12	1228	6527164202906740	CMakeFiles/close-to-gl.dir/src/gui/ImGuiWrapper.cpp.obj	d3e046a304ec9f61
+3	1285	6527164203446744	CMakeFiles/close-to-gl.dir/src/gui/Command.cpp.obj	a523902c4948e67f
+6	1295	6527164203566748	CMakeFiles/close-to-gl.dir/src/gui/Application.cpp.obj	6827298c58a96d1e
+1295	1444	6527164204876728	lib/close-to-gl.lib	ed0f571ace9b53cc
+16	1459	6527164205216725	CMakeFiles/main.dir/src/main.cpp.obj	5a18a4ee53c0f2f9
+1459	1848	6527164208746755	../main.exe	2bf98178a8e1d99e
+3	743	6527164938052380	CMakeFiles/close-to-gl.dir/src/gui/ImGuiWrapper.cpp.obj	d3e046a304ec9f61
+743	818	6527164938622385	lib/close-to-gl.lib	ed0f571ace9b53cc
+818	981	6527164940162374	../main.exe	2bf98178a8e1d99e

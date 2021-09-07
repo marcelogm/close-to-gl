@@ -16,6 +16,10 @@ private:
 	Config* config;
 	static ImGuiWrapper* instance;
 	ImGuiWrapper();
+	void space();
+	void info();
+	void debug();
+	void shading();
 public:
 	static ImGuiWrapper* getInstance();
 	void init(GLFWwindow* window);
