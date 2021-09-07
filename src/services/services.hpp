@@ -38,6 +38,10 @@ private:
 	static Config* instance;
 	Config();
 	float color[4] = { 0.0f, 0.90f, 1.0f, 1.0f };
+	float lightColor[4] = { 1.0f, 1.0f, 1.0f, 1.0f };
+	float ambientStrength = 0.1;
+	float diffuseStrength = 0.8;
+	float specularStrength = 0.6;
 	bool move = false;
 	bool mouseStatus = false;
 	int xfov = 45;
@@ -51,12 +55,15 @@ private:
 	int windowHeight = 0;
 	int renderMode = 0;
 	bool useOpenGL = true;
-	bool useShading = true;
 	int shading = 1;
 	glm::vec3 lightPosition = glm::vec3(0.0f, 0.3f, 0.0f);
 public:
 	static Config* getInstance();
 	float* getColor();
+	float* getLightColor();
+	float* getAmbientStrength();
+	float* getDiffuseStrength();
+	float* getSpecularStrength();
 	bool* getMove();
 	int* getXFOV();
 	int* getYFOV();
@@ -70,7 +77,6 @@ public:
 	bool* getMouseStatus();
 	int* getRenderMode();
 	bool* getOpenGLUse();
-	bool* getShadingUse();
 	int* getShading();
 	glm::vec3* getLightPosition();
 	void reset();

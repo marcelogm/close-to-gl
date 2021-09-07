@@ -26,6 +26,7 @@ void ImGuiWrapper::init(GLFWwindow* window) {
 }
 
 void ImGuiWrapper::display() {
+	ImGui::GetIO().ConfigFlags |= ImGuiConfigFlags_DockingEnable;
 	ImGui_ImplOpenGL3_NewFrame();
 	ImGui_ImplGlfw_NewFrame();
 	ImGui::NewFrame();
@@ -47,22 +48,22 @@ void ImGuiWrapper::destroy() {
 
 void ImGuiWrapper::shading() {
 	ImGui::Begin("Cor e sombreamento", NULL, ImGuiWindowFlags_AlwaysAutoResize);
-	ImGui::Checkbox("Habilitar", config->getShadingUse());
-	if (*config->getShadingUse()) {
-		ImGui::RadioButton("Gouraud Shading AD", config->getShading(), 1);
-		ImGui::SameLine();
-		ImGui::RadioButton("Gouraud Shading ADS", config->getShading(), 2);
-		ImGui::SameLine();
-		ImGui::RadioButton("Phong Shading", config->getShading(), 3);
 
-		ImGui::Text("Light position:");
-		ImGui::SliderFloat("X", &config->getLightPosition()->x, -1000.0f, 1000.0f, "");
-		ImGui::SameLine();
-		ImGui::SliderFloat("Y", &config->getLightPosition()->y, -1000.0f, 1000.0f, "");
-		ImGui::SameLine();
-		ImGui::SliderFloat("Z", &config->getLightPosition()->z, -1000.0f, 1000.0f, "");
-	}
-	ImGui::ColorEdit4("Cor", config->getColor());
+	ImGui::Text("Shading mode:");
+	ImGui::RadioButton("No shading", config->getShading(), 1);
+	ImGui::RadioButton("Gouraud Shading AD", config->getShading(), 2);
+	ImGui::RadioButton("Gouraud Shading ADS", config->getShading(), 3);
+	ImGui::RadioButton("Phong Shading", config->getShading(), 4);
+
+	ImGui::Text("Light position:");
+	ImGui::SliderFloat("X", &config->getLightPosition()->x, -1000.0f, 1000.0f, "");
+	ImGui::SliderFloat("Y", &config->getLightPosition()->y, -1000.0f, 1000.0f, "");
+	ImGui::SliderFloat("Z", &config->getLightPosition()->z, -1000.0f, 1000.0f, "");
+	ImGui::ColorEdit4("Cor do objeto", config->getColor());
+	ImGui::ColorEdit4("Cor da luz", config->getLightColor());
+	ImGui::SliderFloat("Intensidade da luz ambiente", config->getAmbientStrength(), 0.0f, 1.0f);
+	ImGui::SliderFloat("Intensidade da luz difusa", config->getDiffuseStrength(), 0.0f, 1.0f);
+	ImGui::SliderFloat("Intensidade da luz especular", config->getSpecularStrength(), 0.0f, 1.0f);
 	ImGui::End();
 }
 

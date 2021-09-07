@@ -30,9 +30,8 @@ void OpenGLRenderer::init(data::Model* model) {
 	this->modelSpace = glGetUniformLocation(program, "model");
 	this->viewSpace = glGetUniformLocation(program, "view");
 	this->projectionSpace = glGetUniformLocation(program, "projection");
-	this->customColor = glGetUniformLocation(program, "customColor");
-	this->ambientLight = glGetUniformLocation(program, "ambientLight");
-	this->lightPosition = glGetUniformLocation(program, "lightPosition");
+	this->light->setup(program);
+
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_PROGRAM_POINT_SIZE);
 }
@@ -53,17 +52,13 @@ void OpenGLRenderer::display() {
 	glm::mat4 model = glm::mat4(1.0f);
 	glm::mat4 view = camera->getView();
 	glm::mat4 projection = this->projectionProvider->get();
-	float* rgba = config->getColor();
-	glm::vec3 ambientLightValue(0.0f, 3.0f, 0.0f);
-	glm::vec3* lightPositionValue = config->getLightPosition();
-	glUniform3f(ambientLight, ambientLightValue.x, ambientLightValue.y, ambientLightValue.z);
-	glUniform3f(lightPosition, lightPositionValue->x, lightPositionValue->y, lightPositionValue->z);
-	glUniform4f(customColor, rgba[0], rgba[1], rgba[2], rgba[3]);
+
+	this->light->process();
 	glUniformMatrix4fv(modelSpace, 1, GL_FALSE, glm::value_ptr(model));
 	glUniformMatrix4fv(viewSpace, 1, GL_FALSE, glm::value_ptr(view));
 	glUniformMatrix4fv(projectionSpace, 1, GL_FALSE, glm::value_ptr(projection));
 	glBindVertexArray(VAOs[Triangles]);
-	
+
 	this->background->process();
 	this->drawer->process(this->verticesCount);	
 	this->reset->process(this->range);
@@ -86,6 +81,7 @@ OpenGLRenderer::OpenGLRenderer() {
 	this->drawer = new renderer::OpenGLDrawProcessor();
 	this->reset = new renderer::CameraResetProcessor();
 	this->background = new renderer::BackgroundProcessor();
+	this->light = new renderer::LightProcessor();
 	this->config = Config::getInstance();
 	this->camera = Camera::getInstance();
 	this->projectionProvider = new ProjectionFromConfig();

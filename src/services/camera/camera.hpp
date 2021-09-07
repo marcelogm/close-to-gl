@@ -8,6 +8,7 @@ class Camera {
 public:
 	void reset(glm::vec2 u, glm::vec2 v);
 	glm::mat4 getView();
+	glm::vec3 getPosition();
 	static Camera* getInstance();
 	void look(float yaw, float pitch);
 	void roll(float);

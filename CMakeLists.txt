@@ -59,7 +59,7 @@ add_library(close-to-gl
 			"src/services/Debug.cpp" 
 			"src/services/render/CameraResetProcessor.cpp" 
 			"src/services/render/RenderModeProcessor.cpp" 
-			"src/services/render/BackgroundProcessor.cpp")
+			"src/services/render/BackgroundProcessor.cpp" "src/services/render/LightProcessor.cpp")
 
 find_package(OpenMP)
 if (OPENMP_FOUND)

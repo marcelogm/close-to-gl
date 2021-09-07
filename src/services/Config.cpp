@@ -16,6 +16,22 @@ float* Config::getColor() {
 	return this->color;
 }
 
+float* Config::getLightColor() {
+	return this->lightColor;
+}
+
+float* Config::getAmbientStrength() {
+	return &this->ambientStrength;
+}
+
+float* Config::getDiffuseStrength() {
+	return &this->diffuseStrength;
+}
+
+float* Config::getSpecularStrength() {
+	return &this->specularStrength;
+}
+
 int* Config::getXFOV() {
 	return &this->xfov;
 }
@@ -66,10 +82,6 @@ int* Config::getRenderMode() {
 
 bool* Config::getOpenGLUse() {
 	return &this->useOpenGL;
-}
-
-bool* Config::getShadingUse() {
-	return &this->useShading;
 }
 
 int* Config::getShading() {

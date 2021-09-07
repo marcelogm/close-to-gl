@@ -35,6 +35,28 @@ namespace renderer {
 		Camera* camera;
 	};
 
+	class LightProcessor {
+	public:
+		void setup(GLuint program);
+		void process();
+		LightProcessor();
+	private:
+		GLuint customColor;
+		GLuint lightPosition;
+		GLuint lightColor;
+		GLuint ambientStrength;
+		GLuint diffuseStrength;
+		GLuint specularStrength;
+		GLuint cameraPosition;
+		GLuint gouraudADSubroutine;
+		GLuint gouraudADSSubroutine;
+		GLuint noVertexShading;
+		GLuint noFragmentShading;
+		GLuint phongShading;
+		Camera* camera;
+		Config* config;
+	};
+
 	class BackgroundProcessor {
 	public:
 		void process();

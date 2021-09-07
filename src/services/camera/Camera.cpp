@@ -22,6 +22,10 @@ glm::mat4 Camera::getView() {
 	return this->view;
 }
 
+glm::vec3 Camera::getPosition() {
+	return this->position;
+}
+
 void Camera::update() {
 	auto yawRadians = glm::radians(yaw);
 	auto pitchRadians = glm::radians(pitch);

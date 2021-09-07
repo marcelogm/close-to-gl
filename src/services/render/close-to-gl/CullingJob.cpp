@@ -51,7 +51,7 @@ bool CullingJob::isZInsideFrustum(glm::vec4* point) {
 	const auto z = point->z;
 	const auto w = point->w;
 
-	return ((-w <= z) && (z <= w)) ||
+	return ((-w <= z) && (z <= w)) &&
 		(0 < w);
 }
 

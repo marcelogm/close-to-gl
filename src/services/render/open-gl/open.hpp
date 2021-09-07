@@ -36,9 +36,6 @@ namespace open {
 		long modelSpace;
 		long viewSpace;
 		long projectionSpace;
-		long customColor;
-		long lightPosition;
-		long ambientLight;
 		GLuint program;
 		ModelToVertex* converter;
 		Config* config;
@@ -46,6 +43,7 @@ namespace open {
 		renderer::OpenGLDrawProcessor* drawer;
 		renderer::BackgroundProcessor* background;
 		renderer::CameraResetProcessor* reset;
+		renderer::LightProcessor* light;
 		ProjectionFromConfig* projectionProvider;
 		std::vector<ShaderInfo> getShaders();
 	};
