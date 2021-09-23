@@ -21,37 +21,24 @@ std::vector<glm::vec4> CullingJob::apply(std::vector<glm::vec4>* vertices) {
 
 bool CullingJob::shouldDiscard(std::vector<glm::vec4>* primitive, size_t start) {
 	return this->backfaceCullingTest(primitive, start) ||
-		this->atLeastOneVerticeOutsideFrustumAtZ(primitive, start) || 
-		this->allVerticesOutsideFrustumAtXAndY(primitive, start);
+		this->atLeastOneVerticeOutsideFrustum(primitive, start);
 }
 
-bool CullingJob::allVerticesOutsideFrustumAtXAndY(std::vector<glm::vec4>* primitive, size_t start) {
-	return !this->isXYInsideFrustum(&primitive->at(start)) &&
-		!this->isXYInsideFrustum(&primitive->at(start + 1)) &&
-		!this->isXYInsideFrustum(&primitive->at(start + 2));
+bool CullingJob::atLeastOneVerticeOutsideFrustum(std::vector<glm::vec4>* primitive, size_t start) {
+	return !this->isInsideFrustum(&primitive->at(start)) ||
+		!this->isInsideFrustum(&primitive->at(start + 1)) ||
+		!this->isInsideFrustum(&primitive->at(start + 2));
 }
 
-bool CullingJob::atLeastOneVerticeOutsideFrustumAtZ(std::vector<glm::vec4>* primitive, size_t start) {
-	return !this->isZInsideFrustum(&primitive->at(start)) ||
-		!this->isZInsideFrustum(&primitive->at(start + 1)) ||
-		!this->isZInsideFrustum(&primitive->at(start + 2));
-}
-
-bool CullingJob::isXYInsideFrustum(glm::vec4* point) {
+bool CullingJob::isInsideFrustum(glm::vec4* point) {
 	const auto x = point->x;
 	const auto y = point->y;
 	const auto w = point->w;
-
+	const auto z = point->z;
+	
 	return ((-w <= x) && (x <= w)) &&
 		((-w <= y) && (y <= w)) &&
-		(0 < w);
-}
-
-bool CullingJob::isZInsideFrustum(glm::vec4* point) {
-	const auto z = point->z;
-	const auto w = point->w;
-
-	return ((-w <= z) && (z <= w)) &&
+		((-w <= z) && (z <= w)) &&
 		(0 < w);
 }
 

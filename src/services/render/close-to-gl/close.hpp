@@ -47,11 +47,9 @@ namespace close {
 	public:
 		std::vector<glm::vec4> apply(std::vector<glm::vec4>*);
 		bool shouldDiscard(std::vector<glm::vec4>* primitive, size_t start);
-		bool allVerticesOutsideFrustumAtXAndY(std::vector<glm::vec4>* primitive, size_t start);
-		bool atLeastOneVerticeOutsideFrustumAtZ(std::vector<glm::vec4>* primitive, size_t start);
+		bool atLeastOneVerticeOutsideFrustum(std::vector<glm::vec4>* primitive, size_t start);
 		bool backfaceCullingTest(std::vector<glm::vec4>* primitive, size_t start);
-		bool isXYInsideFrustum(glm::vec4* point);
-		bool isZInsideFrustum(glm::vec4* point);
+		bool isInsideFrustum(glm::vec4* point);
 	};
 
 	class PerspectiveDivideJob : public Job<std::vector<glm::vec4>*, std::vector<data::VertexData2D>> {
