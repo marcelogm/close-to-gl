@@ -7,13 +7,13 @@ void LightProcessor::process() {
 	float* lightColorValue = config->getLightColor();
 
 	glm::vec3* lightPositionValue = config->getLightPosition();
-	glm::vec3 cameraPositionValue = camera->getPosition();
+	glm::vec3* cameraPositionValue = camera->getPosition();
 
 	glUniform1f(ambientStrength, *config->getAmbientStrength()); 
 	glUniform1f(diffuseStrength, *config->getDiffuseStrength());
 	glUniform1f(specularStrength, *config->getSpecularStrength());
 	glUniform3f(lightPosition, lightPositionValue->x, lightPositionValue->y, lightPositionValue->z);
-	glUniform3f(cameraPosition, cameraPositionValue.x, cameraPositionValue.y, cameraPositionValue.z);
+	glUniform3f(cameraPosition, cameraPositionValue->x, cameraPositionValue->y, cameraPositionValue->z);
 	glUniform4f(customColor, objectColor[0], objectColor[1], objectColor[2], objectColor[3]);
 	glUniform3f(lightColor, lightColorValue[0], lightColorValue[1], lightColorValue[2]);
 

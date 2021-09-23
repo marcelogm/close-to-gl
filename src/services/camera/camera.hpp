@@ -8,10 +8,12 @@ class Camera {
 public:
 	void reset(glm::vec2 u, glm::vec2 v);
 	glm::mat4 getView();
-	glm::vec3 getPosition();
+	glm::vec3* getPosition();
+	float* getYaw();
+	float* getPitch();
 	static Camera* getInstance();
 	void look(float yaw, float pitch);
-	void roll(float);
+	void doRoll(float);
 	void goFoward(float);
 	void goBack(float);
 	void goRight(float);
@@ -22,9 +24,9 @@ public:
 	void requestReset();
 	bool getResetRequest();
 	void setResetRequest(bool);
+	void Camera::update();
 private:
 	Camera();
-	void Camera::update();
 	static Camera* instance;
 	glm::vec3 position;
 	glm::vec3 front;
@@ -33,5 +35,7 @@ private:
 	glm::mat4 view;
 	float yaw;
 	float pitch;
+	float roll;
+	float oldRoll;
 	bool shouldReset = true;
 };

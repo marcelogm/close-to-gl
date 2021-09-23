@@ -76,10 +76,43 @@ void ImGuiWrapper::space() {
 		config->reset();
 		camera->requestReset();
 	}
+	ImGui::Text("Transalacao da camera:");
+
+	if (ImGui::SliderFloat("u", &camera->getPosition()->x, -10000.0f, 10000.0f, "")) {
+		camera->update();
+	}
+	if (ImGui::SliderFloat("v", &camera->getPosition()->y, -10000.0f, 10000.0f, "")) {
+		camera->update();
+	} 
+	if (ImGui::SliderFloat("n", &camera->getPosition()->z, -10000.0f, 10000.0f, "")) {
+		camera->update();
+	}
+
+	ImGui::Text("Rotacao da camera:");
+	if (ImGui::SliderFloat("Pitch", camera->getPitch(), -360.0f, 360.0f, "")) {
+		camera->update();
+	}
+	if (ImGui::SliderFloat("Yaw", camera->getYaw(), (-360.0f - 90.0f), (360.0f - 90.0f), "")) {
+		camera->update();
+	}
+	float diffRoll = 0.0f;
+	if (ImGui::SliderFloat("Roll", &diffRoll, -360.0f, 360.0f, "")) {
+		camera->doRoll(diffRoll);
+	}
+
+	ImGui::Text("Translacao fixa:");
+	float diffRotate = 0.0f;
+	if (ImGui::SliderFloat("Translacao", &diffRotate, -10.0f, 10.0f, "", ImGuiSliderFlags_Logarithmic)) {
+		camera->rotateAround(diffRotate);
+	}
+
+	ImGui::Text("Visao e perspectiva:");
 	ImGui::SliderInt("FOV X", config->getXFOV(), 1, 180);
 	ImGui::SliderInt("FOV Y", config->getYFOV(), 1, 180);
 	ImGui::SliderInt("Z Near", config->getZNear(), 1, 10000, "%d", ImGuiSliderFlags_Logarithmic);
 	ImGui::SliderInt("Z Far", config->getZFar(), 100, 20000, "%d", ImGuiSliderFlags_Logarithmic);
+
+	ImGui::Text("Configuracao de teclado:");
 	ImGui::Checkbox("Utilizar mouse", config->getMouseStatus());
 	ImGui::SliderFloat("Sensibilidade do mouse", config->getMouseSensibility(), 0.0f, 100.0f, "%.0f", ImGuiSliderFlags_Logarithmic);
 	ImGui::Checkbox("Girar camera no proprio eixo (CNTRL)", config->getMove());

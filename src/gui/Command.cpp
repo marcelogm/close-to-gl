@@ -83,7 +83,7 @@ class RollRight : public KeyCommandStrategy {
 	};
 
 	void apply() {
-		camera->roll(10.0f * getSensibility());
+		camera->doRoll(10.0f * getSensibility());
 	};
 };
 
@@ -93,7 +93,7 @@ class RollLeft : public KeyCommandStrategy {
 	};
 
 	void apply() {
-		camera->roll(-10.0f * getSensibility());
+		camera->doRoll(-10.0f * getSensibility());
 	};
 };
 

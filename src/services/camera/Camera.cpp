@@ -22,10 +22,6 @@ glm::mat4 Camera::getView() {
 	return this->view;
 }
 
-glm::vec3 Camera::getPosition() {
-	return this->position;
-}
-
 void Camera::update() {
 	auto yawRadians = glm::radians(yaw);
 	auto pitchRadians = glm::radians(pitch);
@@ -36,7 +32,19 @@ void Camera::update() {
 
 	this->front = glm::normalize(this->front);
 	this->right = glm::normalize(glm::cross(front, up));
-	this->view = glm::lookAt(position, position + front, up);
+	
+	glm::vec3 eye = position;
+	glm::vec3 target = position + front;
+	glm::vec3 n = glm::normalize(eye - target);
+	glm::vec3 u = glm::normalize(glm::cross(up, n));
+	glm::vec3 v = glm::cross(n, u);
+	glm::vec3 O = eye;
+	this->view = glm::mat4(
+					u.x,			v.x,			  n.x, 0.f,
+					u.y,			v.y,		      n.y, 0.f,
+					u.z,			v.z,			  n.z, 0.f,
+		-glm::dot(O, u), -glm::dot(O, v), -glm::dot(O, n), 1.f
+	);
 }
 
 void Camera::look(float yawOffset, float pitchOffset) {
@@ -51,8 +59,10 @@ void Camera::look(float yawOffset, float pitchOffset) {
 	this->update();
 }
 
-void Camera::roll(float roll) {
-	auto rotate = glm::rotate(glm::mat4(1.0f), glm::radians(roll), front);
+void Camera::doRoll(float roll) {
+	this->oldRoll = this->roll;
+	this->roll = roll;
+	auto rotate = glm::rotate(glm::mat4(1.0f), glm::radians(this->oldRoll - this->roll), front);
 	this->up = rotate * glm::vec4(up, 1.0f);
 	this->update();
 }
@@ -87,10 +97,10 @@ void Camera::goDown(float speed) {
 	this->update();
 }
 
-void Camera::rotateAround(float x) {
-	auto rotate = glm::rotate(glm::mat4(1.0f), glm::radians(x), this->up);
-	this->position = rotate * glm::vec4(this->position, 1.0f);
-	this->look(-x, 0.0f);
+void Camera::rotateAround(float angle) {
+	auto rotation = glm::rotate(glm::mat4(1.0f), glm::radians(angle), this->up);
+	this->position = rotation * glm::vec4(this->position, 1.0f);
+	this->look(-angle, 0.0f);
 }
 
 void Camera::requestReset() {
@@ -118,4 +128,17 @@ Camera::Camera() {
 	this->up = glm::vec3(0.0f, 1.0f, 0.0f);
 	this->yaw = -90.0f;
 	this->pitch = 0.0f;
+	this->roll = 0.0f;
+}
+
+float* Camera::getYaw() {
+	return &this->yaw;
+}
+
+float* Camera::getPitch() {
+	return &this->pitch;
+}
+
+glm::vec3* Camera::getPosition() {
+	return &this->position;
 }
