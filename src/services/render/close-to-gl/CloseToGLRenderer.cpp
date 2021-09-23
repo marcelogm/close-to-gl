@@ -10,15 +10,14 @@ void CloseToGLRenderer::init(data::Model* model) {
 	auto converter = std::unique_ptr<ModelToVertex>();
 	this->vertices = converter->getVertexDataFromDataModel(model);
 	this->range = converter->getRange(this->vertices);
-	this->verticesCount = this->vertices->size();
 
 	this->program = LoadShaders(&this->getShaders().front());
 	glUseProgram(this->program);
 
 	glGenBuffers(NumBuffers, this->buffers);
 	glBindBuffer(GL_ARRAY_BUFFER, this->buffers[VertexBuffer]);
-	glBufferData(GL_ARRAY_BUFFER, this->vertices->size() * sizeof(data::VertexData2D), 0, GL_DYNAMIC_DRAW);
-	
+	glBufferStorage(GL_ARRAY_BUFFER, sizeof(this->panelVertices), this->panelVertices, 0);
+
 	glEnableVertexAttribArray(vPosition);
 	glVertexAttribPointer(vPosition, 2, GL_FLOAT, GL_FALSE, sizeof(data::VertexData2D), BUFFER_OFFSET(0));
 	this->customColor = glGetUniformLocation(program, "customColor");
@@ -39,12 +38,11 @@ void CloseToGLRenderer::display() {
 
 	glBindVertexArray(this->VAOs[Triangles]);
 	glBindBuffer(GL_ARRAY_BUFFER, this->buffers[VertexBuffer]);
-	if (processed->size() > 0) {
-		glBufferSubData(GL_ARRAY_BUFFER, 0, processed->size() * sizeof(data::VertexData2D), &processed.get()->front());
-	}
-
+	
+	// TODO: remover processador de fundo, não mais necessário
 	this->background->process();
-	this->drawer->process(processed->size());
+	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	glDrawArrays(GL_TRIANGLES, 0, 12);
 	this->reset->process(this->range);
 }
 
@@ -55,7 +53,6 @@ bool CloseToGLRenderer::test() {
 CloseToGLRenderer::CloseToGLRenderer() {
 	this->config = Config::getInstance();
 	this->pipeline = new CloseToGLPipeline();
-	this->drawer = new renderer::OpenGLDrawProcessor();
 	this->reset = new renderer::CameraResetProcessor();
 	this->background = new renderer::BackgroundProcessor();
 }

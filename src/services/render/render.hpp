@@ -19,6 +19,8 @@ namespace renderer {
 		virtual bool test() = 0;
 	};
 
+	// TODO: mover para contexto especifico do OpenGL, uma vez
+	// que não é mais necessário para o CloseToGL
 	class OpenGLDrawProcessor {
 	public:
 		void process(size_t);

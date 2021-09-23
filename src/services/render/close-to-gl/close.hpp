@@ -82,10 +82,13 @@ namespace close {
 		Config* config;
 		long customColor;
 		unsigned int verticesCount;
-		renderer::OpenGLDrawProcessor* drawer;
 		renderer::BackgroundProcessor* background;
 		renderer::CameraResetProcessor* reset;
 		CloseToGLPipeline* pipeline;
 		std::vector<ShaderInfo> getShaders();
+		GLfloat panelVertices[12] = { -1.0f, -1.0f,  1.0f, -1.0f,  1.0f,  1.0f,
+								       1.0f,  1.0f, -1.0f,  1.0f, -1.0f, -1.0f };
+		GLfloat panelMapping[12] = { 0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 1.0f,
+									 1.0f, 1.0f, 0.0f, 1.0f, 0.0f, 0.0f };
 	};
 }
