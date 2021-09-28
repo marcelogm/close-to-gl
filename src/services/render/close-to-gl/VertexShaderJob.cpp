@@ -4,13 +4,20 @@
 
 using namespace close;
 
-std::vector<glm::vec4> VertexShaderJob::apply(std::vector<data::VertexData>* vertices) {
+std::vector<data::VertexPayload> VertexShaderJob::apply(std::vector<data::VertexData>* vertices) {
 	const glm::mat4 MVP = this->getMVP();
-	std::vector<glm::vec4> positions(vertices->size());
+	auto color = this->config->getColor();
+
+	std::vector<data::VertexPayload> payload(vertices->size());
 	for (size_t i = 0; i < vertices->size(); i++) {
-		positions[i] = MVP * this->toHomogeneous(&vertices->at(i));
+		auto current = vertices->at(i);
+		payload[i] = {
+			MVP * this->toHomogeneous(&current),
+			glm::vec3(current.normal[0], current.normal[1], current.normal[2]),
+			glm::vec3(color[0], color[1], color[2])
+		};
 	}
-	return positions;
+	return payload;
 }
 
 glm::mat4 VertexShaderJob::getMVP() {
@@ -32,4 +39,5 @@ glm::vec4 VertexShaderJob::toHomogeneous(data::VertexData* vertex) {
 VertexShaderJob::VertexShaderJob() {
 	this->projectionProvider = new ProjectionFromConfig();
 	this->camera = Camera::getInstance();
+	this->config = Config::getInstance();
 }

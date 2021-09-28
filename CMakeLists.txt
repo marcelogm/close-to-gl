@@ -26,6 +26,7 @@ add_subdirectory(lib/glm)
 
 set(COMMON_LIBS close-to-gl ${OPENGL_LIBRARIES} glfw glm)
 set(COMMON_HEADERS include/vgl.h)
+set(COMMON_HEADERS include/stb_image.h)
 set(IMGUI_SOURCE_DIR lib/imgui)
 
 add_library(close-to-gl
@@ -59,7 +60,10 @@ add_library(close-to-gl
 			"src/services/Debug.cpp" 
 			"src/services/render/CameraResetProcessor.cpp" 
 			"src/services/render/RenderModeProcessor.cpp" 
-			"src/services/render/BackgroundProcessor.cpp" "src/services/render/LightProcessor.cpp")
+			"src/services/render/BackgroundProcessor.cpp" 
+			"src/services/render/LightProcessor.cpp" 
+			"src/services/render/close-to-gl/ViewportTransformationJob.cpp" 
+			"src/services/render/close-to-gl/RasterJob.cpp")
 
 find_package(OpenMP)
 if (OPENMP_FOUND)

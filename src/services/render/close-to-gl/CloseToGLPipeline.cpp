@@ -1,19 +1,22 @@
 #include "close.hpp"
-#include <time.h>       /* clock_t, clock, CLOCKS_PER_SEC */
 
 using namespace close;
 
-std::unique_ptr<std::vector<data::VertexData2D>> CloseToGLPipeline::apply(std::vector<data::VertexData>* vertices) {
+std::unique_ptr<std::vector<unsigned char>> CloseToGLPipeline::apply(std::vector<data::VertexData>* vertices) {
 	auto homogeneous = this->toHomogeneousClipSpace->apply(vertices);
 	auto clipped = this->culling->apply(&homogeneous);
 	auto normalized = this->normalization->apply(&clipped);
-	return std::make_unique<std::vector<data::VertexData2D>>(normalized);
+	auto viewported = this->viewport->apply(&normalized);
+	//return std::make_unique<std::vector<data::VertexData>>(normalized);
+	return std::make_unique<std::vector<unsigned char>>(0);
 }
 
 CloseToGLPipeline::CloseToGLPipeline() {
 	this->toHomogeneousClipSpace = new VertexShaderJob();
 	this->culling = new CullingJob();
 	this->normalization = new PerspectiveDivideJob();
+	this->viewport = new ViewportTransformationJob();
+	this->raster = new RasterJob();
 }
 
 

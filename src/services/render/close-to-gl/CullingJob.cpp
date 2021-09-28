@@ -5,8 +5,8 @@ using namespace close;
 
 #define TRIANGLE_VERTICES 3
 
-std::vector<glm::vec4> CullingJob::apply(std::vector<glm::vec4>* vertices) {
-	std::vector<glm::vec4> clipped(0);
+std::vector<data::VertexPayload> CullingJob::apply(std::vector<data::VertexPayload>* vertices) {
+	std::vector<data::VertexPayload> clipped(0);
 	const size_t size = vertices->size() / TRIANGLE_VERTICES;
 	for (size_t i = 0; i < size; i++) {
 		const size_t start = i * TRIANGLE_VERTICES;
@@ -19,15 +19,15 @@ std::vector<glm::vec4> CullingJob::apply(std::vector<glm::vec4>* vertices) {
 	return clipped;
 }
 
-bool CullingJob::shouldDiscard(std::vector<glm::vec4>* primitive, size_t start) {
+bool CullingJob::shouldDiscard(std::vector<data::VertexPayload>* primitive, size_t start) {
 	return this->backfaceCullingTest(primitive, start) ||
 		this->atLeastOneVerticeOutsideFrustum(primitive, start);
 }
 
-bool CullingJob::atLeastOneVerticeOutsideFrustum(std::vector<glm::vec4>* primitive, size_t start) {
-	return !this->isInsideFrustum(&primitive->at(start)) ||
-		!this->isInsideFrustum(&primitive->at(start + 1)) ||
-		!this->isInsideFrustum(&primitive->at(start + 2));
+bool CullingJob::atLeastOneVerticeOutsideFrustum(std::vector<data::VertexPayload>* primitive, size_t start) {
+	return !this->isInsideFrustum(&primitive->at(start).position) ||
+		!this->isInsideFrustum(&primitive->at(start + 1).position) ||
+		!this->isInsideFrustum(&primitive->at(start + 2).position);
 }
 
 bool CullingJob::isInsideFrustum(glm::vec4* point) {
@@ -42,10 +42,10 @@ bool CullingJob::isInsideFrustum(glm::vec4* point) {
 		(0 < w);
 }
 
-bool CullingJob::backfaceCullingTest(std::vector<glm::vec4>* primitive, size_t start) {
-	const auto p1 = glm::vec3(primitive->at(start));
-	const auto p2 = glm::vec3(primitive->at(start + 1));
-	const auto p3 = glm::vec3(primitive->at(start + 2));
+bool CullingJob::backfaceCullingTest(std::vector<data::VertexPayload>* primitive, size_t start) {
+	const auto p1 = glm::vec3(primitive->at(start).position);
+	const auto p2 = glm::vec3(primitive->at(start + 1).position);
+	const auto p3 = glm::vec3(primitive->at(start + 2).position);
 	const auto normal = glm::triangleNormal(p1, p2, p3);
 	const auto n = glm::dot(normal, p1);
 

@@ -17,7 +17,7 @@ namespace close {
 
 	enum AttribIDs {
 		vPosition = 0,
-		vNormalVertex = 1
+		aTexCoord = 1
 	};
 
 	template<typename I, typename O>
@@ -32,39 +32,60 @@ namespace close {
 		virtual O apply(I) = 0;
 	};
 
-	class VertexShaderJob : public Job<std::vector<data::VertexData>*, std::vector<glm::vec4>> {
+	class VertexShaderJob : public Job<std::vector<data::VertexData>*, std::vector<data::VertexPayload>> {
 	public:
-		std::vector<glm::vec4> apply(std::vector<data::VertexData>*);
+		std::vector<data::VertexPayload> apply(std::vector<data::VertexData>*);
 		VertexShaderJob();
 	private:
 		Camera* camera;
+		Config* config;
 		ProjectionFromConfig* projectionProvider;
 		glm::mat4 getMVP();
 		glm::vec4 toHomogeneous(data::VertexData* vertex);
 	};
 
-	class CullingJob : public Job<std::vector<glm::vec4>*, std::vector<glm::vec4>> {
+	class CullingJob : public Job<std::vector<data::VertexPayload>*, std::vector<data::VertexPayload>> {
 	public:
-		std::vector<glm::vec4> apply(std::vector<glm::vec4>*);
-		bool shouldDiscard(std::vector<glm::vec4>* primitive, size_t start);
-		bool atLeastOneVerticeOutsideFrustum(std::vector<glm::vec4>* primitive, size_t start);
-		bool backfaceCullingTest(std::vector<glm::vec4>* primitive, size_t start);
+		std::vector<data::VertexPayload> apply(std::vector<data::VertexPayload>*);
+	private:
+		bool shouldDiscard(std::vector<data::VertexPayload>* primitive, size_t start);
+		bool atLeastOneVerticeOutsideFrustum(std::vector<data::VertexPayload>* primitive, size_t start);
+		bool backfaceCullingTest(std::vector<data::VertexPayload>* primitive, size_t start);
 		bool isInsideFrustum(glm::vec4* point);
 	};
 
-	class PerspectiveDivideJob : public Job<std::vector<glm::vec4>*, std::vector<data::VertexData2D>> {
+	class PerspectiveDivideJob : public Job<std::vector<data::VertexPayload>*, std::vector<data::VertexPayload>> {
 	public:
-		std::vector<data::VertexData2D> apply(std::vector<glm::vec4>*);
+		std::vector<data::VertexPayload> apply(std::vector<data::VertexPayload>*);
+		glm::vec4 transform(glm::vec4 vertex);
 	};
 
-	class CloseToGLPipeline : public Pipeline<std::vector<data::VertexData>*, std::unique_ptr<std::vector<data::VertexData2D>>> {
+	class ViewportTransformationJob : public Job<std::vector<data::VertexPayload>*, std::vector<data::VertexPayload>> {
 	public:
-		std::unique_ptr<std::vector<data::VertexData2D>> apply(std::vector<data::VertexData>*);
+		std::vector<data::VertexPayload> apply(std::vector<data::VertexPayload>*);
+		ViewportTransformationJob();
+	private:
+		glm::mat4 getViewport();
+		Config* config;
+	};
+
+	class RasterJob : public Job<std::vector<data::VertexPayload>*, std::vector<unsigned char>> {
+	public:
+		std::vector<unsigned char> apply(std::vector<data::VertexPayload>*);
+		RasterJob();
+	};
+
+
+	class CloseToGLPipeline : public Pipeline<std::vector<data::VertexData>*, std::unique_ptr<std::vector<unsigned char>>> {
+	public:
+		std::unique_ptr<std::vector<unsigned char>> apply(std::vector<data::VertexData>*);
 		CloseToGLPipeline();
 	private:
 		VertexShaderJob* toHomogeneousClipSpace;
 		CullingJob* culling;
 		PerspectiveDivideJob* normalization;
+		ViewportTransformationJob* viewport;
+		RasterJob* raster;
 	};
 
 	class CloseToGLRenderer : public renderer::Renderer {
@@ -79,6 +100,8 @@ namespace close {
 		GLuint VAOs[NumVAOs];
 		GLuint buffers[NumBuffers];
 		GLuint program;
+		GLuint texture;
+		unsigned char* data;
 		Config* config;
 		long customColor;
 		unsigned int verticesCount;
@@ -86,9 +109,12 @@ namespace close {
 		renderer::CameraResetProcessor* reset;
 		CloseToGLPipeline* pipeline;
 		std::vector<ShaderInfo> getShaders();
-		GLfloat panelVertices[12] = { -1.0f, -1.0f,  1.0f, -1.0f,  1.0f,  1.0f,
-								       1.0f,  1.0f, -1.0f,  1.0f, -1.0f, -1.0f };
-		GLfloat panelMapping[12] = { 0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 1.0f,
-									 1.0f, 1.0f, 0.0f, 1.0f, 0.0f, 0.0f };
+		// POSITION, MAPPING
+		GLfloat panelVertices[24] = { -1.0f, -1.0f, 0.0f, 0.0f,
+									   1.0f, -1.0f, 1.0f, 0.0f,
+			                           1.0f,  1.0f, 1.0f, 1.0f,
+								       1.0f,  1.0f, 1.0f, 1.0f,
+			                          -1.0f,  1.0f, 0.0f, 1.0f,
+			                          -1.0f, -1.0f, 0.0f, 0.0f };
 	};
 }

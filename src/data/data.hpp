@@ -19,6 +19,13 @@ namespace data {
 		unsigned char color[3];
 	};
 
+	// Payload for pipeline processing
+	struct VertexPayload {
+		glm::vec4 position;
+		glm::vec3 normal;
+		glm::vec3 color;
+	};
+
 	struct VertexData2D {
 		float position[2];
 	};

@@ -1,15 +1,13 @@
 #version 400 core
 
-layout( location = 0 ) in vec4 vPosition;
+layout( location = 0 ) in vec2 vPosition;
+layout( location = 1 ) in vec2 aTexCoord;
 
-out vec4 color;
-
-uniform vec4 customColor;
+out vec2 coord;
 
 void
 main()
 {
-    color = customColor;
-    gl_Position = vPosition;
-    gl_PointSize = 2.0;
+    gl_Position = vec4(vPosition, 0.0f, 1.0f);
+    coord = aTexCoord;
 }
