@@ -110,3 +110,15 @@
 3	724	6546417413292190	CMakeFiles/close-to-gl.dir/src/gui/Application.cpp.obj	6827298c58a96d1e
 725	788	6546417413892219	lib/close-to-gl.lib	98bb5d278b00e72f
 788	939	6546417415212238	../main.exe	2bf98178a8e1d99e
+4	684	6546419259261876	CMakeFiles/close-to-gl.dir/src/services/render/close-to-gl/raster/RgbBuffer.cpp.obj	6d745127f063b8c3
+685	763	6546419259931886	lib/close-to-gl.lib	98bb5d278b00e72f
+763	973	6546419261811897	../main.exe	2bf98178a8e1d99e
+6	705	6546419745514363	CMakeFiles/close-to-gl.dir/src/services/render/close-to-gl/raster/RgbBuffer.cpp.obj	6d745127f063b8c3
+706	772	6546419746144492	lib/close-to-gl.lib	98bb5d278b00e72f
+772	915	6546419747404396	../main.exe	2bf98178a8e1d99e
+3	659	6546420101128552	CMakeFiles/close-to-gl.dir/src/services/render/close-to-gl/raster/RgbBuffer.cpp.obj	6d745127f063b8c3
+660	736	6546420101778563	lib/close-to-gl.lib	98bb5d278b00e72f
+736	885	6546420103178531	../main.exe	2bf98178a8e1d99e
+4	659	6546420273142619	CMakeFiles/close-to-gl.dir/src/services/render/close-to-gl/raster/RgbBuffer.cpp.obj	6d745127f063b8c3
+659	732	6546420273778124	lib/close-to-gl.lib	98bb5d278b00e72f
+733	887	6546420275228130	../main.exe	2bf98178a8e1d99e
