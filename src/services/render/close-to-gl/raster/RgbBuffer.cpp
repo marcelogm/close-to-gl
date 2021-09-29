@@ -26,7 +26,7 @@ std::vector<BYTE> close::RgbBuffer::get() {
 }
 
 void close::RgbBuffer::set(size_t x, size_t y, BYTE R, BYTE G, BYTE B) {
-	buffer.at(x * this->width * RGB_CHANNEL_COUNT + y * RGB_CHANNEL_COUNT) = R;
-	buffer.at(x * this->width * RGB_CHANNEL_COUNT + y * RGB_CHANNEL_COUNT + 1) = G;
-	buffer.at(x * this->width * RGB_CHANNEL_COUNT + y * RGB_CHANNEL_COUNT + 2) = B;
+	buffer.at(x * RGB_CHANNEL_COUNT + y * this->width * RGB_CHANNEL_COUNT) = R;
+	buffer.at(x * RGB_CHANNEL_COUNT + y * this->width * RGB_CHANNEL_COUNT + 1) = G;
+	buffer.at(x * RGB_CHANNEL_COUNT + y * this->width * RGB_CHANNEL_COUNT + 2) = B;
 }

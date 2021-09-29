@@ -27,13 +27,22 @@ namespace close {
 		float step;
 	};
 
+	class Scanner {
+	public:
+		Scanner();
+		void scanline(RgbBuffer* buffer, int y, Slope* left, Slope* right);
+	};
+
 	class RasterJob {
 	public:
 		std::vector<unsigned char> apply(std::vector<data::VertexPayload>*);
+		RasterJob();
+	private:
 		void draw(RgbBuffer* buffer, data::VertexPayload* p0, data::VertexPayload* p1, data::VertexPayload* p2);
+		bool isTheShorterSide(glm::vec3* p0, glm::vec3* p1, glm::vec3* p2);
 		glm::vec3 extract(data::VertexPayload* vertex);
 		void order(data::VertexPayload* v0, data::VertexPayload* v1, data::VertexPayload* v2, glm::vec3* p0, glm::vec3* p1, glm::vec3* p2);
-		RasterJob();
+		Scanner* scanner;
 	};
 
 

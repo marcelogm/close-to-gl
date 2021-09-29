@@ -11,8 +11,8 @@ std::vector<data::VertexPayload> ViewportTransformationJob::apply(std::vector<da
 		const auto position = vertex.position;
 		transformed[i] = {
 			glm::vec4(
-				((position.x + 1) * 0.5f * width),
-				((position.y + 1) * 0.5f * height),
+				((position.x + 1) * 0.5f * height),
+				((position.y + 1) * 0.5f * width),
 				vertex.position.z,
 				vertex.position.w
 			),
