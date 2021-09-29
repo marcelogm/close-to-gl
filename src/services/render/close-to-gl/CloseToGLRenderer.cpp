@@ -30,19 +30,11 @@ void CloseToGLRenderer::init(data::Model* model) {
 	glGenTextures(1, &this->texture);
 	glBindTexture(GL_TEXTURE_2D, texture);
 
-	int width, height, nrChannels;
-	stbi_set_flip_vertically_on_load(true);	
-	unsigned char* data = stbi_load("data/teste.jpg", &width, &height, &nrChannels, 0);
-	if (data)
-	{
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
-		glGenerateMipmap(GL_TEXTURE_2D);
-	}
-	else
-	{
-		std::cout << "Failed to load texture" << std::endl;
-	}
-	stbi_image_free(data);
+	int width = *config->getWindowWidth();
+	int height = *config->getWindowHeight();
+
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
+	glGenerateMipmap(GL_TEXTURE_2D);
 
 	glUniform1i(glGetUniformLocation(program, "text"), 0);
 	glEnable(GL_DEPTH_TEST);
@@ -59,7 +51,13 @@ void CloseToGLRenderer::display() {
 	// Desabilita cull face pois ele está implementado em ClippingJob.cpp 
 	glDisable(GL_CULL_FACE);
 
+	auto width = *config->getWindowWidth();
+	auto height = *config->getWindowHeight();
+
 	glBindTexture(GL_TEXTURE_2D, texture);
+	glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, width, height, GL_RGB, GL_UNSIGNED_BYTE, &processed->front());
+	glGenerateMipmap(GL_TEXTURE_2D);
+
 	glBindVertexArray(this->VAOs[Triangles]);
 	glBindBuffer(GL_ARRAY_BUFFER, this->buffers[VertexBuffer]);
 

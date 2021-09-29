@@ -1,4 +1,5 @@
 #include "../render.hpp"
+#include "raster/raster.h"
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
@@ -67,12 +68,6 @@ namespace close {
 	private:
 		glm::mat4 getViewport();
 		Config* config;
-	};
-
-	class RasterJob : public Job<std::vector<data::VertexPayload>*, std::vector<unsigned char>> {
-	public:
-		std::vector<unsigned char> apply(std::vector<data::VertexPayload>*);
-		RasterJob();
 	};
 
 

@@ -7,8 +7,7 @@ std::unique_ptr<std::vector<unsigned char>> CloseToGLPipeline::apply(std::vector
 	auto clipped = this->culling->apply(&homogeneous);
 	auto normalized = this->normalization->apply(&clipped);
 	auto viewported = this->viewport->apply(&normalized);
-	//return std::make_unique<std::vector<data::VertexData>>(normalized);
-	return std::make_unique<std::vector<unsigned char>>(0);
+	return std::make_unique< std::vector<unsigned char>>(this->raster->apply(&viewported));
 }
 
 CloseToGLPipeline::CloseToGLPipeline() {

@@ -44,13 +44,13 @@ void Application::init() {
 	gl3wInit();
 
 	this->ui->init(window);
+	glfwGetWindowSize(window, config->getWindowHeight(), config->getWindowWidth());
 
 	data::Model* model = this->factory->get("data/cow_up.in");
 	for (auto renderer : *this->renderers) {
 		renderer->init(model);
 	}
 
-	glfwGetWindowSize(window, config->getWindowHeight(), config->getWindowWidth());
 }
 
 void Application::loop() {
