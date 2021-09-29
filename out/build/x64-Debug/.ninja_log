@@ -151,3 +151,6 @@
 4	708	6546603487413803	CMakeFiles/close-to-gl.dir/src/services/render/close-to-gl/raster/Scanner.cpp.obj	7218e2462556abd8
 708	782	6546603488033796	lib/close-to-gl.lib	80f4bb91730f536b
 782	930	6546603489413822	../main.exe	2bf98178a8e1d99e
+3	680	6546604272231141	CMakeFiles/close-to-gl.dir/src/services/render/close-to-gl/raster/Scanner.cpp.obj	7218e2462556abd8
+681	761	6546604272931127	lib/close-to-gl.lib	80f4bb91730f536b
+761	910	6546604274291151	../main.exe	2bf98178a8e1d99e

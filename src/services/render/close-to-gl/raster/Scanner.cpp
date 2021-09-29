@@ -21,6 +21,10 @@ void close::Scanner::scanline(RgbBuffer* buffer, int y, std::vector<Slope>* left
 		auto G = this->toRGBProp(props.at(1));
 		auto B = this->toRGBProp(props.at(2));
 		buffer->set(x, y, R, G, B);
+
+		for (int i = 0; i < 3; ++i) {
+			props.at(i).next();
+		}
 	}
 	for (int i = 0; i < left->size(); i++) {
 		left->at(i).next();
