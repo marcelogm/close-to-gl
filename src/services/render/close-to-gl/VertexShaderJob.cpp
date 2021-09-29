@@ -15,7 +15,7 @@ std::vector<data::VertexPayload> VertexShaderJob::apply(std::vector<data::Vertex
 		payload[i] = {
 			position,
 			normal,
-			phong.apply(position, glm::vec4(color[0], color[1], color[2], 1.0f))
+			phong.apply(position, glm::vec4(normal, 1.0f))
 		};
 	}
 	return payload;

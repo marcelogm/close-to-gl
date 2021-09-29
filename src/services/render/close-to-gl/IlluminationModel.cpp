@@ -37,16 +37,21 @@ glm::vec4 PhongIlluminationModel::getDiffuseLight(glm::vec4 normal, glm::vec4 di
 
 glm::vec4 PhongIlluminationModel::getSpecularLight(glm::vec4 normal, glm::vec4 position, glm::vec4 direction) {
 	glm::vec4 viewDirection = glm::normalize(this->camera - position);
-	glm::vec4 reflectionDirection = this->getReflection(-direction, normal);
-	return this->specularStrength * (float) glm::pow(max(glm::dot(viewDirection, reflectionDirection), 0.0f), 3) * this->lightColor;
+	glm::vec4 reflectionDirection = glm::reflect(-direction, normal);
+	return this->specularStrength * (float) glm::pow(max(glm::dot(viewDirection, reflectionDirection), 0.0f), 3.0f) * this->lightColor;
 }
 
 glm::vec4 PhongIlluminationModel::apply(glm::vec4 position, glm::vec4 normal) {
-	auto N = glm::normalize(normal);
+	auto N = -glm::normalize(normal);
 	auto direction = this->getLightDirection(position);
 	auto ambient = this->getAmbientLight();
 	auto diffuse = this->getDiffuseLight(N, direction);
 	auto specular = this->getSpecularLight(N, position, direction);
-	auto light = (ambient + diffuse + specular);
-	return light * color;
+	auto out = (ambient + diffuse + specular) * color;
+	return glm::vec4(
+		min(out.x, 1.0f),
+		min(out.y, 1.0f),
+		min(out.z, 1.0f),
+		min(out.w, 1.0f)
+	);
 }

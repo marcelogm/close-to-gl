@@ -31,6 +31,7 @@ namespace close {
 	public:
 		Scanner();
 		void scanline(RgbBuffer* buffer, int y, std::vector<Slope>* left, std::vector<Slope>* right);
+		BYTE toRGBProp(Slope prop);
 	};
 
 	class RasterJob {
