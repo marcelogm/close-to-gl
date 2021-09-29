@@ -30,10 +30,10 @@ void RasterJob::draw(RgbBuffer* buffer, data::VertexPayload* v0, data::VertexPay
 		return;
 	}
 
-	Slope sides[2];
+	std::vector<Slope> sides[2];
 	bool isTheShorterSide = this->isTheShorterSide(&p0, &p1, &p2);
 	
-	sides[!isTheShorterSide] = Slope(p0.x, p2.x, p2.y - p0.y);
+	sides[!isTheShorterSide] = createSlope(&p0, &p2, v0, v2, p2.y - p0.y);
 
 	for (auto y = p0.y, end = p0.y; ; ++y) {
 		if (y >= end) {
@@ -42,14 +42,23 @@ void RasterJob::draw(RgbBuffer* buffer, data::VertexPayload* v0, data::VertexPay
 			}
 			if (y < p1.y) {
 				end = p1.y;
-				sides[isTheShorterSide] = Slope(p0.x, p1.x, (end - p0.y));
+				sides[isTheShorterSide] = createSlope(&p0, &p1, v0, v1, (end - p0.y));
 			} else {
 				end = p2.y;
-				sides[isTheShorterSide] = Slope(p1.x, p2.x, (end - p1.y));
+				sides[isTheShorterSide] = createSlope(&p1, &p2, v1, v2, (end - p1.y));
 			}
 		}
 		this->scanner->scanline(buffer, y, &sides[0], &sides[1]);
 	}
+}
+
+std::vector<Slope> RasterJob::createSlope(glm::vec3* p0, glm::vec3* p1, data::VertexPayload* start, data::VertexPayload* end, int steps) {
+	std::vector<Slope> slopes;
+	slopes.push_back(Slope(p0->x, p1->x, steps));
+	slopes.push_back(Slope(start->color.r, end->color.r, steps));
+	slopes.push_back(Slope(start->color.g, end->color.g, steps));
+	slopes.push_back(Slope(start->color.b, end->color.b, steps));
+	return slopes;
 }
 
 bool RasterJob::isTheShorterSide(glm::vec3* p0, glm::vec3* p1, glm::vec3* p2) {

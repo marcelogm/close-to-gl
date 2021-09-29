@@ -30,7 +30,7 @@ namespace close {
 	class Scanner {
 	public:
 		Scanner();
-		void scanline(RgbBuffer* buffer, int y, Slope* left, Slope* right);
+		void scanline(RgbBuffer* buffer, int y, std::vector<Slope>* left, std::vector<Slope>* right);
 	};
 
 	class RasterJob {
@@ -39,6 +39,7 @@ namespace close {
 		RasterJob();
 	private:
 		void draw(RgbBuffer* buffer, data::VertexPayload* p0, data::VertexPayload* p1, data::VertexPayload* p2);
+		std::vector<Slope> createSlope(glm::vec3* p0, glm::vec3* p1, data::VertexPayload* start, data::VertexPayload* end, int steps);
 		bool isTheShorterSide(glm::vec3* p0, glm::vec3* p1, glm::vec3* p2);
 		glm::vec3 extract(data::VertexPayload* vertex);
 		void order(data::VertexPayload* v0, data::VertexPayload* v1, data::VertexPayload* v2, glm::vec3* p0, glm::vec3* p1, glm::vec3* p2);
