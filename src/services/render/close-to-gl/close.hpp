@@ -66,7 +66,6 @@ namespace close {
 		std::vector<data::VertexPayload> apply(std::vector<data::VertexPayload>*);
 		ViewportTransformationJob();
 	private:
-		glm::mat4 getViewport();
 		Config* config;
 	};
 

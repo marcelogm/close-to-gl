@@ -63,7 +63,7 @@ add_library(close-to-gl
 			"src/services/render/BackgroundProcessor.cpp" 
 			"src/services/render/LightProcessor.cpp" 
 			"src/services/render/close-to-gl/ViewportTransformationJob.cpp" 
-			"src/services/render/close-to-gl/raster/RasterJob.cpp" "src/services/render/close-to-gl/raster/RgbBuffer.cpp")
+			"src/services/render/close-to-gl/raster/RasterJob.cpp" "src/services/render/close-to-gl/raster/RgbBuffer.cpp" "src/services/render/close-to-gl/raster/Slope.cpp")
 
 find_package(OpenMP)
 if (OPENMP_FOUND)

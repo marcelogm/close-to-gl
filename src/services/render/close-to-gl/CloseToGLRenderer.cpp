@@ -53,10 +53,12 @@ void CloseToGLRenderer::display() {
 
 	auto width = *config->getWindowWidth();
 	auto height = *config->getWindowHeight();
-
-	glBindTexture(GL_TEXTURE_2D, texture);
-	glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, width, height, GL_RGB, GL_UNSIGNED_BYTE, &processed->front());
-	glGenerateMipmap(GL_TEXTURE_2D);
+	
+	if (processed->size() > 0) {
+		glBindTexture(GL_TEXTURE_2D, texture);
+		glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, width, height, GL_RGB, GL_UNSIGNED_BYTE, &processed->front());
+		glGenerateMipmap(GL_TEXTURE_2D);
+	}
 
 	glBindVertexArray(this->VAOs[Triangles]);
 	glBindBuffer(GL_ARRAY_BUFFER, this->buffers[VertexBuffer]);
