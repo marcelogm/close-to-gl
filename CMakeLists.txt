@@ -56,6 +56,7 @@ add_library(close-to-gl
 			"src/services/render/close-to-gl/VertexShaderJob.cpp" 
 			"src/services/render/close-to-gl/CullingJob.cpp" 
 			"src/services/render/close-to-gl/PerspectiveDivideJob.cpp" 
+			"src/services/render/close-to-gl/IlluminationModel.cpp" 
 			"src/services/ProjectionFromConfig.cpp" 
 			"src/services/Debug.cpp" 
 			"src/services/render/CameraResetProcessor.cpp" 

@@ -1,20 +1,21 @@
 #include "close.hpp"
-#include <algorithm>
-#include <functional>
 
 using namespace close;
 
 std::vector<data::VertexPayload> VertexShaderJob::apply(std::vector<data::VertexData>* vertices) {
 	const glm::mat4 MVP = this->getMVP();
 	auto color = this->config->getColor();
+	auto phong = PhongIlluminationModel();
 
 	std::vector<data::VertexPayload> payload(vertices->size());
 	for (size_t i = 0; i < vertices->size(); i++) {
 		auto current = vertices->at(i);
+		auto normal = glm::vec3(current.normal[0], current.normal[1], current.normal[2]);
+		auto position = MVP * this->toHomogeneous(&current);
 		payload[i] = {
-			MVP * this->toHomogeneous(&current),
-			glm::vec3(current.normal[0], current.normal[1], current.normal[2]),
-			glm::vec3(color[0], color[1], color[2])
+			position,
+			normal,
+			phong.apply(position, glm::vec4(color[0], color[1], color[2], 1.0f))
 		};
 	}
 	return payload;
@@ -40,4 +41,5 @@ VertexShaderJob::VertexShaderJob() {
 	this->projectionProvider = new ProjectionFromConfig();
 	this->camera = Camera::getInstance();
 	this->config = Config::getInstance();
+	this->illumination = new PhongIlluminationModel();
 }

@@ -33,6 +33,28 @@ namespace close {
 		virtual O apply(I) = 0;
 	};
 
+	class PhongIlluminationModel {
+	public:
+		PhongIlluminationModel();
+		glm::vec4 apply(glm::vec4 position, glm::vec4 normal);
+	private:
+
+		float ambientStrength;
+		float diffuseStrength;
+		float specularStrength;
+
+		glm::vec4 light;
+		glm::vec4 camera;
+
+		glm::vec4 color;
+		glm::vec4 lightColor;
+		glm::vec4 getReflection(glm::vec4 I, glm::vec4 normal);
+		glm::vec4 getLightDirection(glm::vec4 position);
+		glm::vec4 getAmbientLight();
+		glm::vec4 getDiffuseLight(glm::vec4 normal, glm::vec4 direction);
+		glm::vec4 getSpecularLight(glm::vec4 normal, glm::vec4 position, glm::vec4 direction);
+	};
+
 	class VertexShaderJob : public Job<std::vector<data::VertexData>*, std::vector<data::VertexPayload>> {
 	public:
 		std::vector<data::VertexPayload> apply(std::vector<data::VertexData>*);
@@ -41,8 +63,10 @@ namespace close {
 		Camera* camera;
 		Config* config;
 		ProjectionFromConfig* projectionProvider;
+		PhongIlluminationModel* illumination;
 		glm::mat4 getMVP();
 		glm::vec4 toHomogeneous(data::VertexData* vertex);
+
 	};
 
 	class CullingJob : public Job<std::vector<data::VertexPayload>*, std::vector<data::VertexPayload>> {
