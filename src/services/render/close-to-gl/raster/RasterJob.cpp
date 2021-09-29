@@ -8,18 +8,20 @@ std::vector<unsigned char> close::RasterJob::apply(std::vector<data::VertexPaylo
 	auto width = *config->getWindowWidth();
 	auto height = *config->getWindowHeight();
 	auto buffer = RgbBuffer(width, height);
+	auto zBuffer = std::vector<float>(width * height);
+	std::fill_n(&zBuffer.front(), width * height, 1.0f);
 
 	for (size_t i = 0; i < payload->size(); i += 3) {
 		auto v0 = payload->at(i);
 		auto v1 = payload->at(i + 1);
 		auto v2 = payload->at(i + 2);
-		this->draw(&buffer, &v0, &v1, &v2);
+		this->draw(&buffer, &zBuffer, &v0, &v1, &v2);
 	}
 
 	return buffer.get();
 }
 
-void RasterJob::draw(RgbBuffer* buffer, data::VertexPayload* v0, data::VertexPayload* v1, data::VertexPayload* v2) {
+void RasterJob::draw(RgbBuffer* buffer, std::vector<float>* zBuffer, data::VertexPayload* v0, data::VertexPayload* v1, data::VertexPayload* v2) {
 	auto p0 = this->extract(v0);
 	auto p1 = this->extract(v1);
 	auto p2 = this->extract(v2);
@@ -48,16 +50,19 @@ void RasterJob::draw(RgbBuffer* buffer, data::VertexPayload* v0, data::VertexPay
 				sides[isTheShorterSide] = createSlope(&p1, &p2, v1, v2, (end - p1.y));
 			}
 		}
-		this->scanner->scanline(buffer, y, &sides[0], &sides[1]);
+		this->scanner->scanline(buffer, zBuffer, y, &sides[0], &sides[1]);
 	}
 }
 
 std::vector<Slope> RasterJob::createSlope(glm::vec3* p0, glm::vec3* p1, data::VertexPayload* start, data::VertexPayload* end, int steps) {
 	std::vector<Slope> slopes;
+	float zStart = 1.f / start->position.z;
+	float zEnd = 1.f / end->position.z;
 	slopes.push_back(Slope(p0->x, p1->x, steps));
-	slopes.push_back(Slope(start->color.r, end->color.r, steps));
-	slopes.push_back(Slope(start->color.g, end->color.g, steps));
-	slopes.push_back(Slope(start->color.b, end->color.b, steps));
+	slopes.push_back(Slope(start->color.r * zStart, end->color.r * zEnd, steps));
+	slopes.push_back(Slope(start->color.g * zStart, end->color.g * zEnd, steps));
+	slopes.push_back(Slope(start->color.b * zStart, end->color.b * zEnd, steps));
+	slopes.push_back(Slope(zStart, zEnd, steps));
 	return slopes;
 }
 
@@ -77,15 +82,25 @@ void RasterJob::order(data::VertexPayload* v0, data::VertexPayload* v1, data::Ve
 	glm::vec3* p0, glm::vec3* p1, glm::vec3* p2) {
 
 	if (std::tie(p1->y, p1->x) < std::tie(p0->y, p0->x)) {
-		std::swap(p0->x, p1->x); std::swap(p0->y, p1->y); std::swap(v0, v1);
+		std::swap(p0->x, p1->x);
+		std::swap(p0->y, p1->y); 
+		std::swap(v0->color, v1->color);
+		std::swap(v0, v1);
 	}
 	if (std::tie(p2->y, p2->x) < std::tie(p0->y, p0->x)) {
-		std::swap(p0->x, p2->x); std::swap(p0->y, p2->y); std::swap(v0, v2);
+		std::swap(p0->x, p2->x); 
+		std::swap(p0->y, p2->y);
+		std::swap(v0->color, v2->color);
+		std::swap(v0, v2);
 	}
 	if (std::tie(p2->y, p2->x) < std::tie(p1->y, p1->x)) {
-		std::swap(p1->x, p2->x); std::swap(p1->y, p2->y); std::swap(v1, v2);
+		std::swap(p1->x, p2->x); 
+		std::swap(p1->y, p2->y);
+		std::swap(v1->color, v2->color);
+		std::swap(v1, v2);
 	}
 }
+
 
 RasterJob::RasterJob() {
 	this->scanner = new Scanner();
