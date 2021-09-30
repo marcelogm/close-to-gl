@@ -63,9 +63,7 @@ void CloseToGLRenderer::display() {
 	glBindVertexArray(this->VAOs[Triangles]);
 	glBindBuffer(GL_ARRAY_BUFFER, this->buffers[VertexBuffer]);
 
-	// TODO: remover processador de fundo, não mais necessário
 	this->background->process();
-
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	glDrawArrays(GL_TRIANGLES, 0, 6);
 	this->reset->process(this->range);

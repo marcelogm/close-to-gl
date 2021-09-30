@@ -28,7 +28,7 @@ void RasterJob::draw(RgbBuffer* buffer, std::vector<float>* zBuffer, data::Verte
 
 	this->order(v0, v1, v2);
 
-	if (v0->position.y == v2->position.y) {
+	if (v0->position.x == v2->position.x) {
 		return;
 	}
 
@@ -37,29 +37,29 @@ void RasterJob::draw(RgbBuffer* buffer, std::vector<float>* zBuffer, data::Verte
 	
 	sides[!isTheShorterSide] = createSlope(v0, v2);
 
-	for (auto y = v0->position.y, end = v0->position.y; ; ++y) {
-		if (y >= end) {
-			if (y >= v2->position.y) {
+	for (auto x = v0->position.x, end = v0->position.x; ; ++x) {
+		if (x >= end) {
+			if (x >= v2->position.x) {
 				break;
 			}
-			if (y < v1->position.y) {
-				end = v1->position.y;
+			if (x < v1->position.x) {
+				end = v1->position.x;
 				sides[isTheShorterSide] = createSlope(v0, v1);
 			} else {
-				end = v2->position.y;
+				end = v2->position.x;
 				sides[isTheShorterSide] = createSlope(v1, v2);
 			}
 		}
-		this->scanner->scanline(buffer, zBuffer, y, &sides[0], &sides[1]);
+		this->scanner->scanline(buffer, zBuffer, x, &sides[0], &sides[1]);
 	}
 }
 
 std::vector<Slope> RasterJob::createSlope(data::VertexPayload* start, data::VertexPayload* end) {
 	std::vector<Slope> slopes;
-	float steps = end->position.y - start->position.y;
+	float steps = end->position.x - start->position.x;
 	float zStart = 1.f / start->position.z;
 	float zEnd = 1.f / end->position.z;
-	slopes.push_back(Slope(start->position.x, end->position.x, steps));
+	slopes.push_back(Slope(start->position.y, end->position.y, steps));
 	slopes.push_back(Slope(start->color.r * zStart, end->color.r * zEnd, steps));
 	slopes.push_back(Slope(start->color.g * zStart, end->color.g * zEnd, steps));
 	slopes.push_back(Slope(start->color.b * zStart, end->color.b * zEnd, steps));
@@ -68,24 +68,24 @@ std::vector<Slope> RasterJob::createSlope(data::VertexPayload* start, data::Vert
 }
 
 bool RasterJob::isTheShorterSide(glm::vec4* p0, glm::vec4* p1, glm::vec4* p2) {
-	return (p1->y - p0->y) * (p2->x - p0->x) < (p1->x - p0->x) * (p2->y - p0->y);
+	return (p1->x - p0->x) * (p2->y - p0->y) < (p1->y - p0->y) * (p2->x - p0->x);
 }
 
 void RasterJob::floor(data::VertexPayload* vertex) {
-	vertex->position.x = std::floor(vertex->position.x);
 	vertex->position.y = std::floor(vertex->position.y);
+	vertex->position.x = std::floor(vertex->position.x);
 }
 
 void RasterJob::order(data::VertexPayload* v0, data::VertexPayload* v1, data::VertexPayload* v2) {
-	if (std::tie(v1->position.y, v1->position.x) < std::tie(v0->position.y, v0->position.x)) {
+	if (std::tie(v1->position.x, v1->position.y) < std::tie(v0->position.x, v0->position.y)) {
 		std::swap(v0->position, v1->position);
 		std::swap(v0->color, v1->color);
 	}
-	if (std::tie(v2->position.y, v2->position.x) < std::tie(v0->position.y, v0->position.x)) {
+	if (std::tie(v2->position.x, v2->position.y) < std::tie(v0->position.x, v0->position.y)) {
 		std::swap(v0->position, v2->position);
 		std::swap(v0->color, v2->color);
 	}
-	if (std::tie(v2->position.y, v2->position.x) < std::tie(v1->position.y, v1->position.x)) {
+	if (std::tie(v2->position.x, v2->position.y) < std::tie(v1->position.x, v1->position.y)) {
 		std::swap(v1->position, v2->position);
 		std::swap(v1->color, v2->color);
 	}
