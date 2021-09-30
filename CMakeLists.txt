@@ -53,7 +53,7 @@ add_library(close-to-gl
 			"src/gui/ImGuiWrapper.cpp" 
 			"src/services/ModelToVertex.cpp" 
 			"src/services/render/close-to-gl/CloseToGLPipeline.cpp"
-			"src/services/render/close-to-gl/VertexShaderJob.cpp" 
+			"src/services/render/close-to-gl/VertexShader.cpp" 
 			"src/services/render/close-to-gl/CullingJob.cpp" 
 			"src/services/render/close-to-gl/PerspectiveDivideJob.cpp" 
 			"src/services/render/close-to-gl/IlluminationModel.cpp" 

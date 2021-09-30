@@ -3,6 +3,9 @@
 #include "../../../services.hpp"
 #include "../../../camera/camera.hpp"
 
+using std::vector;
+using data::VertexPayload;
+
 namespace close {
 
 	class RgbBuffer {
@@ -39,8 +42,8 @@ namespace close {
 
 	class RasterJob {
 	public:
-		std::vector<unsigned char> apply(std::vector<data::VertexPayload>*);
-		RasterJob();
+		std::vector<unsigned char> apply(size_t count);
+		RasterJob(vector<VertexPayload>* buffer);
 	private:
 		void draw(RgbBuffer* buffer, std::vector<float>* zBuffer, data::VertexPayload* v0, data::VertexPayload* v1, data::VertexPayload* v2);
 		std::vector<Slope> createSlope(data::VertexPayload* start, data::VertexPayload* end);
@@ -48,6 +51,7 @@ namespace close {
 		void floor(data::VertexPayload* vertex);
 		void order(data::VertexPayload* v0, data::VertexPayload* v1, data::VertexPayload* v2);
 		Scanner* scanner;
+		vector<VertexPayload>* buffer;
 	};
 
 

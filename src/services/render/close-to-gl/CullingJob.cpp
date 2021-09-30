@@ -5,29 +5,34 @@ using namespace close;
 
 #define TRIANGLE_VERTICES 3
 
-std::vector<data::VertexPayload> CullingJob::apply(std::vector<data::VertexPayload>* vertices) {
-	std::vector<data::VertexPayload> clipped(0);
-	const size_t size = vertices->size() / TRIANGLE_VERTICES;
-	for (size_t i = 0; i < size; i++) {
-		const size_t start = i * TRIANGLE_VERTICES;
-		if (!shouldDiscard(vertices, start)) {
-			clipped.push_back(vertices->at(start));
-			clipped.push_back(vertices->at(start + 1));
-			clipped.push_back(vertices->at(start + 2));
+close::CullingJob::CullingJob(vector<VertexPayload>* buffer) {
+	this->buffer = buffer;
+}
+
+size_t CullingJob::apply(size_t verticeCount) {
+	size_t surviving = 0;
+	for (size_t i = 0; i < verticeCount; i += 3) {
+		if (!shouldDiscard(i)) {
+			buffer->at(surviving) = buffer->at(i);
+			buffer->at(surviving + 1) = buffer->at(i + 1);
+			buffer->at(surviving + 2) = buffer->at(i + 2);
+			surviving += 3;
+		}
+		else {
+			int a = 2;
 		}
 	}
-	return clipped;
+	return surviving;
 }
 
-bool CullingJob::shouldDiscard(std::vector<data::VertexPayload>* primitive, size_t start) {
-	return this->backfaceCullingTest(primitive, start) ||
-		this->atLeastOneVerticeOutsideFrustum(primitive, start);
+bool CullingJob::shouldDiscard(size_t at) {
+	return this->backfaceCullingTest(at) || this->atLeastOneVerticeOutsideFrustum(at);
 }
 
-bool CullingJob::atLeastOneVerticeOutsideFrustum(std::vector<data::VertexPayload>* primitive, size_t start) {
-	return !this->isInsideFrustum(&primitive->at(start).position) ||
-		!this->isInsideFrustum(&primitive->at(start + 1).position) ||
-		!this->isInsideFrustum(&primitive->at(start + 2).position);
+bool CullingJob::atLeastOneVerticeOutsideFrustum(size_t at) {
+	return !this->isInsideFrustum(&buffer->at(at).position) ||
+		!this->isInsideFrustum(&buffer->at(at + 1).position) ||
+		!this->isInsideFrustum(&buffer->at(at + 2).position);
 }
 
 bool CullingJob::isInsideFrustum(glm::vec4* point) {
@@ -38,14 +43,14 @@ bool CullingJob::isInsideFrustum(glm::vec4* point) {
 	
 	return ((-w <= x) && (x <= w)) &&
 		((-w <= y) && (y <= w)) &&
-		((-w <= z) && (z <= w)) &&
+		((-w <= z) && (z <= w)) && 
 		(0 < w);
 }
 
-bool CullingJob::backfaceCullingTest(std::vector<data::VertexPayload>* primitive, size_t start) {
-	const auto p1 = glm::vec3(primitive->at(start).position);
-	const auto p2 = glm::vec3(primitive->at(start + 1).position);
-	const auto p3 = glm::vec3(primitive->at(start + 2).position);
+bool CullingJob::backfaceCullingTest(size_t at) {
+	const auto p1 = vec3(buffer->at(at).position);
+	const auto p2 = vec3(buffer->at(at + 1).position);
+	const auto p3 = vec3(buffer->at(at + 2).position);
 	const auto normal = glm::triangleNormal(p1, p2, p3);
 	const auto n = glm::dot(normal, p1);
 

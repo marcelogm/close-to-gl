@@ -4,6 +4,14 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
+using std::unique_ptr;
+using std::vector;
+using data::VertexPayload;
+using data::VertexData;
+using glm::vec3;
+using glm::vec4;
+using glm::mat4;
+
 namespace close {
 
 	enum VAOIDs {
@@ -21,89 +29,80 @@ namespace close {
 		aTexCoord = 1
 	};
 
-	template<typename I, typename O>
-	class Job {
-	public:
-		virtual O apply(I) = 0;
-	};
-
-	template<typename I, typename O>
-	class Pipeline {
-	public:
-		virtual O apply(I) = 0;
-	};
 
 	class PhongIlluminationModel {
 	public:
 		PhongIlluminationModel();
-		glm::vec3 apply(glm::vec3 position, glm::vec3 normal);
+		vec3 apply(glm::vec3 position, glm::vec3 normal);
 	private:
-
 		float ambientStrength;
 		float diffuseStrength;
 		float specularStrength;
-
-		glm::vec3 light;
-		glm::vec3 camera;
-
-		glm::vec3 color;
-		glm::vec3 lightColor;
-		glm::vec3 getReflection(glm::vec3 I, glm::vec3 normal);
-		glm::vec3 getLightDirection(glm::vec3 position);
-		glm::vec3 getAmbientLight();
-		glm::vec3 getDiffuseLight(glm::vec3 normal, glm::vec3 direction);
-		glm::vec3 getSpecularLight(glm::vec3 normal, glm::vec3 position, glm::vec3 direction);
+		vec3 light;
+		vec3 camera;
+		vec3 color;
+		vec3 lightColor;
+		vec3 getReflection(vec3 I, vec3 normal);
+		vec3 getLightDirection(vec3 position);
+		vec3 getAmbientLight();
+		vec3 getDiffuseLight(vec3 normal, vec3 direction);
+		vec3 getSpecularLight(vec3 normal, vec3 position, vec3 direction);
 	};
 
-	class VertexShaderJob : public Job<std::vector<data::VertexData>*, std::vector<data::VertexPayload>> {
+	class VertexShader {
 	public:
-		std::vector<data::VertexPayload> apply(std::vector<data::VertexData>*);
-		VertexShaderJob();
+		VertexShader(vector<VertexPayload>* buffer);
+		size_t apply(vector<VertexData>* vertices);
 	private:
 		Camera* camera;
 		Config* config;
 		ProjectionFromConfig* projectionProvider;
-		PhongIlluminationModel* illumination;
+		vector<VertexPayload>* buffer;
 		glm::mat4 getMV();
-		glm::vec4 toHomogeneous(glm::vec3* vertex);
-		glm::vec4 transformNormal(glm::mat4* MV, glm::vec3* normal);
 	};
 
-	class CullingJob : public Job<std::vector<data::VertexPayload>*, std::vector<data::VertexPayload>> {
+	class CullingJob {
 	public:
-		std::vector<data::VertexPayload> apply(std::vector<data::VertexPayload>*);
+		CullingJob(vector<VertexPayload>* buffer);
+		size_t apply(size_t verticeCount);
 	private:
-		bool shouldDiscard(std::vector<data::VertexPayload>* primitive, size_t start);
-		bool atLeastOneVerticeOutsideFrustum(std::vector<data::VertexPayload>* primitive, size_t start);
-		bool backfaceCullingTest(std::vector<data::VertexPayload>* primitive, size_t start);
+		bool shouldDiscard(size_t);
+		bool atLeastOneVerticeOutsideFrustum(size_t);
+		bool backfaceCullingTest(size_t);
 		bool isInsideFrustum(glm::vec4* point);
+		vector<VertexPayload>* buffer;
 	};
 
-	class PerspectiveDivideJob : public Job<std::vector<data::VertexPayload>*, std::vector<data::VertexPayload>> {
+	class PerspectiveDivideJob {
 	public:
-		std::vector<data::VertexPayload> apply(std::vector<data::VertexPayload>*);
+		PerspectiveDivideJob(vector<VertexPayload>* buffer);
+		size_t apply(size_t count);
+	private:
 		glm::vec4 transform(glm::vec4 vertex);
+		vector<VertexPayload>* buffer;
 	};
 
-	class ViewportTransformationJob : public Job<std::vector<data::VertexPayload>*, std::vector<data::VertexPayload>> {
+	class ViewportTransformationJob {
 	public:
-		std::vector<data::VertexPayload> apply(std::vector<data::VertexPayload>*);
-		ViewportTransformationJob();
+		ViewportTransformationJob(vector<VertexPayload>* buffer);
+		size_t apply(size_t count);
 	private:
 		Config* config;
+		vector<VertexPayload>* buffer;
 	};
 
 
-	class CloseToGLPipeline : public Pipeline<std::vector<data::VertexData>*, std::unique_ptr<std::vector<unsigned char>>> {
+	class CloseToGLPipeline {
 	public:
-		std::unique_ptr<std::vector<unsigned char>> apply(std::vector<data::VertexData>*);
+		std::unique_ptr<vector<unsigned char>> apply(vector<data::VertexData>*);
 		CloseToGLPipeline();
 	private:
-		VertexShaderJob* toHomogeneousClipSpace;
+		VertexShader* toHomogeneousClipSpace;
 		CullingJob* culling;
 		PerspectiveDivideJob* normalization;
 		ViewportTransformationJob* viewport;
 		RasterJob* raster;
+		vector<VertexPayload>* buffer;
 	};
 
 	class CloseToGLRenderer : public renderer::Renderer {
@@ -113,7 +112,7 @@ namespace close {
 		bool test();
 		CloseToGLRenderer();
 	private:
-		std::vector<data::VertexData>* vertices;
+		vector<data::VertexData>* vertices;
 		data::VertexDataRange range;
 		GLuint VAOs[NumVAOs];
 		GLuint buffers[NumBuffers];
@@ -126,7 +125,7 @@ namespace close {
 		renderer::BackgroundProcessor* background;
 		renderer::CameraResetProcessor* reset;
 		CloseToGLPipeline* pipeline;
-		std::vector<ShaderInfo> getShaders();
+		vector<ShaderInfo> getShaders();
 		// POSITION, MAPPING
 		GLfloat panelVertices[24] = { -1.0f, -1.0f, 0.0f, 0.0f,
 									   1.0f, -1.0f, 1.0f, 0.0f,

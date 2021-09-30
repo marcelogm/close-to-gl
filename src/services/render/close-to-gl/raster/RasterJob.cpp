@@ -3,22 +3,28 @@
 using namespace close;
 
 
-std::vector<unsigned char> close::RasterJob::apply(std::vector<data::VertexPayload>* payload) {
+close::RasterJob::RasterJob(vector<VertexPayload>* buffer) {
+	this->scanner = new Scanner();
+	this->buffer = buffer;
+}
+
+std::vector<unsigned char> close::RasterJob::apply(size_t count) {
 	auto config = Config::getInstance();
 	auto width = *config->getWindowWidth();
 	auto height = *config->getWindowHeight();
-	auto buffer = RgbBuffer(width, height);
+
+	auto outputBuffer = RgbBuffer(width, height);
 	auto zBuffer = std::vector<float>(width * height);
 	std::fill_n(&zBuffer.front(), width * height, 1.0f);
 
-	for (size_t i = 0; i < payload->size(); i += 3) {
-		auto v0 = payload->at(i);
-		auto v1 = payload->at(i + 1);
-		auto v2 = payload->at(i + 2);
-		this->draw(&buffer, &zBuffer, &v0, &v1, &v2);
+	for (size_t i = 0; i < count; i += 3) {
+		auto v0 = buffer->at(i);
+		auto v1 = buffer->at(i + 1);
+		auto v2 = buffer->at(i + 2);
+		this->draw(&outputBuffer, &zBuffer, &v0, &v1, &v2);
 	}
 
-	return buffer.get();
+	return outputBuffer.get();
 }
 
 void RasterJob::draw(RgbBuffer* buffer, std::vector<float>* zBuffer, data::VertexPayload* v0, data::VertexPayload* v1, data::VertexPayload* v2) {
@@ -90,9 +96,3 @@ void RasterJob::order(data::VertexPayload* v0, data::VertexPayload* v1, data::Ve
 		std::swap(v1->color, v2->color);
 	}
 }
-
-
-RasterJob::RasterJob() {
-	this->scanner = new Scanner();
-}
-

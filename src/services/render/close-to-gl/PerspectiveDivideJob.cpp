@@ -2,17 +2,20 @@
 
 using namespace close;
 
-std::vector<data::VertexPayload> PerspectiveDivideJob::apply(std::vector<data::VertexPayload>* vertices) {
-	std::vector<data::VertexPayload> transformed(vertices->size());
-	for (size_t i = 0; i < vertices->size(); i++) {
-		const auto vertex = vertices->at(i);
-		transformed[i] = {
+PerspectiveDivideJob::PerspectiveDivideJob(vector<VertexPayload>* buffer) {
+	this->buffer = buffer;
+}
+
+size_t PerspectiveDivideJob::apply(size_t count) {
+	for (size_t i = 0; i < count; i++) {
+		const auto vertex = buffer->at(i);
+		buffer->at(i) = {
 			this->transform(vertex.position),
 			vertex.normal,
 			vertex.color
 		};
 	}
-	return transformed;
+	return count;
 };
 
 glm::vec4 PerspectiveDivideJob::transform(glm::vec4 vertex) {

@@ -2,14 +2,13 @@
 
 using namespace close;
 
-std::vector<data::VertexPayload> ViewportTransformationJob::apply(std::vector<data::VertexPayload>* vertices) {
-	std::vector<data::VertexPayload> transformed(vertices->size());
+size_t ViewportTransformationJob::apply(size_t count) {
 	const float width = (float)*config->getWindowWidth();
 	const float height = (float)*config->getWindowHeight();
-	for (size_t i = 0; i < vertices->size(); i++) {
-		const auto vertex = vertices->at(i);
+	for (size_t i = 0; i < count; i++) {
+		const auto vertex = buffer->at(i);
 		const auto position = vertex.position;
-		transformed[i] = {
+		buffer->at(i) = {
 			glm::vec4(
 				((position.x + 1) * 0.5f * width),
 				((position.y + 1) * 0.5f * height),
@@ -20,9 +19,10 @@ std::vector<data::VertexPayload> ViewportTransformationJob::apply(std::vector<da
 			vertex.color
 		};
 	}
-	return transformed;
+	return count;
 }
 
-close::ViewportTransformationJob::ViewportTransformationJob() {
+close::ViewportTransformationJob::ViewportTransformationJob(vector<VertexPayload>* buffer) {
 	this->config = Config::getInstance();
+	this->buffer = buffer;
 }
