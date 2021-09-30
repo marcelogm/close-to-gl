@@ -41,6 +41,12 @@
 			{
 				"command" : 1,
 				"file" : 0,
+				"line" : 80,
+				"parent" : 0
+			},
+			{
+				"command" : 1,
+				"file" : 0,
 				"line" : 81,
 				"parent" : 0
 			},
@@ -54,12 +60,6 @@
 				"command" : 1,
 				"file" : 0,
 				"line" : 83,
-				"parent" : 0
-			},
-			{
-				"command" : 1,
-				"file" : 0,
-				"line" : 84,
 				"parent" : 0
 			}
 		]
@@ -170,8 +170,7 @@
 				33,
 				34,
 				35,
-				36,
-				37
+				36
 			]
 		}
 	],
@@ -225,8 +224,7 @@
 				33,
 				34,
 				35,
-				36,
-				37
+				36
 			]
 		}
 	],
@@ -428,12 +426,6 @@
 			"backtrace" : 1,
 			"compileGroupIndex" : 1,
 			"path" : "src/services/render/LightProcessor.cpp",
-			"sourceGroupIndex" : 0
-		},
-		{
-			"backtrace" : 1,
-			"compileGroupIndex" : 1,
-			"path" : "src/services/render/close-to-gl/ViewportTransformationJob.cpp",
 			"sourceGroupIndex" : 0
 		},
 		{

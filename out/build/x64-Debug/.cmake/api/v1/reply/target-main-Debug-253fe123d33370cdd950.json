@@ -30,7 +30,7 @@
 			{
 				"command" : 0,
 				"file" : 0,
-				"line" : 78,
+				"line" : 77,
 				"parent" : 0
 			},
 			{
@@ -42,7 +42,13 @@
 			{
 				"command" : 2,
 				"file" : 0,
-				"line" : 79,
+				"line" : 78,
+				"parent" : 0
+			},
+			{
+				"command" : 3,
+				"file" : 0,
+				"line" : 80,
 				"parent" : 0
 			},
 			{
@@ -61,12 +67,6 @@
 				"command" : 3,
 				"file" : 0,
 				"line" : 83,
-				"parent" : 0
-			},
-			{
-				"command" : 3,
-				"file" : 0,
-				"line" : 84,
 				"parent" : 0
 			}
 		]
@@ -122,11 +122,11 @@
 	[
 		{
 			"backtrace" : 3,
-			"id" : "glfw::@17f284a5fc0809a54549"
+			"id" : "close-to-gl::@6890427a1f51a3e7e1df"
 		},
 		{
 			"backtrace" : 3,
-			"id" : "close-to-gl::@6890427a1f51a3e7e1df"
+			"id" : "glfw::@17f284a5fc0809a54549"
 		}
 	],
 	"id" : "main::@6890427a1f51a3e7e1df",

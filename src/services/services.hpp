@@ -49,9 +49,9 @@ private:
 	Config();
 	float color[4] = { 0.0f, 0.90f, 1.0f, 1.0f };
 	float lightColor[4] = { 1.0f, 1.0f, 1.0f, 1.0f };
-	float ambientStrength = 0.1;
-	float diffuseStrength = 0.8;
-	float specularStrength = 0.6;
+	float ambientStrength = 0.1f;
+	float diffuseStrength = 0.8f;
+	float specularStrength = 0.6f;
 	bool move = false;
 	bool mouseStatus = false;
 	int xfov = 45;
@@ -116,7 +116,7 @@ private:
 	double lastFrameTime = 0.0;
 	double currentFrameTime = 0.0;
 	double timeFrameDiff = 0.0;
-	size_t frameCounter = 0.0;
+	size_t frameCounter = 0;
 public:
 	static Debug* getInstance();
 	void countFrame();

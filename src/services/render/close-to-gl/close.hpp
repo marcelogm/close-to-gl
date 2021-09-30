@@ -73,24 +73,15 @@ namespace close {
 		vector<VertexPayload>* buffer;
 	};
 
-	class PerspectiveDivideJob {
+	class PerspectiveAndViewport {
 	public:
-		PerspectiveDivideJob(vector<VertexPayload>* buffer);
+		PerspectiveAndViewport(vector<VertexPayload>* buffer);
 		size_t apply(size_t count);
 	private:
-		glm::vec4 transform(glm::vec4 vertex);
-		vector<VertexPayload>* buffer;
-	};
-
-	class ViewportTransformationJob {
-	public:
-		ViewportTransformationJob(vector<VertexPayload>* buffer);
-		size_t apply(size_t count);
-	private:
+		glm::vec4 transform(size_t width, size_t height, glm::vec4 vertex);
 		Config* config;
 		vector<VertexPayload>* buffer;
 	};
-
 
 	class CloseToGLPipeline {
 	public:
@@ -99,8 +90,7 @@ namespace close {
 	private:
 		VertexShader* toHomogeneousClipSpace;
 		CullingJob* culling;
-		PerspectiveDivideJob* normalization;
-		ViewportTransformationJob* viewport;
+		PerspectiveAndViewport* normalization;
 		RasterJob* raster;
 		vector<VertexPayload>* buffer;
 	};
