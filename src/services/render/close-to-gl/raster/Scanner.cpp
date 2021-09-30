@@ -26,7 +26,6 @@ void close::Scanner::scanline(RgbBuffer* buffer, std::vector<float>* zBuffer, in
 			auto B = this->toRGBProp(props.at(2)) * z;
 			buffer->set(x, y, R, G, B);
 		}
-
 		for (int i = 0; i < 4; ++i) {
 			props.at(i).next();
 		}

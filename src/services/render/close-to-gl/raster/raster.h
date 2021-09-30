@@ -40,10 +40,10 @@ namespace close {
 		RasterJob();
 	private:
 		void draw(RgbBuffer* buffer, std::vector<float>* zBuffer, data::VertexPayload* v0, data::VertexPayload* v1, data::VertexPayload* v2);
-		std::vector<Slope> createSlope(glm::vec3* p0, glm::vec3* p1, data::VertexPayload* start, data::VertexPayload* end, int steps);
-		bool isTheShorterSide(glm::vec3* p0, glm::vec3* p1, glm::vec3* p2);
-		glm::vec3 extract(data::VertexPayload* vertex);
-		void order(data::VertexPayload* v0, data::VertexPayload* v1, data::VertexPayload* v2, glm::vec3* p0, glm::vec3* p1, glm::vec3* p2);
+		std::vector<Slope> createSlope(data::VertexPayload* start, data::VertexPayload* end);
+		bool isTheShorterSide(glm::vec4* p0, glm::vec4* p1, glm::vec4* p2);
+		void floor(data::VertexPayload* vertex);
+		void order(data::VertexPayload* v0, data::VertexPayload* v1, data::VertexPayload* v2);
 		Scanner* scanner;
 	};
 

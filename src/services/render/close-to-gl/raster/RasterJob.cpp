@@ -22,43 +22,44 @@ std::vector<unsigned char> close::RasterJob::apply(std::vector<data::VertexPaylo
 }
 
 void RasterJob::draw(RgbBuffer* buffer, std::vector<float>* zBuffer, data::VertexPayload* v0, data::VertexPayload* v1, data::VertexPayload* v2) {
-	auto p0 = this->extract(v0);
-	auto p1 = this->extract(v1);
-	auto p2 = this->extract(v2);
+	this->floor(v0); 
+	this->floor(v1); 
+	this->floor(v2);
 
-	this->order(v0, v1, v2, &p0, &p1, &p2);
+	this->order(v0, v1, v2);
 
-	if (p0.y == p2.y) {
+	if (v0->position.y == v2->position.y) {
 		return;
 	}
 
 	std::vector<Slope> sides[2];
-	bool isTheShorterSide = this->isTheShorterSide(&p0, &p1, &p2);
+	bool isTheShorterSide = this->isTheShorterSide(&v0->position, &v1->position, &v2->position);
 	
-	sides[!isTheShorterSide] = createSlope(&p0, &p2, v0, v2, p2.y - p0.y);
+	sides[!isTheShorterSide] = createSlope(v0, v2);
 
-	for (auto y = p0.y, end = p0.y; ; ++y) {
+	for (auto y = v0->position.y, end = v0->position.y; ; ++y) {
 		if (y >= end) {
-			if (y >= p2.y) {
+			if (y >= v2->position.y) {
 				break;
 			}
-			if (y < p1.y) {
-				end = p1.y;
-				sides[isTheShorterSide] = createSlope(&p0, &p1, v0, v1, (end - p0.y));
+			if (y < v1->position.y) {
+				end = v1->position.y;
+				sides[isTheShorterSide] = createSlope(v0, v1);
 			} else {
-				end = p2.y;
-				sides[isTheShorterSide] = createSlope(&p1, &p2, v1, v2, (end - p1.y));
+				end = v2->position.y;
+				sides[isTheShorterSide] = createSlope(v1, v2);
 			}
 		}
 		this->scanner->scanline(buffer, zBuffer, y, &sides[0], &sides[1]);
 	}
 }
 
-std::vector<Slope> RasterJob::createSlope(glm::vec3* p0, glm::vec3* p1, data::VertexPayload* start, data::VertexPayload* end, int steps) {
+std::vector<Slope> RasterJob::createSlope(data::VertexPayload* start, data::VertexPayload* end) {
 	std::vector<Slope> slopes;
+	float steps = end->position.y - start->position.y;
 	float zStart = 1.f / start->position.z;
 	float zEnd = 1.f / end->position.z;
-	slopes.push_back(Slope(p0->x, p1->x, steps));
+	slopes.push_back(Slope(start->position.x, end->position.x, steps));
 	slopes.push_back(Slope(start->color.r * zStart, end->color.r * zEnd, steps));
 	slopes.push_back(Slope(start->color.g * zStart, end->color.g * zEnd, steps));
 	slopes.push_back(Slope(start->color.b * zStart, end->color.b * zEnd, steps));
@@ -66,38 +67,33 @@ std::vector<Slope> RasterJob::createSlope(glm::vec3* p0, glm::vec3* p1, data::Ve
 	return slopes;
 }
 
-bool RasterJob::isTheShorterSide(glm::vec3* p0, glm::vec3* p1, glm::vec3* p2) {
+bool RasterJob::isTheShorterSide(glm::vec4* p0, glm::vec4* p1, glm::vec4* p2) {
 	return (p1->y - p0->y) * (p2->x - p0->x) < (p1->x - p0->x) * (p2->y - p0->y);
 }
 
-glm::vec3 RasterJob::extract(data::VertexPayload* vertex) {
-	return glm::vec3(
-		(int) std::floor(vertex->position.x),
-		(int) std::floor(vertex->position.y),
-		(int) std::floor(vertex->position.z)
-	);
+void RasterJob::floor(data::VertexPayload* vertex) {
+	vertex->position.x = std::floor(vertex->position.x);
+	vertex->position.y = std::floor(vertex->position.y);
 }
 
-void RasterJob::order(data::VertexPayload* v0, data::VertexPayload* v1, data::VertexPayload* v2,
-	glm::vec3* p0, glm::vec3* p1, glm::vec3* p2) {
-
-	if (std::tie(p1->y, p1->x) < std::tie(p0->y, p0->x)) {
-		std::swap(p0->x, p1->x);
-		std::swap(p0->y, p1->y); 
+void RasterJob::order(data::VertexPayload* v0, data::VertexPayload* v1, data::VertexPayload* v2) {
+	if (std::tie(v1->position.y, v1->position.x) < std::tie(v0->position.y, v0->position.x)) {
+		std::swap(v0->position.x, v1->position.x);
+		std::swap(v0->position.y, v1->position.y);
+		std::swap(v0->position.z, v1->position.z);
 		std::swap(v0->color, v1->color);
-		std::swap(v0, v1);
 	}
-	if (std::tie(p2->y, p2->x) < std::tie(p0->y, p0->x)) {
-		std::swap(p0->x, p2->x); 
-		std::swap(p0->y, p2->y);
+	if (std::tie(v2->position.y, v2->position.x) < std::tie(v0->position.y, v0->position.x)) {
+		std::swap(v0->position.x, v2->position.x);
+		std::swap(v0->position.y, v2->position.y);
+		std::swap(v0->position.z, v2->position.z);
 		std::swap(v0->color, v2->color);
-		std::swap(v0, v2);
 	}
-	if (std::tie(p2->y, p2->x) < std::tie(p1->y, p1->x)) {
-		std::swap(p1->x, p2->x); 
-		std::swap(p1->y, p2->y);
+	if (std::tie(v2->position.y, v2->position.x) < std::tie(v1->position.y, v1->position.x)) {
+		std::swap(v1->position.x, v2->position.x);
+		std::swap(v1->position.y, v2->position.y);
+		std::swap(v1->position.z, v2->position.z);
 		std::swap(v1->color, v2->color);
-		std::swap(v1, v2);
 	}
 }
 
