@@ -36,6 +36,7 @@ namespace open {
 		long modelSpace;
 		long viewSpace;
 		long projectionSpace;
+		long normalTransform;
 		GLuint program;
 		ModelToVertex* converter;
 		Config* config;

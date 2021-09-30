@@ -30,6 +30,7 @@ void OpenGLRenderer::init(data::Model* model) {
 	this->modelSpace = glGetUniformLocation(program, "model");
 	this->viewSpace = glGetUniformLocation(program, "view");
 	this->projectionSpace = glGetUniformLocation(program, "projection");
+	this->normalTransform = glGetUniformLocation(program, "normalTransform");
 	this->light->setup(program);
 
 	glEnable(GL_DEPTH_TEST);
@@ -52,11 +53,13 @@ void OpenGLRenderer::display() {
 	glm::mat4 model = glm::mat4(1.0f);
 	glm::mat4 view = camera->getView();
 	glm::mat4 projection = this->projectionProvider->get();
+	glm::mat4 normal = glm::transpose(glm::inverse(model * view));
 
 	this->light->process();
 	glUniformMatrix4fv(modelSpace, 1, GL_FALSE, glm::value_ptr(model));
 	glUniformMatrix4fv(viewSpace, 1, GL_FALSE, glm::value_ptr(view));
 	glUniformMatrix4fv(projectionSpace, 1, GL_FALSE, glm::value_ptr(projection));
+	glUniformMatrix4fv(normalTransform, 1, GL_FALSE, glm::value_ptr(normal));
 	glBindVertexArray(VAOs[Triangles]);
 
 	this->background->process();

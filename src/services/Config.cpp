@@ -107,5 +107,5 @@ void Config::reset() {
 	xfov = ((float)this->windowWidth / (float)this->windowHeight) * yfov;
 	zNear = 1;
 	zFar = 5000;
-	lightPosition = glm::vec3(0.0f, 3.0f, 0.0f);
+	lightPosition = glm::vec3(2.0f, 2.0f, 2.0f);
 }

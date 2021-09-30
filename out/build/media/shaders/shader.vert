@@ -9,6 +9,7 @@ out vec4 fragPos;
 
 uniform mat4 model;
 uniform mat4 view;
+uniform mat4 normalTransform;
 uniform mat4 projection;
 uniform vec4 customColor;
 
@@ -25,7 +26,7 @@ subroutine vec4 light_t();
 subroutine uniform light_t light;
 
 vec3 getNormal() {
-    return normalize(vNormal);
+    return normalize(vec3(normalTransform * vec4(vNormal, 1.0f)));
 }
 
 vec3 getLightDirection() {
@@ -73,7 +74,7 @@ vec4 gouraudShadingADS() {
 
 void
 main() {
-    normal = vec4(vNormal, 1.0f);
+    normal = vec4(getNormal(), 1.0f);
     fragPos = model * vec4(vPosition, 1.0);
     color = light();
 

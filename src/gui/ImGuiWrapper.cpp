@@ -61,7 +61,7 @@ void ImGuiWrapper::shading() {
 		ImGui::RadioButton("Phong Shading", config->getShading(), LIGHT_PHONG_SHADING);
 	}
 
-	ImGui::Text("Diffuse light position:");
+	ImGui::Text("Light position:");
 	ImGui::SliderFloat("X", &config->getLightPosition()->x, -1000.0f, 1000.0f, "");
 	ImGui::SliderFloat("Y", &config->getLightPosition()->y, -1000.0f, 1000.0f, "");
 	ImGui::SliderFloat("Z", &config->getLightPosition()->z, -1000.0f, 1000.0f, "");

@@ -64,10 +64,9 @@ namespace close {
 		Config* config;
 		ProjectionFromConfig* projectionProvider;
 		PhongIlluminationModel* illumination;
-		glm::mat4 getMVP();
-		glm::vec4 toHomogeneous(glm::vec3 vertex);
+		glm::mat4 getMV();
 		glm::vec4 toHomogeneous(glm::vec3* vertex);
-
+		glm::vec4 transformNormal(glm::mat4* MV, glm::vec3* normal);
 	};
 
 	class CullingJob : public Job<std::vector<data::VertexPayload>*, std::vector<data::VertexPayload>> {
