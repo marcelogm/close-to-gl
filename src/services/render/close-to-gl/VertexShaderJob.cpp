@@ -10,12 +10,13 @@ std::vector<data::VertexPayload> VertexShaderJob::apply(std::vector<data::Vertex
 	std::vector<data::VertexPayload> payload(vertices->size());
 	for (size_t i = 0; i < vertices->size(); i++) {
 		auto current = vertices->at(i);
+		auto model = glm::vec3(current.position[0], current.position[1], current.position[2]);
 		auto normal = glm::vec3(current.normal[0], current.normal[1], current.normal[2]);
-		auto position = MVP * this->toHomogeneous(&current);
+		auto position = MVP * this->toHomogeneous(&model);
 
 		glm::vec4 color;
 		if (*config->getShading() == LIGHT_GOURAUD_ADS) {
-			color = phong.apply(position, glm::vec4(normal, 1.0f));
+			color = glm::vec4(phong.apply(model, normal), 1.0f);
 		} else {
 			color = glm::vec4(config->getColor()[0], config->getColor()[1], config->getColor()[2], 1.0f);
 		}
@@ -36,11 +37,11 @@ glm::mat4 VertexShaderJob::getMVP() {
 	return projection * view * model;
 }
 
-glm::vec4 VertexShaderJob::toHomogeneous(data::VertexData* vertex) {
+glm::vec4 VertexShaderJob::toHomogeneous(glm::vec3* vertex) {
 	return glm::vec4(
-		vertex->position[0], 
-		vertex->position[1], 
-		vertex->position[2], 
+		vertex->x, 
+		vertex->y, 
+		vertex->z, 
 		1.0f
 	);
 }

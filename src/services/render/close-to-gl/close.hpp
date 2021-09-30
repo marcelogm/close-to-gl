@@ -36,7 +36,7 @@ namespace close {
 	class PhongIlluminationModel {
 	public:
 		PhongIlluminationModel();
-		glm::vec4 apply(glm::vec4 position, glm::vec4 normal);
+		glm::vec3 apply(glm::vec3 position, glm::vec3 normal);
 	private:
 
 		float ambientStrength;
@@ -65,7 +65,8 @@ namespace close {
 		ProjectionFromConfig* projectionProvider;
 		PhongIlluminationModel* illumination;
 		glm::mat4 getMVP();
-		glm::vec4 toHomogeneous(data::VertexData* vertex);
+		glm::vec4 toHomogeneous(glm::vec3 vertex);
+		glm::vec4 toHomogeneous(glm::vec3* vertex);
 
 	};
 

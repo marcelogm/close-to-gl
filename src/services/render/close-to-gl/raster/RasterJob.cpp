@@ -78,21 +78,15 @@ void RasterJob::floor(data::VertexPayload* vertex) {
 
 void RasterJob::order(data::VertexPayload* v0, data::VertexPayload* v1, data::VertexPayload* v2) {
 	if (std::tie(v1->position.y, v1->position.x) < std::tie(v0->position.y, v0->position.x)) {
-		std::swap(v0->position.x, v1->position.x);
-		std::swap(v0->position.y, v1->position.y);
-		std::swap(v0->position.z, v1->position.z);
+		std::swap(v0->position, v1->position);
 		std::swap(v0->color, v1->color);
 	}
 	if (std::tie(v2->position.y, v2->position.x) < std::tie(v0->position.y, v0->position.x)) {
-		std::swap(v0->position.x, v2->position.x);
-		std::swap(v0->position.y, v2->position.y);
-		std::swap(v0->position.z, v2->position.z);
+		std::swap(v0->position, v2->position);
 		std::swap(v0->color, v2->color);
 	}
 	if (std::tie(v2->position.y, v2->position.x) < std::tie(v1->position.y, v1->position.x)) {
-		std::swap(v1->position.x, v2->position.x);
-		std::swap(v1->position.y, v2->position.y);
-		std::swap(v1->position.z, v2->position.z);
+		std::swap(v1->position, v2->position);
 		std::swap(v1->color, v2->color);
 	}
 }
