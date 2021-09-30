@@ -12,10 +12,18 @@ std::vector<data::VertexPayload> VertexShaderJob::apply(std::vector<data::Vertex
 		auto current = vertices->at(i);
 		auto normal = glm::vec3(current.normal[0], current.normal[1], current.normal[2]);
 		auto position = MVP * this->toHomogeneous(&current);
+
+		glm::vec4 color;
+		if (*config->getShading() == LIGHT_GOURAUD_ADS) {
+			color = phong.apply(position, glm::vec4(normal, 1.0f));
+		} else {
+			color = glm::vec4(config->getColor()[0], config->getColor()[1], config->getColor()[2], 1.0f);
+		}
+
 		payload[i] = {
 			position,
 			normal,
-			phong.apply(position, glm::vec4(normal, 1.0f))
+			color
 		};
 	}
 	return payload;

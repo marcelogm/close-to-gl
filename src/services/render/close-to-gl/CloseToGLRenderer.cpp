@@ -13,7 +13,7 @@ void CloseToGLRenderer::init(data::Model* model) {
 	this->vertices = converter->getVertexDataFromDataModel(model);
 	this->range = converter->getRange(this->vertices);
 
-	this->program = LoadShaders(&this->getShaders().front());
+	*config->getCloseToGLProgramId() = LoadShaders(&this->getShaders().front());
 
 	glGenBuffers(NumBuffers, this->buffers);
 	glBindBuffer(GL_ARRAY_BUFFER, this->buffers[VertexBuffer]);
@@ -25,10 +25,10 @@ void CloseToGLRenderer::init(data::Model* model) {
 	glEnableVertexAttribArray(vPosition);
 	glEnableVertexAttribArray(aTexCoord);
 
-	glUseProgram(this->program);
+	glUseProgram(*config->getCloseToGLProgramId());
 
-	glGenTextures(1, &this->texture);
-	glBindTexture(GL_TEXTURE_2D, texture);
+	glGenTextures(1, config->getCloseToGLTextureId());
+	glBindTexture(GL_TEXTURE_2D, *config->getCloseToGLTextureId());
 
 	int width = *config->getWindowWidth();
 	int height = *config->getWindowHeight();
@@ -36,7 +36,7 @@ void CloseToGLRenderer::init(data::Model* model) {
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
 	glGenerateMipmap(GL_TEXTURE_2D);
 
-	glUniform1i(glGetUniformLocation(program, "text"), 0);
+	glUniform1i(glGetUniformLocation(*config->getCloseToGLProgramId(), "text"), 0);
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_PROGRAM_POINT_SIZE);
 }
@@ -46,7 +46,7 @@ void CloseToGLRenderer::display() {
 	float* rgba = config->getColor();
 
 	glActiveTexture(GL_TEXTURE0);
-	glUseProgram(this->program);
+	glUseProgram(*config->getCloseToGLProgramId());
 
 	// Desabilita cull face pois ele está implementado em ClippingJob.cpp 
 	glDisable(GL_CULL_FACE);
@@ -55,7 +55,7 @@ void CloseToGLRenderer::display() {
 	auto height = *config->getWindowHeight();
 	
 	if (processed->size() > 0) {
-		glBindTexture(GL_TEXTURE_2D, texture);
+		glBindTexture(GL_TEXTURE_2D, *config->getCloseToGLTextureId());
 		glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, width, height, GL_RGB, GL_UNSIGNED_BYTE, &processed->front());
 		glGenerateMipmap(GL_TEXTURE_2D);
 	}

@@ -23,6 +23,14 @@ void onWindowSizeChange(GLFWwindow* window, int width, int height) {
 	*config->getWindowWidth() = width;
 	*config->getXFOV() = ((float)width / (float)height) * *config->getYFOV();
 	glViewport(0, 0, width, height);
+
+	glUseProgram(*config->getCloseToGLProgramId());
+	glDeleteTextures(1, config->getCloseToGLTextureId());
+	glGenTextures(1, config->getCloseToGLTextureId());
+	glBindTexture(GL_TEXTURE_2D, 1);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
+	glGenerateMipmap(GL_TEXTURE_2D);
+	glUniform1i(glGetUniformLocation(*config->getCloseToGLProgramId(), "text"), 0);
 }
 
 void Application::init() {

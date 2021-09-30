@@ -9,7 +9,7 @@ Scanner::Scanner() {
 void close::Scanner::scanline(RgbBuffer* buffer, std::vector<float>* zBuffer, int y, std::vector<Slope>* left, std::vector<Slope>* right) {
 	int start = left->at(0).get();
 	int end = right->at(0).get();
-	
+
 	std::vector<Slope> props(4);
 	for (int i = 0; i < 4; ++i) {
 		int steps = end - start;
@@ -17,14 +17,9 @@ void close::Scanner::scanline(RgbBuffer* buffer, std::vector<float>* zBuffer, in
 	}
 
 	for (int x = start; x <= end; ++x) {
-		auto z = 1.f / props.at(3).get();
-		auto zBufferIndex = x * *Config::getInstance()->getWindowWidth() + y;
-		if (z < zBuffer->at(zBufferIndex)) {
-			zBuffer->at(zBufferIndex) = z;
-			auto R = this->toRGBProp(props.at(0)) * z;
-			auto G = this->toRGBProp(props.at(1)) * z;
-			auto B = this->toRGBProp(props.at(2)) * z;
-			buffer->set(x, y, R, G, B);
+		int mode = *Config::getInstance()->getRenderMode();
+		if (x == start || x == end || mode == RENDER_MODE_TRIANGLE){
+			this->draw(buffer, zBuffer, x, y, &props);
 		}
 		for (int i = 0; i < 4; ++i) {
 			props.at(i).next();
@@ -33,6 +28,18 @@ void close::Scanner::scanline(RgbBuffer* buffer, std::vector<float>* zBuffer, in
 	for (int i = 0; i < left->size(); i++) {
 		left->at(i).next();
 		right->at(i).next();
+	}
+}
+
+void close::Scanner::draw(RgbBuffer* buffer, std::vector<float>* zBuffer, int x, int y, std::vector<Slope>* props) {
+	auto z = 1.f / props->at(3).get();
+	auto zBufferIndex = x * buffer->getWidth() + y;
+	if (z < zBuffer->at(zBufferIndex)) {
+		zBuffer->at(zBufferIndex) = z;
+		auto R = this->toRGBProp(props->at(0)) * z;
+		auto G = this->toRGBProp(props->at(1)) * z;
+		auto B = this->toRGBProp(props->at(2)) * z;
+		buffer->set(x, y, R, G, B);
 	}
 }
 

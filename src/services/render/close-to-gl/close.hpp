@@ -43,16 +43,16 @@ namespace close {
 		float diffuseStrength;
 		float specularStrength;
 
-		glm::vec4 light;
-		glm::vec4 camera;
+		glm::vec3 light;
+		glm::vec3 camera;
 
-		glm::vec4 color;
-		glm::vec4 lightColor;
-		glm::vec4 getReflection(glm::vec4 I, glm::vec4 normal);
-		glm::vec4 getLightDirection(glm::vec4 position);
-		glm::vec4 getAmbientLight();
-		glm::vec4 getDiffuseLight(glm::vec4 normal, glm::vec4 direction);
-		glm::vec4 getSpecularLight(glm::vec4 normal, glm::vec4 position, glm::vec4 direction);
+		glm::vec3 color;
+		glm::vec3 lightColor;
+		glm::vec3 getReflection(glm::vec3 I, glm::vec3 normal);
+		glm::vec3 getLightDirection(glm::vec3 position);
+		glm::vec3 getAmbientLight();
+		glm::vec3 getDiffuseLight(glm::vec3 normal, glm::vec3 direction);
+		glm::vec3 getSpecularLight(glm::vec3 normal, glm::vec3 position, glm::vec3 direction);
 	};
 
 	class VertexShaderJob : public Job<std::vector<data::VertexData>*, std::vector<data::VertexPayload>> {

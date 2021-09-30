@@ -1,6 +1,8 @@
 #include "services.hpp"
 
 Config::Config() {
+	program = 0;
+	texture = 0;
 };
 
 Config* Config::getInstance() {
@@ -90,6 +92,14 @@ int* Config::getShading() {
 
 glm::vec3* Config::getLightPosition() {
 	return &this->lightPosition;
+}
+
+GLuint* Config::getCloseToGLProgramId() {
+	return &this->program;
+}
+
+GLuint* Config::getCloseToGLTextureId() {
+	return &this->texture;
 }
 
 void Config::reset() {

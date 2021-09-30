@@ -52,10 +52,14 @@ void ImGuiWrapper::shading() {
 	ImGui::ColorEdit4("Cor do objeto", config->getColor());
 
 	ImGui::Text("Shading:");
-	ImGui::RadioButton("No shading", config->getShading(), 1);
-	ImGui::RadioButton("Gouraud Shading AD", config->getShading(), 2);
-	ImGui::RadioButton("Gouraud Shading ADS", config->getShading(), 3);
-	ImGui::RadioButton("Phong Shading", config->getShading(), 4);
+	ImGui::RadioButton("No shading", config->getShading(), LIGHT_NO_SHADING);
+	if (*config->getOpenGLUse()) {
+		ImGui::RadioButton("Gouraud Shading AD", config->getShading(), LIGHT_GOURAUD_AD);
+	}
+	ImGui::RadioButton("Gouraud Shading ADS", config->getShading(), LIGHT_GOURAUD_ADS);
+	if (*config->getOpenGLUse()) {
+		ImGui::RadioButton("Phong Shading", config->getShading(), LIGHT_PHONG_SHADING);
+	}
 
 	ImGui::Text("Diffuse light position:");
 	ImGui::SliderFloat("X", &config->getLightPosition()->x, -1000.0f, 1000.0f, "");
@@ -118,11 +122,13 @@ void ImGuiWrapper::space() {
 	ImGui::Checkbox("Girar camera no proprio eixo (CNTRL)", config->getMove());
 	ImGui::SliderFloat("Sensibilidade da movimentacao", config->getSensibility(), 0.0f, 100.0f, "%.0f", ImGuiSliderFlags_Logarithmic);
 	ImGui::Text("Render mode:");
-	ImGui::RadioButton("Triangulos", config->getRenderMode(), 0);
+	ImGui::RadioButton("Triangulos", config->getRenderMode(), RENDER_MODE_TRIANGLE);
 	ImGui::SameLine();
-	ImGui::RadioButton("Pontos", config->getRenderMode(), 1);
-	ImGui::SameLine();
-	ImGui::RadioButton("Frame", config->getRenderMode(), 2);
+	if (*config->getOpenGLUse()) {
+		ImGui::RadioButton("Pontos", config->getRenderMode(), RENDER_MODE_DOT);
+		ImGui::SameLine();
+	}
+	ImGui::RadioButton("Frame", config->getRenderMode(), RENDER_MODE_FRAME);
 	ImGui::Checkbox("Clockwise", config->getCW());
 	ImGui::SameLine();
 	ImGui::Checkbox("OpenGL", config->getOpenGLUse());

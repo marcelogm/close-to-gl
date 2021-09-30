@@ -3,7 +3,7 @@
 using namespace close;
 
 #define RGB_CHANNEL_COUNT 3
-#define DEBUG 1
+//#define DEBUG 1
 
 RgbBuffer::RgbBuffer(size_t width, size_t height) {
 	this->width = width;
@@ -29,4 +29,14 @@ void close::RgbBuffer::set(size_t x, size_t y, BYTE R, BYTE G, BYTE B) {
 	buffer.at(x * RGB_CHANNEL_COUNT + y * this->width * RGB_CHANNEL_COUNT) = R;
 	buffer.at(x * RGB_CHANNEL_COUNT + y * this->width * RGB_CHANNEL_COUNT + 1) = G;
 	buffer.at(x * RGB_CHANNEL_COUNT + y * this->width * RGB_CHANNEL_COUNT + 2) = B;
+}
+
+size_t close::RgbBuffer::getWidth()
+{
+	return width;
+}
+
+size_t close::RgbBuffer::getHeight()
+{
+	return height;
 }

@@ -10,6 +10,8 @@ namespace close {
 		RgbBuffer(size_t width, size_t height);
 		std::vector<BYTE> get();
 		void set(size_t x, size_t y, BYTE R, BYTE G, BYTE B);
+		size_t getWidth();
+		size_t getHeight();
 	private:
 		size_t width;
 		size_t height;
@@ -31,6 +33,7 @@ namespace close {
 	public:
 		Scanner();
 		void scanline(RgbBuffer* buffer, std::vector<float>* zBuffer, int y, std::vector<Slope>* left, std::vector<Slope>* right);
+		void draw(RgbBuffer* buffer, std::vector<float>* zBuffer, int x, int y, std::vector<Slope>* props);
 		BYTE toRGBProp(Slope prop);
 	};
 

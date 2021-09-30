@@ -8,6 +8,16 @@
 #include <stdexcept>
 #include <memory>
 
+#define RENDER_MODE_TRIANGLE 0
+#define RENDER_MODE_DOT 1
+#define RENDER_MODE_FRAME 2
+
+#define LIGHT_NO_SHADING 1
+#define LIGHT_GOURAUD_AD 2
+#define LIGHT_GOURAUD_ADS 3
+#define LIGHT_PHONG_SHADING 4
+
+
 class ModelToVertex {
 public:
 	std::vector<data::VertexData>* getVertexDataFromDataModel(data::Model* model);
@@ -56,6 +66,8 @@ private:
 	int renderMode = 0;
 	bool useOpenGL = true;
 	int shading = 1;
+	GLuint texture;
+	GLuint program;
 	glm::vec3 lightPosition = glm::vec3(0.0f, 0.3f, 0.0f);
 public:
 	static Config* getInstance();
@@ -79,6 +91,8 @@ public:
 	bool* getOpenGLUse();
 	int* getShading();
 	glm::vec3* getLightPosition();
+	GLuint* getCloseToGLProgramId();
+	GLuint* getCloseToGLTextureId();
 	void reset();
 };
 
