@@ -43,7 +43,8 @@ vec3 getDiffuseLight(vec3 lightDirection) {
 vec3 getSpecularLight(vec3 lightDirection) {
     vec3 viewDirection = normalize(cameraPosition - vPosition);
     vec3 reflectDirection = reflect(-lightDirection, getNormal());
-    return specularStrength * pow(max(dot(viewDirection, reflectDirection), 0.0f), 3) * lightColor;  
+    float spec = pow(max(dot(viewDirection, reflectDirection), 0.0f), 3);
+    return specularStrength * spec * lightColor;  
 }
 
 subroutine(light_t)

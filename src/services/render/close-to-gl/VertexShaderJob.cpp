@@ -4,10 +4,9 @@ using namespace close;
 
 std::vector<data::VertexPayload> VertexShaderJob::apply(std::vector<data::VertexData>* vertices) {
 	const glm::mat4 MVP = this->getMVP();
-	auto color = this->config->getColor();
 	auto phong = PhongIlluminationModel();
-
 	std::vector<data::VertexPayload> payload(vertices->size());
+
 	for (size_t i = 0; i < vertices->size(); i++) {
 		auto current = vertices->at(i);
 		auto model = glm::vec3(current.position[0], current.position[1], current.position[2]);
@@ -27,6 +26,7 @@ std::vector<data::VertexPayload> VertexShaderJob::apply(std::vector<data::Vertex
 			color
 		};
 	}
+
 	return payload;
 }
 
