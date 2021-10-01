@@ -17,30 +17,38 @@
 #define LIGHT_GOURAUD_ADS 3
 #define LIGHT_PHONG_SHADING 4
 
+using std::string;
+using std::vector;
+using data::Model;
+using data::Material;
+using data::Triangle;
+using data::Vertex;
+using data::VertexData;
+using data::VertexData2D;
+using data::VertexDataRange;
 
 class ModelToVertex {
 public:
-	std::vector<data::VertexData>* getVertexDataFromDataModel(data::Model* model);
-	data::VertexDataRange getRange(std::vector<data::VertexData>* vertices);
+	VertexData* getVertexDataFromDataModel(data::Model* model);
+	VertexDataRange getRange(VertexData* vertices, size_t size);
 };
 
 class ModelFactory {
 private:
-	FILE* open(std::string path);
+	FILE* open(string path);
 
-	std::string* fetchName(FILE*);
-	std::vector<data::Material*>* fetchMaterials(FILE*);
-	data::Material* fetchMaterial(FILE*);
-	std::vector<data::Triangle*>* fetchTriangles(FILE*, int);
-	data::Triangle* fetchTriangle(FILE*);
-	std::vector<data::Vertex*>* fetchVertices(FILE*);
-	data::Vertex* fetchVertex(FILE*);
+	string* fetchName(FILE*);
+	vector<Material*>* fetchMaterials(FILE*);
+	Material* fetchMaterial(FILE*);
+	vector<Triangle*>* fetchTriangles(FILE*, int);
+	Triangle* fetchTriangle(FILE*);
+	Vertex* fetchVertex(FILE*);
 
 	void colorPreprocessing(data::Model* model);
 	int getTriangleCount(FILE*);
 	void skipLine(FILE*);
 public:
-	data::Model* get(std::string);
+	data::Model* get(string);
 };
 
 class Config {

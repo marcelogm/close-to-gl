@@ -28,7 +28,7 @@ namespace open {
 		bool test();
 		OpenGLRenderer();
 	private:
-		std::vector<data::VertexData>* vertices;
+		data::VertexData* vertices;
 		data::VertexDataRange range;
 		GLuint VAOs[NumVAOs];
 		GLuint buffers[NumBuffers];

@@ -11,7 +11,8 @@ void CloseToGLRenderer::init(data::Model* model) {
 
 	auto converter = std::unique_ptr<ModelToVertex>();
 	this->vertices = converter->getVertexDataFromDataModel(model);
-	this->range = converter->getRange(this->vertices);
+	this->size = model->getTriangles()->size() * 3;
+	this->range = converter->getRange(this->vertices, this->size);
 
 	*config->getCloseToGLProgramId() = LoadShaders(&this->getShaders().front());
 
@@ -42,7 +43,8 @@ void CloseToGLRenderer::init(data::Model* model) {
 }
 
 void CloseToGLRenderer::display() {
-	auto processed = pipeline->apply(this->vertices);
+	// model deve carregar o size
+	auto processed = pipeline->apply(this->vertices, this->size);
 	float* rgba = config->getColor();
 
 	glActiveTexture(GL_TEXTURE0);

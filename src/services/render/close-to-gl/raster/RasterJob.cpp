@@ -3,7 +3,7 @@
 using namespace close;
 
 
-close::RasterJob::RasterJob(vector<VertexPayload>* buffer) {
+close::RasterJob::RasterJob(VertexPayload* buffer) {
 	this->scanner = new Scanner();
 	this->buffer = buffer;
 }
@@ -18,9 +18,9 @@ std::vector<unsigned char> close::RasterJob::apply(size_t count) {
 	std::fill_n(&zBuffer.front(), width * height, 1.0f);
 
 	for (size_t i = 0; i < count; i += 3) {
-		auto v0 = buffer->at(i);
-		auto v1 = buffer->at(i + 1);
-		auto v2 = buffer->at(i + 2);
+		auto v0 = buffer[i];
+		auto v1 = buffer[i + 1];
+		auto v2 = buffer[i + 2];
 		this->draw(&outputBuffer, &zBuffer, &v0, &v1, &v2);
 	}
 

@@ -29,7 +29,6 @@ namespace close {
 		aTexCoord = 1
 	};
 
-
 	class PhongIlluminationModel {
 	public:
 		PhongIlluminationModel();
@@ -51,48 +50,48 @@ namespace close {
 
 	class VertexShader {
 	public:
-		VertexShader(vector<VertexPayload>* buffer);
-		size_t apply(vector<VertexData>* vertices);
+		VertexShader(VertexPayload* buffer);
+		size_t apply(VertexData* vertices, size_t size);
 	private:
 		Camera* camera;
 		Config* config;
 		ProjectionFromConfig* projectionProvider;
-		vector<VertexPayload>* buffer;
+		VertexPayload* buffer;
 		glm::mat4 getMV();
 	};
 
 	class CullingJob {
 	public:
-		CullingJob(vector<VertexPayload>* buffer);
+		CullingJob(VertexPayload* buffer);
 		size_t apply(size_t verticeCount);
 	private:
 		bool shouldDiscard(size_t);
 		bool atLeastOneVerticeOutsideFrustum(size_t);
 		bool backfaceCullingTest(size_t);
 		bool isInsideFrustum(glm::vec4* point);
-		vector<VertexPayload>* buffer;
+		VertexPayload* buffer;
 	};
 
 	class PerspectiveAndViewport {
 	public:
-		PerspectiveAndViewport(vector<VertexPayload>* buffer);
+		PerspectiveAndViewport(VertexPayload* buffer);
 		size_t apply(size_t count);
 	private:
 		glm::vec4 transform(size_t width, size_t height, glm::vec4 vertex);
 		Config* config;
-		vector<VertexPayload>* buffer;
+		VertexPayload* buffer;
 	};
 
 	class CloseToGLPipeline {
 	public:
-		std::unique_ptr<vector<unsigned char>> apply(vector<data::VertexData>*);
+		std::unique_ptr<vector<unsigned char>> apply(data::VertexData*, size_t size);
 		CloseToGLPipeline();
 	private:
 		VertexShader* toHomogeneousClipSpace;
 		CullingJob* culling;
 		PerspectiveAndViewport* normalization;
 		RasterJob* raster;
-		vector<VertexPayload>* buffer;
+		VertexPayload* buffer;
 	};
 
 	class CloseToGLRenderer : public renderer::Renderer {
@@ -102,7 +101,8 @@ namespace close {
 		bool test();
 		CloseToGLRenderer();
 	private:
-		vector<data::VertexData>* vertices;
+		VertexData* vertices;
+		size_t size;
 		data::VertexDataRange range;
 		GLuint VAOs[NumVAOs];
 		GLuint buffers[NumBuffers];

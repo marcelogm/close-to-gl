@@ -3,9 +3,9 @@
 using namespace open;
 
 void OpenGLRenderer::init(data::Model* model) {
+	this->verticesCount = model->getTriangles()->size() * 3;
 	this->vertices = this->converter->getVertexDataFromDataModel(model);
-	this->verticesCount = this->vertices->size();
-	this->range = this->converter->getRange(this->vertices);
+	this->range = this->converter->getRange(this->vertices, verticesCount);
 
 	std::vector<ShaderInfo> shaders = this->getShaders();
 	this->program = LoadShaders(&shaders.front());
@@ -18,12 +18,12 @@ void OpenGLRenderer::init(data::Model* model) {
 	glBindVertexArray(this->VAOs[Triangles]);
 
 	glBindBuffer(GL_ARRAY_BUFFER, this->buffers[VertexBuffer]);
-	glBufferData(GL_ARRAY_BUFFER, this->vertices->size() * sizeof(data::VertexData), &this->vertices->front(), GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, verticesCount * sizeof(data::VertexData), this->vertices, GL_STATIC_DRAW);
 
 	glVertexAttribPointer(vPosition, 3, GL_FLOAT, GL_FALSE, sizeof(data::VertexData), BUFFER_OFFSET(0));
 	glEnableVertexAttribArray(vPosition);
 
-	int normalOffset = sizeof(this->vertices->at(0).position);
+	int normalOffset = sizeof(this->vertices[0].position);
 	glVertexAttribPointer(vNormalVertex, 3, GL_FLOAT, GL_FALSE, sizeof(data::VertexData), BUFFER_OFFSET(normalOffset));
 	glEnableVertexAttribArray(vNormalVertex);
 	
