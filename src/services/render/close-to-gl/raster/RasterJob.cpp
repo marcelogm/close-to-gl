@@ -2,7 +2,6 @@
 
 using namespace close;
 
-
 close::RasterJob::RasterJob(VertexPayload* buffer) {
 	this->scanner = new Scanner();
 	this->buffer = buffer;

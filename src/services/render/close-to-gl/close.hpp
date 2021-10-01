@@ -29,23 +29,40 @@ namespace close {
 		aTexCoord = 1
 	};
 
-	class PhongIlluminationModel {
+	class Shader {
+	public:
+		virtual vec4 apply(vec4 position, vec4 normal) = 0;
+		virtual bool test() = 0;
+	};
+
+	class ColorShader : public Shader {
+	public:
+		ColorShader();
+		bool test();
+		vec4 apply(glm::vec4 position, glm::vec4 normal);
+	private:
+		Config* config;
+	};
+
+	class PhongIlluminationModel : public Shader {
 	public:
 		PhongIlluminationModel();
-		vec3 apply(glm::vec3 position, glm::vec3 normal);
+		bool test();
+		vec4 apply(glm::vec4 position, glm::vec4 normal);
 	private:
-		float ambientStrength;
-		float diffuseStrength;
-		float specularStrength;
-		vec3 light;
-		vec3 camera;
-		vec3 color;
-		vec3 lightColor;
-		vec3 getReflection(vec3 I, vec3 normal);
-		vec3 getLightDirection(vec3 position);
-		vec3 getAmbientLight();
-		vec3 getDiffuseLight(vec3 normal, vec3 direction);
-		vec3 getSpecularLight(vec3 normal, vec3 position, vec3 direction);
+		Config* config;
+		float* ambientStrength;
+		float* diffuseStrength;
+		float* specularStrength;
+		vec3* light;
+		vec3* camera;
+		vec3 getLightColor();
+		vec3 getObjectColor();
+		vec3 getReflection(vec3* I, vec3* normal);
+		vec3 getLightDirection(vec3* position);
+		vec3 getAmbientLight(vec3* color);
+		vec3 getDiffuseLight(vec3* normal, vec3* direction, vec3* color);
+		vec3 getSpecularLight(vec3* normal, vec3* position, vec3* direction, vec3* color);
 	};
 
 	class VertexShader {
@@ -57,12 +74,14 @@ namespace close {
 		Config* config;
 		ProjectionFromConfig* projectionProvider;
 		VertexPayload* buffer;
+		vector<Shader*>* shaders;
 		glm::mat4 getMV();
+		Shader* getShader();
 	};
 
-	class CullingJob {
+	class FaceCulling {
 	public:
-		CullingJob(VertexPayload* buffer);
+		FaceCulling(VertexPayload* buffer);
 		size_t apply(size_t verticeCount);
 	private:
 		bool shouldDiscard(size_t);
@@ -77,7 +96,7 @@ namespace close {
 		PerspectiveAndViewport(VertexPayload* buffer);
 		size_t apply(size_t count);
 	private:
-		glm::vec4 transform(size_t width, size_t height, glm::vec4 vertex);
+		glm::vec4 transform(size_t width, size_t height, glm::vec4* vertex);
 		Config* config;
 		VertexPayload* buffer;
 	};
@@ -88,7 +107,7 @@ namespace close {
 		CloseToGLPipeline();
 	private:
 		VertexShader* toHomogeneousClipSpace;
-		CullingJob* culling;
+		FaceCulling* culling;
 		PerspectiveAndViewport* normalization;
 		RasterJob* raster;
 		VertexPayload* buffer;
