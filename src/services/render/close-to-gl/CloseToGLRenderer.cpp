@@ -56,9 +56,9 @@ void CloseToGLRenderer::display() {
 	auto width = *config->getWindowWidth();
 	auto height = *config->getWindowHeight();
 	
-	if (processed->size() > 0) {
+	if (processed.size() > 0) {
 		glBindTexture(GL_TEXTURE_2D, *config->getCloseToGLTextureId());
-		glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, width, height, GL_RGB, GL_UNSIGNED_BYTE, &processed->front());
+		glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, width, height, GL_RGB, GL_UNSIGNED_BYTE, &processed.front());
 		glGenerateMipmap(GL_TEXTURE_2D);
 	}
 

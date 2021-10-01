@@ -20,9 +20,9 @@ size_t VertexShader::apply(VertexData* vertices, size_t size) {
 	const auto shader = this->getShader();
 
 	for (size_t i = 0; i < size; i++) {
-		const auto current = vertices[i];
-		const auto position = vec4(current.position[0], current.position[1], current.position[2], 1.0f);
-		const auto normal = vec4(current.normal[0], current.normal[1], current.normal[2], 1.0f);
+		const auto current = vertices + i;
+		const auto position = vec4(current->position[0], current->position[1], current->position[2], 1.0f);
+		const auto normal = vec4(current->normal[0], current->normal[1], current->normal[2], 1.0f);
 		const auto transformedPosition = MVP * position;
 		const auto transformedNormal = NT * normal;
 		buffer[i] = {

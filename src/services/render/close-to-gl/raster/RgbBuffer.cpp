@@ -31,12 +31,10 @@ void close::RgbBuffer::set(size_t x, size_t y, BYTE R, BYTE G, BYTE B) {
 	buffer.at(x * RGB_CHANNEL_COUNT + y * this->width * RGB_CHANNEL_COUNT + 2) = B;
 }
 
-size_t close::RgbBuffer::getWidth()
-{
+size_t close::RgbBuffer::getWidth() {
 	return width;
 }
 
-size_t close::RgbBuffer::getHeight()
-{
+size_t close::RgbBuffer::getHeight() {
 	return height;
 }

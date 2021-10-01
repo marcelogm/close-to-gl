@@ -103,10 +103,10 @@ namespace close {
 
 	class CloseToGLPipeline {
 	public:
-		std::unique_ptr<vector<unsigned char>> apply(data::VertexData*, size_t size);
+		vector<unsigned char> apply(data::VertexData*, size_t size);
 		CloseToGLPipeline();
 	private:
-		VertexShader* toHomogeneousClipSpace;
+		VertexShader* vertexShader;
 		FaceCulling* culling;
 		PerspectiveAndViewport* normalization;
 		RasterJob* raster;

@@ -3,6 +3,9 @@
 #include "../../../services.hpp"
 #include "../../../camera/camera.hpp"
 
+#define PROPS_SLOPE_COUNT 5
+#define PROPS_FOR_INTERPOLATION (PROPS_SLOPE_COUNT - 1)
+
 using std::vector;
 using data::VertexPayload;
 
@@ -11,14 +14,14 @@ namespace close {
 	class RgbBuffer {
 	public:
 		RgbBuffer(size_t width, size_t height);
-		std::vector<BYTE> get();
+		vector<BYTE> get();
 		void set(size_t x, size_t y, BYTE R, BYTE G, BYTE B);
 		size_t getWidth();
 		size_t getHeight();
 	private:
 		size_t width;
 		size_t height;
-		std::vector<BYTE> buffer;
+		vector<BYTE> buffer;
 	};
 
 	class Slope {
@@ -35,23 +38,25 @@ namespace close {
 	class Scanner {
 	public:
 		Scanner();
-		void scanline(RgbBuffer* buffer, std::vector<float>* zBuffer, int y, std::vector<Slope>* left, std::vector<Slope>* right);
-		void draw(RgbBuffer* buffer, std::vector<float>* zBuffer, int x, int y, std::vector<Slope>* props);
+		void scanline(RgbBuffer* buffer, float* zBuffer, int y, vector<Slope>* left, vector<Slope>* right);
+		void draw(RgbBuffer* buffer, float* zBuffer, int x, int y, Slope* props);
+	private:
 		BYTE toRGBProp(Slope prop);
 	};
 
 	class RasterJob {
 	public:
-		std::vector<unsigned char> apply(size_t count);
 		RasterJob(VertexPayload* buffer);
+		vector<unsigned char> apply(size_t count);
 	private:
-		void draw(RgbBuffer* buffer, std::vector<float>* zBuffer, data::VertexPayload* v0, data::VertexPayload* v1, data::VertexPayload* v2);
-		std::vector<Slope> createSlope(data::VertexPayload* start, data::VertexPayload* end);
+		void draw(RgbBuffer* buffer, float* zBuffer, VertexPayload* v0, VertexPayload* v1, VertexPayload* v2);
+		vector<Slope>* createSlope(VertexPayload* start, VertexPayload* end);
 		bool isTheShorterSide(glm::vec4* p0, glm::vec4* p1, glm::vec4* p2);
-		void floor(data::VertexPayload* vertex);
-		void order(data::VertexPayload* v0, data::VertexPayload* v1, data::VertexPayload* v2);
+		void floor(VertexPayload* vertex);
+		void order(VertexPayload* v0, VertexPayload* v1, VertexPayload* v2);
 		Scanner* scanner;
 		VertexPayload* buffer;
+		Config* config;
 	};
 
 

@@ -11,12 +11,12 @@ bool ColorShader::test() {
 }
 
 vec4 ColorShader::apply(glm::vec4 position, glm::vec4 normal) {
-	float* color = config->getColor();
+	const float* color = config->getColor();
 	return vec4(color[0], color[1], color[2], color[3]);
 }
 
 PhongIlluminationModel::PhongIlluminationModel() {
-	auto camera = Camera::getInstance();
+	const auto camera = Camera::getInstance();
 	this->config = Config::getInstance();
 	this->ambientStrength = config->getAmbientStrength();
 	this->diffuseStrength = config->getDiffuseStrength();
