@@ -1,15 +1,18 @@
 #include "services.hpp"
 
-data::Model* ModelFactory::get(std::string path) {
+using namespace data;
+
+Model* ModelFactory::get(std::string path) {
 	char ch;
-	auto file = open(path);
-	auto name = fetchName(file);
-	int trianglesCount = getTriangleCount(file);
-	auto materials = fetchMaterials(file);
+	const auto file = open(path);
+	const auto name = fetchName(file);
+	const int trianglesCount = getTriangleCount(file);
+	const auto materials = fetchMaterials(file);
+	const bool hasTexture = this->hasTexture(file);
 	skipLine(file);
-	auto triangles = fetchTriangles(file, trianglesCount);
+	auto triangles = fetchTriangles(file, trianglesCount, hasTexture);
 	fclose(file);
-	auto model = new data::Model(name, triangles, materials);
+	auto model = new Model(name, triangles, materials);
 	colorPreprocessing(model);
 	return model;
 }
@@ -38,9 +41,9 @@ void ModelFactory::skipLine(FILE* file) {
 	(void)fscanf(file, "%*[^\n]\n");
 }
 
-std::vector<data::Material*>* ModelFactory::fetchMaterials(FILE* file) {
+vector<Material*>* ModelFactory::fetchMaterials(FILE* file) {
 	int count;
-	std::vector<data::Material*>* materials = new std::vector<data::Material*>();
+	vector<Material*>* materials = new vector<Material*>();
 	(void)fscanf(file, "Material count = %d\n", &count);
 	for (int i = 0; i < count; i++) {
 		materials->push_back(fetchMaterial(file));
@@ -48,10 +51,10 @@ std::vector<data::Material*>* ModelFactory::fetchMaterials(FILE* file) {
 	return materials;
 }
 
-data::Material* ModelFactory::fetchMaterial(FILE* file) {
-	glm::vec3* ambient = new glm::vec3();
-	glm::vec3* diffuse = new glm::vec3();
-	glm::vec3* specular = new glm::vec3();
+Material* ModelFactory::fetchMaterial(FILE* file) {
+	vec3* ambient = new vec3();
+	vec3* diffuse = new vec3();
+	vec3* specular = new vec3();
 	float shine;
 
 	(void)fscanf(file, "ambient color %f %f %f\n", &(ambient->x), &(ambient->y), &(ambient->z));
@@ -59,50 +62,66 @@ data::Material* ModelFactory::fetchMaterial(FILE* file) {
 	(void)fscanf(file, "specular color %f %f %f\n", &(specular->x), &(specular->y), &(specular->z));
 	(void)fscanf(file, "material shine %f\n", &shine);
 
-	return new data::Material(ambient, diffuse, specular, shine);
+	return new Material(ambient, diffuse, specular, shine);
 }
 
-std::vector<data::Triangle*>* ModelFactory::fetchTriangles(FILE* file, int count) {
-	std::vector<data::Triangle*>* triangles = new std::vector<data::Triangle*>();
+vector<Triangle*>* ModelFactory::fetchTriangles(FILE* file, int count, bool hasTexture) {
+	vector<Triangle*>* triangles = new vector<Triangle*>();
 	for (int i = 0; i < count; i++) {
-		triangles->push_back(fetchTriangle(file));
+		triangles->push_back(fetchTriangle(file, hasTexture));
 	}
 	return triangles;
 }
 
-data::Triangle* ModelFactory::fetchTriangle(FILE* file) {
-	std::vector<data::Vertex*>* vertices = new std::vector<data::Vertex*>();
-	glm::vec3* normal = new glm::vec3();
+Triangle* ModelFactory::fetchTriangle(FILE* file, bool hasTexture) {
+	vector<Vertex*>* vertices = new vector<Vertex*>();
+	vec3* normal = new vec3();
 
 	for (int i = 0; i < 3; i++) {
-		vertices->push_back(fetchVertex(file));
+		vertices->push_back(fetchVertex(file, hasTexture));
 	}
 	(void)fscanf(file, "face normal %f %f %f\n", &(normal->x), &(normal->y), &(normal->z));
 
-	return new data::Triangle(vertices, normal);
+	return new Triangle(vertices, normal);
 }
 
-data::Vertex* ModelFactory::fetchVertex(FILE* file) {
-	glm::vec3* position = new glm::vec3();
-	glm::vec3* normal = new glm::vec3();
+Vertex* ModelFactory::fetchVertex(FILE* file, bool hasTexture) {
+	vec3* position = new vec3();
+	vec3* normal = new vec3();
+	vec2* texture = nullptr;
 	int colorIndex, i;
 
-	(void)fscanf(file, "v%d %f %f %f %f %f %f %d\n", &i,
-		&(position->x), &(position->y), &(position->z),
-		&(normal->x), &(normal->y), &(normal->z),
-		&colorIndex);
+	// TODO: não tá bom, um lambda aqui seria legal
+	if (hasTexture) {
+		texture = new vec2();
+		(void)fscanf(file, "v%d %f %f %f %f %f %f %d %f %f\n", &i,
+			&(position->x), &(position->y), &(position->z),
+			&(normal->x), &(normal->y), &(normal->z),
+			&colorIndex, &(texture->x), &(texture->y));
+	} else {
+		(void)fscanf(file, "v%d %f %f %f %f %f %f %d\n", &i,
+			&(position->x), &(position->y), &(position->z),
+			&(normal->x), &(normal->y), &(normal->z),
+			&colorIndex);
+	}
 
-	return new data::Vertex(position, normal, colorIndex);
+	return new Vertex(position, normal, texture, colorIndex, hasTexture);
 }
 
-void ModelFactory::colorPreprocessing(data::Model* model) {
+bool ModelFactory::hasTexture(FILE* file) {
+	std::string str(10, '\0');
+	(void)fscanf(file, "Texture = %s\n", str.data());
+	return str.compare("YES") == 1;
+}
+
+void ModelFactory::colorPreprocessing(Model* model) {
 	for (int i = 0; i < model->getTriangles()->size(); i++) {
 		auto triangle = model->getTriangles()->at(i);
 		for (int j = 0; j < triangle->getVertices()->size(); j++) {
 			auto vertex = triangle->getVertices()->at(j);
 			auto material = model->getMaterials()->at(vertex->getColorIndex());
 			auto color = material->getDiffuseColor();
-			vertex->setColor(new data::RGBColor({
+			vertex->setColor(new RGBColor({
 					(unsigned char)((int) 255 * color->x),
 					(unsigned char)((int) 255 * color->y),
 					(unsigned char)((int) 255 * color->z)

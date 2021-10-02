@@ -9,10 +9,13 @@ Vertex::Vertex(const Vertex& vertex) {
 	color = new RGBColor(*vertex.color);
 };
 
-Vertex::Vertex(glm::vec3* position, glm::vec3* normal, int colorIndex) {
+Vertex::Vertex(glm::vec3* position, glm::vec3* normal, glm::vec2* texture, 
+	int colorIndex, bool hasTexture) {
 	this->position = position;
 	this->normal = normal;
 	this->colorIndex = colorIndex;
+	this->texture = texture;
+	this->texturing = hasTexture;
 	this->color = new RGBColor({ 0, 0, 0 });
 };
 
@@ -29,6 +32,14 @@ glm::vec3* Vertex::getNormal() {
 	return normal;
 }
 
+vec2* data::Vertex::getTexture() {
+	return texture;
+}
+
+bool Vertex::hasTexture() {
+	return texturing;
+}
+
 int Vertex::getColorIndex() {
 	return colorIndex;
 }
@@ -41,4 +52,5 @@ Vertex::~Vertex() {
 	delete position;
 	delete normal;
 	delete color;
+	delete texture;
 }

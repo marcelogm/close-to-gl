@@ -56,7 +56,7 @@ vec3 PhongIlluminationModel::getDiffuseLight(vec3* normal, vec3* direction, vec3
 }
 
 vec3 PhongIlluminationModel::getSpecularLight(vec3* normal, vec3* position, vec3* direction, vec3* color) {
-	const auto viewDirection = glm::normalize(*position - *this->camera);
+	const auto viewDirection = glm::normalize(*this->camera - *position);
 	const auto reflectionDirection = this->getReflection(&-(*direction), normal);
 	const float spec = glm::pow(max(glm::dot(viewDirection, reflectionDirection), 0.0f), 10);
 	return *this->specularStrength * spec * *color;

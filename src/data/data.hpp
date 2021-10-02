@@ -38,16 +38,20 @@ namespace data {
 	class Vertex {
 	public:
 		Vertex(const Vertex&);
-		Vertex::Vertex(vec3*, vec3*, int);
+		Vertex(glm::vec3*, glm::vec3*, glm::vec2*, int, bool);
 		void setColor(RGBColor* color);
 		vec3* getPosition();
 		vec3* getNormal();
+		vec2* getTexture();
 		int getColorIndex();
+		bool hasTexture();
 		RGBColor* getColor();
 		~Vertex();
 	private:
 		vec3* position;
 		vec3* normal;
+		vec2* texture;
+		bool texturing;
 		int colorIndex;
 		RGBColor* color;
 	};

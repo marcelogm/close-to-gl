@@ -13,9 +13,9 @@ namespace close {
 
 	class RgbBuffer {
 	public:
-		RgbBuffer(size_t width, size_t height);
+		RgbBuffer(size_t, size_t);
 		vector<BYTE> get();
-		void set(size_t x, size_t y, BYTE R, BYTE G, BYTE B);
+		void set(size_t, size_t, BYTE, BYTE, BYTE);
 		size_t getWidth();
 		size_t getHeight();
 	private:
@@ -37,8 +37,8 @@ namespace close {
 
 	class Scanner {
 	public:
-		void scanline(RgbBuffer* buffer, float* zBuffer, int y, vector<Slope>* left, vector<Slope>* right);
-		void draw(RgbBuffer* buffer, float* zBuffer, int x, int y, Slope* props);
+		void scanline(RgbBuffer*, float*, int, vector<Slope>*, vector<Slope>*);
+		void draw(RgbBuffer*, float*, int, int, Slope*);
 	private:
 		BYTE toRGBProp(Slope prop);
 	};

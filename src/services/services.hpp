@@ -39,10 +39,11 @@ private:
 	string* fetchName(FILE*);
 	vector<Material*>* fetchMaterials(FILE*);
 	Material* fetchMaterial(FILE*);
-	vector<Triangle*>* fetchTriangles(FILE*, int);
-	Triangle* fetchTriangle(FILE*);
-	Vertex* fetchVertex(FILE*);
+	vector<Triangle*>* fetchTriangles(FILE*, int, bool);
+	Triangle* fetchTriangle(FILE*, bool);
+	Vertex* fetchVertex(FILE*, bool);
 
+	bool hasTexture(FILE* file);
 	void colorPreprocessing(data::Model* model);
 	int getTriangleCount(FILE*);
 	void skipLine(FILE*);
@@ -50,6 +51,7 @@ public:
 	data::Model* get(string);
 };
 
+// TODO: essa classe está crescendo de mais, não alimente esse monstro, refatore.
 class Config {
 private:
 	static Config* instance;

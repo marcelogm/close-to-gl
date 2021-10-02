@@ -2,7 +2,7 @@
 
 using namespace close;
 
-void Scanner::scanline(RgbBuffer* buffer, float* zBuffer, int x, vector<Slope>* left, vector<Slope>* right) {
+void Scanner::scanline(RgbBuffer* buffer, float* zBuffer, int y, vector<Slope>* left, vector<Slope>* right) {
 	const int start = left->at(0).get();
 	const int end = right->at(0).get();
 
@@ -12,9 +12,9 @@ void Scanner::scanline(RgbBuffer* buffer, float* zBuffer, int x, vector<Slope>* 
 		props[i] = Slope(left->at(i + 1).get(), right->at(i + 1).get(), steps);
 	}
 
-	for (int y = start; y <= end; ++y) {
+	for (int x = start; x <= end; ++x) {
 		int mode = *Config::getInstance()->getRenderMode();
-		if (y == start || y == end || mode == RENDER_MODE_TRIANGLE){
+		if (x == start || x == end || mode == RENDER_MODE_TRIANGLE){
 			this->draw(buffer, zBuffer, x, y, props);
 		}
 		for (int i = 0; i < 4; ++i) {
@@ -29,7 +29,7 @@ void Scanner::scanline(RgbBuffer* buffer, float* zBuffer, int x, vector<Slope>* 
 
 void Scanner::draw(RgbBuffer* buffer, float* zBuffer, int x, int y, Slope* props) {
 	const auto z = 1.f / props[3].get();
-	const auto zBufferIndex = x * buffer->getHeight() + y;
+	const auto zBufferIndex = y * buffer->getWidth() + x;
 	if (z < zBuffer[zBufferIndex]) {
 		zBuffer[zBufferIndex] = z;
 		auto R = this->toRGBProp(props[0]) * z;
