@@ -54,7 +54,7 @@ void Application::init() {
 	this->ui->init(window);
 	glfwGetWindowSize(window, config->getWindowHeight(), config->getWindowWidth());
 
-	data::Model* model = this->factory->get("data/cow_up_no_text.in");
+	data::Model* model = this->factory->get("data/cube_text.in");
 	for (auto renderer : *this->renderers) {
 		renderer->init(model);
 	}
