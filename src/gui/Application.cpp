@@ -43,7 +43,7 @@ void Application::init() {
 	auto config = Config::getInstance();
 
 	glfwInit();
-	this->window = glfwCreateWindow(800, 800, "Programming Assignment 1", NULL, NULL);
+	this->window = glfwCreateWindow(800, 800, "CloseToGL", NULL, NULL);
 	glfwSetKeyCallback(this->window, onKeyPress);
 	glfwSetCursorPosCallback(this->window, onMouseMove);
 	glfwSetWindowSizeCallback(this->window, onWindowSizeChange);

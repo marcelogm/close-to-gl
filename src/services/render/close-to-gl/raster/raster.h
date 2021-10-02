@@ -50,7 +50,7 @@ namespace close {
 		vector<unsigned char> apply(size_t count);
 	private:
 		void draw(RgbBuffer* buffer, float* zBuffer, VertexPayload* v0, VertexPayload* v1, VertexPayload* v2);
-		vector<Slope>* createSlope(VertexPayload* start, VertexPayload* end);
+		vector<Slope> createSlope(VertexPayload* start, VertexPayload* end);
 		bool isTheShorterSide(glm::vec4* p0, glm::vec4* p1, glm::vec4* p2);
 		void floor(VertexPayload* vertex);
 		void order(VertexPayload* v0, VertexPayload* v1, VertexPayload* v2);

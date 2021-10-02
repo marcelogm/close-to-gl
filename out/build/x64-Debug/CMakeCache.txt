@@ -57,13 +57,10 @@ CLOCK_GETTIME:BOOL=OFF
 CMAKE_AR:FILEPATH=C:/Program Files/Microsoft Visual Studio/2022/Preview/VC/Tools/MSVC/14.30.30423/bin/Hostx64/x64/lib.exe
 
 //No help, variable specified on the command line.
-CMAKE_BUILD_TYPE:STRING=Debug
+CMAKE_BUILD_TYPE:STRING=Release
 
 //No help, variable specified on the command line.
 CMAKE_CXX_COMPILER:FILEPATH=C:/Program Files/Microsoft Visual Studio/2022/Preview/VC/Tools/MSVC/14.30.30423/bin/Hostx64/x64/cl.exe
-
-//Flags used by the CXX compiler during all build types.
-CMAKE_CXX_FLAGS:STRING=/DWIN32 /D_WINDOWS /W3 /GR /EHsc
 
 //Flags used by the CXX compiler during DEBUG builds.
 CMAKE_CXX_FLAGS_DEBUG:STRING=/MDd /Zi /Ob0 /Od /RTC1
@@ -727,6 +724,7 @@ CMAKE_CTEST_COMMAND:INTERNAL=C:/Program Files/Microsoft Visual Studio/2022/Previ
 CMAKE_CXX_COMPILER-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_CXX_FLAGS
 CMAKE_CXX_FLAGS-ADVANCED:INTERNAL=1
+CMAKE_CXX_FLAGS:INTERNAL=/W3 /WX- /O2 /Ob2 /Oy- /DWIN32 /D_WINDOWS /Wall /GR /EHsc
 //ADVANCED property for variable: CMAKE_CXX_FLAGS_DEBUG
 CMAKE_CXX_FLAGS_DEBUG-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_CXX_FLAGS_MINSIZEREL

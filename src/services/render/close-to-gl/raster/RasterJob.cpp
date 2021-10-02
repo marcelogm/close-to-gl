@@ -39,8 +39,7 @@ void RasterJob::draw(RgbBuffer* buffer, float* zBuffer, data::VertexPayload* v0,
 		return;
 	}
 
-	vector<Slope>* sides[2];
-
+	vector<Slope> sides[2];
 	bool isTheShorterSide = this->isTheShorterSide(&v0->position, &v1->position, &v2->position);
 	sides[!isTheShorterSide] = createSlope(v0, v2);
 
@@ -55,22 +54,20 @@ void RasterJob::draw(RgbBuffer* buffer, float* zBuffer, data::VertexPayload* v0,
 				sides[isTheShorterSide] = createSlope(v1, v2);
 			}
 		}
-		this->scanner->scanline(buffer, zBuffer, x, sides[0], sides[1]);
+		this->scanner->scanline(buffer, zBuffer, x, &sides[0], &sides[1]);
 	}
-
-	delete sides[0]; delete sides[1];
 }
 
-vector<Slope>* RasterJob::createSlope(data::VertexPayload* start, data::VertexPayload* end) {
-	vector<Slope>* slopes = new vector<Slope>(PROPS_SLOPE_COUNT);
+vector<Slope> RasterJob::createSlope(data::VertexPayload* start, data::VertexPayload* end) {
+	vector<Slope> slopes(PROPS_SLOPE_COUNT);
 	const auto steps = end->position.x - start->position.x;
 	const auto zStart = 1.f / start->position.z;
 	const auto zEnd = 1.f / end->position.z;
-	slopes->at(0) = Slope(start->position.y, end->position.y, steps);
-	slopes->at(1) = Slope(start->color.r * zStart, end->color.r * zEnd, steps);
-	slopes->at(2) = Slope(start->color.g * zStart, end->color.g * zEnd, steps);
-	slopes->at(3) = Slope(start->color.b * zStart, end->color.b * zEnd, steps);
-	slopes->at(4) = Slope(zStart, zEnd, steps);
+	slopes.at(0) = Slope(start->position.y, end->position.y, steps);
+	slopes.at(1) = Slope(start->color.r * zStart, end->color.r * zEnd, steps);
+	slopes.at(2) = Slope(start->color.g * zStart, end->color.g * zEnd, steps);
+	slopes.at(3) = Slope(start->color.b * zStart, end->color.b * zEnd, steps);
+	slopes.at(4) = Slope(zStart, zEnd, steps);
 	return slopes;
 }
 
