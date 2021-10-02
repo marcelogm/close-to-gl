@@ -5,6 +5,10 @@
 #include <string>
 #include <memory>
 
+using glm::vec2;
+using glm::vec3;
+using glm::vec4;
+
 namespace data {
 
 	struct RGBColor {
@@ -19,36 +23,31 @@ namespace data {
 		unsigned char color[3];
 	};
 
-	// Payload for pipeline processing
 	struct VertexPayload {
-		glm::vec4 position;
-		glm::vec3 normal;
-		glm::vec3 color;
-	};
-
-	struct VertexData2D {
-		float position[2];
+		vec4 position;
+		vec3 normal;
+		vec3 color;
 	};
 
 	struct VertexDataRange {
-		glm::vec2 x;
-		glm::vec2 y;
-		glm::vec2 z;
+		vec2 x;
+		vec2 y;
+		vec2 z;
 	};
 
 	class Vertex {
 	public:
 		Vertex(const Vertex&);
-		Vertex::Vertex(glm::vec3*, glm::vec3*, int);
+		Vertex::Vertex(vec3*, vec3*, int);
 		void setColor(RGBColor* color);
-		glm::vec3* getPosition();
-		glm::vec3* getNormal();
+		vec3* getPosition();
+		vec3* getNormal();
 		int getColorIndex();
 		RGBColor* getColor();
 		~Vertex();
 	private:
-		glm::vec3* position;
-		glm::vec3* normal;
+		vec3* position;
+		vec3* normal;
 		int colorIndex;
 		RGBColor* color;
 	};
@@ -56,28 +55,28 @@ namespace data {
 	class Triangle {
 	public:
 		Triangle(const Triangle&);
-		Triangle::Triangle(std::vector<Vertex*>*, glm::vec3*);
+		Triangle::Triangle(std::vector<Vertex*>*, vec3*);
 		std::vector<Vertex*>* getVertices();
-		glm::vec3* getFaceNormal();
+		vec3* getFaceNormal();
 		~Triangle();
 	private:
 		std::vector<Vertex*>* vertices;
-		glm::vec3* faceNormal;
+		vec3* faceNormal;
 	};
 
 	class Material {
 	public:
 		Material(const Material&);
-		Material(glm::vec3*, glm::vec3*, glm::vec3*, float);
-		glm::vec3* getAmbientColor();
-		glm::vec3* getDiffuseColor();
-		glm::vec3* getSpecularColor();
+		Material(vec3*, vec3*, vec3*, float);
+		vec3* getAmbientColor();
+		vec3* getDiffuseColor();
+		vec3* getSpecularColor();
 		float getShineCoeff();
 		~Material();
 	private:
-		glm::vec3* ambientColor;
-		glm::vec3* diffuseColor;
-		glm::vec3* specularColor;
+		vec3* ambientColor;
+		vec3* diffuseColor;
+		vec3* specularColor;
 		float shineCoeff;
 	};
 

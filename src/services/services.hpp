@@ -24,7 +24,6 @@ using data::Material;
 using data::Triangle;
 using data::Vertex;
 using data::VertexData;
-using data::VertexData2D;
 using data::VertexDataRange;
 
 class ModelToVertex {
