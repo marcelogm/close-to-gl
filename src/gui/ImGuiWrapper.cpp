@@ -34,6 +34,7 @@ void ImGuiWrapper::display() {
 	this->shading();
 	this->info();
 	this->space();
+	this->render();
 	this->debug();
 
 	ImGui::Render();
@@ -51,16 +52,6 @@ void ImGuiWrapper::shading() {
 
 	ImGui::ColorEdit4("Cor do objeto", config->getColor());
 
-	ImGui::Text("Shading:");
-	ImGui::RadioButton("No shading", config->getShading(), LIGHT_NO_SHADING);
-	if (*config->getOpenGLUse()) {
-		ImGui::RadioButton("Gouraud Shading AD", config->getShading(), LIGHT_GOURAUD_AD);
-	}
-	ImGui::RadioButton("Gouraud Shading ADS", config->getShading(), LIGHT_GOURAUD_ADS);
-	if (*config->getOpenGLUse()) {
-		ImGui::RadioButton("Phong Shading", config->getShading(), LIGHT_PHONG_SHADING);
-	}
-
 	ImGui::Text("Light position:");
 	ImGui::SliderFloat("X", &config->getLightPosition()->x, -1000.0f, 1000.0f, "");
 	ImGui::SliderFloat("Y", &config->getLightPosition()->y, -1000.0f, 1000.0f, "");
@@ -74,8 +65,37 @@ void ImGuiWrapper::shading() {
 	ImGui::End();
 }
 
+void ImGuiWrapper::render() {
+	ImGui::Begin("Render", NULL, ImGuiWindowFlags_AlwaysAutoResize);
+
+	ImGui::Text("Render mode:");
+	ImGui::RadioButton("Triangulos", config->getRenderMode(), RENDER_MODE_TRIANGLE);
+	ImGui::SameLine();
+	if (*config->getOpenGLUse()) {
+		ImGui::RadioButton("Pontos", config->getRenderMode(), RENDER_MODE_DOT);
+		ImGui::SameLine();
+	}
+	ImGui::RadioButton("Frame", config->getRenderMode(), RENDER_MODE_FRAME);
+	ImGui::Checkbox("Clockwise", config->getCW());
+	ImGui::SameLine();
+
+	ImGui::Checkbox("OpenGL", config->getOpenGLUse());
+
+	ImGui::Text("Shading:");
+	ImGui::RadioButton("No shading", config->getShading(), LIGHT_NO_SHADING);
+	if (*config->getOpenGLUse()) {
+		ImGui::RadioButton("Gouraud Shading AD", config->getShading(), LIGHT_GOURAUD_AD);
+	}
+	ImGui::RadioButton("Gouraud Shading ADS", config->getShading(), LIGHT_GOURAUD_ADS);
+	if (*config->getOpenGLUse()) {
+		ImGui::RadioButton("Phong Shading", config->getShading(), LIGHT_PHONG_SHADING);
+	}
+
+	ImGui::End();
+}
+
 void ImGuiWrapper::space() {
-	ImGui::Begin("Render e camera", NULL, ImGuiWindowFlags_AlwaysAutoResize);
+	ImGui::Begin("Camera", NULL, ImGuiWindowFlags_AlwaysAutoResize);
 	if (ImGui::Button("Restaurar (R)")) {
 		config->reset();
 		camera->requestReset();
@@ -116,27 +136,12 @@ void ImGuiWrapper::space() {
 	ImGui::SliderInt("Z Near", config->getZNear(), 1, 10000, "%d", ImGuiSliderFlags_Logarithmic);
 	ImGui::SliderInt("Z Far", config->getZFar(), 100, 20000, "%d", ImGuiSliderFlags_Logarithmic);
 
-	ImGui::Text("Configuracao de teclado:");
-	ImGui::Checkbox("Utilizar mouse", config->getMouseStatus());
-	ImGui::SliderFloat("Sensibilidade do mouse", config->getMouseSensibility(), 0.0f, 100.0f, "%.0f", ImGuiSliderFlags_Logarithmic);
-	ImGui::Checkbox("Girar camera no proprio eixo (CNTRL)", config->getMove());
-	ImGui::SliderFloat("Sensibilidade da movimentacao", config->getSensibility(), 0.0f, 100.0f, "%.0f", ImGuiSliderFlags_Logarithmic);
-	ImGui::Text("Render mode:");
-	ImGui::RadioButton("Triangulos", config->getRenderMode(), RENDER_MODE_TRIANGLE);
-	ImGui::SameLine();
-	if (*config->getOpenGLUse()) {
-		ImGui::RadioButton("Pontos", config->getRenderMode(), RENDER_MODE_DOT);
-		ImGui::SameLine();
-	}
-	ImGui::RadioButton("Frame", config->getRenderMode(), RENDER_MODE_FRAME);
-	ImGui::Checkbox("Clockwise", config->getCW());
-	ImGui::SameLine();
-	ImGui::Checkbox("OpenGL", config->getOpenGLUse());
 	ImGui::End();
 }
 
 void ImGuiWrapper::info() {
 	ImGui::Begin("Controles e informacoes", NULL, ImGuiWindowFlags_AlwaysAutoResize);
+
 	switch (*config->getRenderMode()) {
 	case 0:
 		ImGui::Text("Renderizando os triangulos.");
@@ -164,6 +169,13 @@ void ImGuiWrapper::info() {
 	} else {
 		ImGui::Text("Mouse nao esta sendo utilizado.");
 	}
+
+	ImGui::Text("Configuracao de teclado:");
+	ImGui::Checkbox("Utilizar mouse", config->getMouseStatus());
+	ImGui::SliderFloat("Sensibilidade do mouse", config->getMouseSensibility(), 0.0f, 100.0f, "%.0f", ImGuiSliderFlags_Logarithmic);
+	ImGui::Checkbox("Girar camera no proprio eixo (CNTRL)", config->getMove());
+	ImGui::SliderFloat("Sensibilidade da movimentacao", config->getSensibility(), 0.0f, 100.0f, "%.0f", ImGuiSliderFlags_Logarithmic);
+
 	ImGui::End();
 }
 

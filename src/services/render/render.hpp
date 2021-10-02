@@ -19,16 +19,6 @@ namespace renderer {
 		virtual bool test() = 0;
 	};
 
-	// TODO: mover para contexto especifico do OpenGL, uma vez
-	// que não é mais necessário para o CloseToGL
-	class OpenGLDrawProcessor {
-	public:
-		void process(size_t);
-		OpenGLDrawProcessor();
-	private:
-		Config* config;
-	};
-
 	class CameraResetProcessor {
 	public:
 		void process(data::VertexDataRange);
@@ -41,5 +31,14 @@ namespace renderer {
 	public:
 		void process();
 	};
+
+	class ProjectionFromConfig {
+	private:
+		Config* config;
+	public:
+		glm::mat4 get();
+		ProjectionFromConfig();
+	};
+
 }
 

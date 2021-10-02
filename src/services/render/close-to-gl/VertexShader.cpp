@@ -3,7 +3,7 @@
 using namespace close;
 
 VertexShader::VertexShader(VertexPayload* buffer) {
-	this->projectionProvider = new ProjectionFromConfig();
+	this->projectionProvider = new renderer::ProjectionFromConfig();
 	this->camera = Camera::getInstance();
 	this->config = Config::getInstance();
 	this->buffer = buffer;

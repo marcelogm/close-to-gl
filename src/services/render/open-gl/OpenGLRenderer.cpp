@@ -81,12 +81,12 @@ bool OpenGLRenderer::test() {
 
 OpenGLRenderer::OpenGLRenderer() {
 	this->converter = new ModelToVertex();
-	this->drawer = new renderer::OpenGLDrawProcessor();
+	this->drawer = new OpenGLDrawProcessor();
 	this->reset = new renderer::CameraResetProcessor();
 	this->background = new renderer::BackgroundProcessor();
 	this->light = new LightProcessor();
 	this->config = Config::getInstance();
 	this->camera = Camera::getInstance();
-	this->projectionProvider = new ProjectionFromConfig();
+	this->projectionProvider = new renderer::ProjectionFromConfig();
 }
 

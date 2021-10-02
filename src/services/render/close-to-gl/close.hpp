@@ -72,7 +72,7 @@ namespace close {
 	private:
 		Camera* camera;
 		Config* config;
-		ProjectionFromConfig* projectionProvider;
+		renderer::ProjectionFromConfig* projectionProvider;
 		VertexPayload* buffer;
 		vector<Shader*>* shaders;
 		glm::mat4 getMV();

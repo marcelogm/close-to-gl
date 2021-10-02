@@ -20,6 +20,7 @@ private:
 	void info();
 	void debug();
 	void shading();
+	void render();
 public:
 	static ImGuiWrapper* getInstance();
 	void init(GLFWwindow* window);

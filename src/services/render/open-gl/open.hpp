@@ -43,6 +43,14 @@ namespace open {
 		Config* config;
 	};
 
+	class OpenGLDrawProcessor {
+	public:
+		void process(size_t);
+		OpenGLDrawProcessor();
+	private:
+		Config* config;
+	};
+
 	class OpenGLRenderer : public renderer::Renderer {
 	public:
 		void init(data::Model*);
@@ -63,11 +71,11 @@ namespace open {
 		ModelToVertex* converter;
 		Config* config;
 		Camera* camera;
-		renderer::OpenGLDrawProcessor* drawer;
+		OpenGLDrawProcessor* drawer;
 		renderer::BackgroundProcessor* background;
 		renderer::CameraResetProcessor* reset;
 		LightProcessor* light;
-		ProjectionFromConfig* projectionProvider;
+		renderer::ProjectionFromConfig* projectionProvider;
 		std::vector<ShaderInfo> getShaders();
 	};
 }

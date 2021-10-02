@@ -104,15 +104,6 @@ public:
 	void reset();
 };
 
-
-class ProjectionFromConfig {
-private:
-	Config* config;
-public:
-	glm::mat4 get();
-	ProjectionFromConfig();
-};
-
 class Debug {
 private:
 	static Debug* instance;
