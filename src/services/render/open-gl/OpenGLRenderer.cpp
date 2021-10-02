@@ -84,7 +84,7 @@ OpenGLRenderer::OpenGLRenderer() {
 	this->drawer = new renderer::OpenGLDrawProcessor();
 	this->reset = new renderer::CameraResetProcessor();
 	this->background = new renderer::BackgroundProcessor();
-	this->light = new renderer::LightProcessor();
+	this->light = new LightProcessor();
 	this->config = Config::getInstance();
 	this->camera = Camera::getInstance();
 	this->projectionProvider = new ProjectionFromConfig();

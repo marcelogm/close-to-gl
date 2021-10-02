@@ -21,6 +21,28 @@ namespace open {
 		vNormalVertex = 1
 	};
 
+	class LightProcessor {
+	public:
+		void setup(GLuint program);
+		void process();
+		LightProcessor();
+	private:
+		GLuint customColor;
+		GLuint lightPosition;
+		GLuint lightColor;
+		GLuint ambientStrength;
+		GLuint diffuseStrength;
+		GLuint specularStrength;
+		GLuint cameraPosition;
+		GLuint gouraudADSubroutine;
+		GLuint gouraudADSSubroutine;
+		GLuint noVertexShading;
+		GLuint noFragmentShading;
+		GLuint phongShading;
+		Camera* camera;
+		Config* config;
+	};
+
 	class OpenGLRenderer : public renderer::Renderer {
 	public:
 		void init(data::Model*);
@@ -44,7 +66,7 @@ namespace open {
 		renderer::OpenGLDrawProcessor* drawer;
 		renderer::BackgroundProcessor* background;
 		renderer::CameraResetProcessor* reset;
-		renderer::LightProcessor* light;
+		LightProcessor* light;
 		ProjectionFromConfig* projectionProvider;
 		std::vector<ShaderInfo> getShaders();
 	};

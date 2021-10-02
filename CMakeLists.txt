@@ -63,7 +63,7 @@ add_library(close-to-gl
 			"src/services/render/CameraResetProcessor.cpp" 
 			"src/services/render/RenderModeProcessor.cpp" 
 			"src/services/render/BackgroundProcessor.cpp" 
-			"src/services/render/LightProcessor.cpp" 
+			"src/services/render/open-gl/LightProcessor.cpp" 
 			"src/services/render/close-to-gl/raster/RasterJob.cpp" 
 			"src/services/render/close-to-gl/raster/RgbBuffer.cpp" 
 			"src/services/render/close-to-gl/raster/Slope.cpp" 
