@@ -43,9 +43,9 @@ namespace close {
 		BYTE toRGBProp(Slope prop);
 	};
 
-	class RasterJob {
+	class Rasterizer {
 	public:
-		RasterJob(VertexPayload* buffer);
+		Rasterizer(VertexPayload* buffer);
 		vector<unsigned char> apply(size_t count);
 	private:
 		void draw(RgbBuffer* buffer, float* zBuffer, VertexPayload* v0, VertexPayload* v1, VertexPayload* v2);

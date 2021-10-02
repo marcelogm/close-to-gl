@@ -16,7 +16,7 @@ CloseToGLPipeline::CloseToGLPipeline() {
 	this->vertexShader = new VertexShader(buffer);
 	this->culling = new FaceCulling(buffer);
 	this->normalization = new PerspectiveAndViewport(buffer);
-	this->raster = new RasterJob(buffer);
+	this->raster = new Rasterizer(buffer);
 }
 
 

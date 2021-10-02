@@ -109,7 +109,7 @@ namespace close {
 		VertexShader* vertexShader;
 		FaceCulling* culling;
 		PerspectiveAndViewport* normalization;
-		RasterJob* raster;
+		Rasterizer* raster;
 		VertexPayload* buffer;
 	};
 

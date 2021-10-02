@@ -64,7 +64,7 @@ add_library(close-to-gl
 			"src/services/render/open-gl/RenderModeProcessor.cpp" 
 			"src/services/render/BackgroundProcessor.cpp" 
 			"src/services/render/open-gl/LightProcessor.cpp" 
-			"src/services/render/close-to-gl/raster/RasterJob.cpp" 
+			"src/services/render/close-to-gl/raster/Rasterizer.cpp" 
 			"src/services/render/close-to-gl/raster/RgbBuffer.cpp" 
 			"src/services/render/close-to-gl/raster/Slope.cpp" 
 			"src/services/render/close-to-gl/raster/Scanner.cpp")
