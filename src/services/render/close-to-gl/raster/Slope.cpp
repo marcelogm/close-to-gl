@@ -8,7 +8,7 @@ Slope::Slope() {
 }
 
 close::Slope::Slope(float start, float end, int steps) {
-	float inv = 1.f / steps;
+	const float inv = 1.f / steps;
 	this->curent = start;
 	this->step = (end - start)* inv;
 }

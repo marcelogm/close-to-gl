@@ -3,11 +3,11 @@
 using namespace renderer;
 
 void LightProcessor::process() {
-	float* objectColor = config->getColor();
-	float* lightColorValue = config->getLightColor();
+	const float* objectColor = config->getColor();
+	const float* lightColorValue = config->getLightColor();
 
-	glm::vec3* lightPositionValue = config->getLightPosition();
-	glm::vec3* cameraPositionValue = camera->getPosition();
+	const glm::vec3* lightPositionValue = config->getLightPosition();
+	const glm::vec3* cameraPositionValue = camera->getPosition();
 
 	glUniform1f(ambientStrength, *config->getAmbientStrength()); 
 	glUniform1f(diffuseStrength, *config->getDiffuseStrength());

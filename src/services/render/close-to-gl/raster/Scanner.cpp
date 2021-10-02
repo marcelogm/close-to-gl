@@ -2,13 +2,9 @@
 
 using namespace close;
 
-Scanner::Scanner() {
-
-}
-
-void close::Scanner::scanline(RgbBuffer* buffer, float* zBuffer, int x, vector<Slope>* left, vector<Slope>* right) {
-	int start = left->at(0).get();
-	int end = right->at(0).get();
+void Scanner::scanline(RgbBuffer* buffer, float* zBuffer, int x, vector<Slope>* left, vector<Slope>* right) {
+	const int start = left->at(0).get();
+	const int end = right->at(0).get();
 
 	Slope props[PROPS_FOR_INTERPOLATION];
 	for (int i = 0; i < PROPS_FOR_INTERPOLATION; ++i) {
@@ -31,9 +27,9 @@ void close::Scanner::scanline(RgbBuffer* buffer, float* zBuffer, int x, vector<S
 	}
 }
 
-void close::Scanner::draw(RgbBuffer* buffer, float* zBuffer, int x, int y, Slope* props) {
-	auto z = 1.f / props[3].get();
-	auto zBufferIndex = x * buffer->getHeight() + y;
+void Scanner::draw(RgbBuffer* buffer, float* zBuffer, int x, int y, Slope* props) {
+	const auto z = 1.f / props[3].get();
+	const auto zBufferIndex = x * buffer->getHeight() + y;
 	if (z < zBuffer[zBufferIndex]) {
 		zBuffer[zBufferIndex] = z;
 		auto R = this->toRGBProp(props[0]) * z;

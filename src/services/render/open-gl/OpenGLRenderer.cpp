@@ -50,10 +50,10 @@ void OpenGLRenderer::display() {
 	}
 	glCullFace(GL_BACK);
 
-	glm::mat4 model = glm::mat4(1.0f);
-	glm::mat4 view = camera->getView();
-	glm::mat4 projection = this->projectionProvider->get();
-	glm::mat4 normal = glm::transpose(glm::inverse(model * view));
+	const glm::mat4 model = glm::mat4(1.0f);
+	const glm::mat4 view = camera->getView();
+	const glm::mat4 projection = this->projectionProvider->get();
+	const glm::mat4 normal = glm::transpose(glm::inverse(model * view));
 
 	this->light->process();
 	glUniformMatrix4fv(modelSpace, 1, GL_FALSE, glm::value_ptr(model));

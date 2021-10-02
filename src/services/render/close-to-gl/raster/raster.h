@@ -37,7 +37,6 @@ namespace close {
 
 	class Scanner {
 	public:
-		Scanner();
 		void scanline(RgbBuffer* buffer, float* zBuffer, int y, vector<Slope>* left, vector<Slope>* right);
 		void draw(RgbBuffer* buffer, float* zBuffer, int x, int y, Slope* props);
 	private:
