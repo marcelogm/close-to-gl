@@ -95,3 +95,7 @@
 3	791	6548456460167550	CMakeFiles/close-to-gl.dir/src/gui/ImGuiWrapper.cpp.obj	cafcbbadf61c1276
 791	870	6548456460837550	lib/close-to-gl.lib	8ab3adda469f1373
 870	1040	6548456462437532	../main.exe	2bf98178a8e1d99e
+8	470	6548459045774983	CMakeFiles/close-to-gl.dir/src/services/camera/Camera.cpp.obj	8b54cc6c140d69e5
+3	773	6548459048804988	CMakeFiles/close-to-gl.dir/src/gui/ImGuiWrapper.cpp.obj	cafcbbadf61c1276
+774	851	6548459049444937	lib/close-to-gl.lib	8ab3adda469f1373
+851	999	6548459050821873	../main.exe	2bf98178a8e1d99e

@@ -1,12 +1,12 @@
 #include "camera.hpp"
 
 void Camera::reset(glm::vec2 u, glm::vec2 v) {
-	auto uNorm = glm::distance(u.x, u.y);
-	auto vNorm = glm::distance(v.x, v.y);
+	const auto uNorm = glm::distance(u.x, u.y);
+	const auto vNorm = glm::distance(v.x, v.y);
 
-	auto x = glm::min(u.x, u.y) + (uNorm / 2.0f);
-	auto y = glm::min(v.x, v.y) + (vNorm / 2.0f);
-	auto z = glm::abs(glm::min(uNorm, vNorm) / glm::sin(glm::radians(45.0f) / 2));
+	const auto x = glm::min(u.x, u.y) + (uNorm / 2.0f);
+	const auto y = glm::min(v.x, v.y) + (vNorm / 2.0f);
+	const auto z = glm::abs(glm::min(uNorm, vNorm) / glm::sin(glm::radians(45.0f) / 2));
 
 	this->position = glm::vec3(x, y, z);
 
@@ -23,8 +23,8 @@ glm::mat4 Camera::getView() {
 }
 
 void Camera::update() {
-	auto yawRadians = glm::radians(yaw);
-	auto pitchRadians = glm::radians(pitch);
+	const auto yawRadians = glm::radians(yaw);
+	const auto pitchRadians = glm::radians(pitch);
 
 	front.x = glm::cos(yawRadians) * glm::cos(pitchRadians);
 	front.y = glm::sin(pitchRadians);
@@ -33,12 +33,12 @@ void Camera::update() {
 	this->front = glm::normalize(this->front);
 	this->right = glm::normalize(glm::cross(front, up));
 	
-	glm::vec3 eye = position;
-	glm::vec3 target = position + front;
-	glm::vec3 n = glm::normalize(eye - target);
-	glm::vec3 u = glm::normalize(glm::cross(up, n));
-	glm::vec3 v = glm::cross(n, u);
-	glm::vec3 O = eye;
+	const glm::vec3 eye = position;
+	const glm::vec3 target = position + front;
+	const glm::vec3 n = glm::normalize(eye - target);
+	const glm::vec3 u = glm::normalize(glm::cross(up, n));
+	const glm::vec3 v = glm::cross(n, u);
+	const glm::vec3 O = eye;
 	this->view = glm::mat4(
 					u.x,			v.x,			  n.x, 0.f,
 					u.y,			v.y,		      n.y, 0.f,
@@ -62,7 +62,7 @@ void Camera::look(float yawOffset, float pitchOffset) {
 void Camera::doRoll(float roll) {
 	this->oldRoll = this->roll;
 	this->roll = roll;
-	auto rotate = glm::rotate(glm::mat4(1.0f), glm::radians(this->oldRoll - this->roll), front);
+	const auto rotate = glm::rotate(glm::mat4(1.0f), glm::radians(this->oldRoll - this->roll), front);
 	this->up = rotate * glm::vec4(up, 1.0f);
 	this->update();
 }
@@ -98,7 +98,7 @@ void Camera::goDown(float speed) {
 }
 
 void Camera::rotateAround(float angle) {
-	auto rotation = glm::rotate(glm::mat4(1.0f), glm::radians(angle), this->up);
+	const auto rotation = glm::rotate(glm::mat4(1.0f), glm::radians(angle), this->up);
 	this->position = rotation * glm::vec4(this->position, 1.0f);
 	this->look(-angle, 0.0f);
 }
