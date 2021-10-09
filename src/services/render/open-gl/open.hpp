@@ -42,6 +42,7 @@ namespace open {
 		GLuint noVertexShading;
 		GLuint noFragmentShading;
 		GLuint phongShading;
+		GLuint useTexture;
 		Camera* camera;
 		Config* config;
 	};

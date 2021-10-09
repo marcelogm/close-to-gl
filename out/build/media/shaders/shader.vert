@@ -22,6 +22,7 @@ uniform vec3 cameraPosition;
 uniform float ambientStrength;
 uniform float diffuseStrength;
 uniform float specularStrength;
+uniform int useTexture;
 
 subroutine vec4 light_t();
 
@@ -52,7 +53,7 @@ vec3 getSpecularLight(vec3 lightDirection) {
 
 subroutine(light_t)
 vec4 noShading() {
-    return customColor;
+    return vec4(1.0f, 1.0f, 1.0f, 1.0f);
 }
 
 subroutine(light_t)
@@ -61,7 +62,7 @@ vec4 gouraudShadingAD() {
     vec3 ambient = getAmbientLight();
     vec3 diffuse = getDiffuseLight(direction);
     vec3 light = (ambient + diffuse);
-    return vec4((ambient + diffuse), 1.0f) * customColor;
+    return vec4((ambient + diffuse), 1.0f);
 }
 
 subroutine(light_t)
@@ -71,14 +72,18 @@ vec4 gouraudShadingADS() {
     vec3 diffuse = getDiffuseLight(direction);
     vec3 specular = getSpecularLight(direction);
     vec3 light = (ambient + diffuse + specular);
-    return vec4(light, 1.0f) * customColor;
+    return vec4(light, 1.0f);
 }
 
 void
 main() {
     normal = vec4(getNormal(), 1.0f);
     fragPos = model * vec4(vPosition, 1.0);
-    color = light();
+    if (useTexture == 0) {
+        color = light() * customColor;
+    } else {
+        color = light();
+    }
     texCoord = vec2(aTexCoord.x, aTexCoord.y);
     gl_Position = projection * view * model * vec4(vPosition, 1.0f);
     gl_PointSize = 2.0;

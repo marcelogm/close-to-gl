@@ -94,6 +94,10 @@ int* Config::getShading() {
 	return &this->shading;
 }
 
+bool* Config::getTextureUse() {
+	return &this->useTexture;
+}
+
 glm::vec3* Config::getLightPosition() {
 	return &this->lightPosition;
 }

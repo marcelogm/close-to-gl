@@ -12,6 +12,8 @@ void LightProcessor::process() {
 	glUniform1f(ambientStrength, *config->getAmbientStrength()); 
 	glUniform1f(diffuseStrength, *config->getDiffuseStrength());
 	glUniform1f(specularStrength, *config->getSpecularStrength());
+	glUniform1i(useTexture, *config->getTextureUse());
+
 	glUniform3f(lightPosition, lightPositionValue->x, lightPositionValue->y, lightPositionValue->z);
 	glUniform3f(cameraPosition, cameraPositionValue->x, cameraPositionValue->y, cameraPositionValue->z);
 	glUniform4f(customColor, objectColor[0], objectColor[1], objectColor[2], objectColor[3]);
@@ -45,11 +47,12 @@ void LightProcessor::setup(GLuint program) {
 	this->ambientStrength = glGetUniformLocation(program, "ambientStrength");
 	this->diffuseStrength = glGetUniformLocation(program, "diffuseStrength");
 	this->specularStrength = glGetUniformLocation(program, "specularStrength");
+	this->useTexture = glGetUniformLocation(program, "useTexture");
 
 	this->noVertexShading = glGetSubroutineIndex(program, GL_VERTEX_SHADER, "noShading");
 	this->gouraudADSubroutine = glGetSubroutineIndex(program, GL_VERTEX_SHADER, "gouraudShadingAD");
 	this->gouraudADSSubroutine = glGetSubroutineIndex(program, GL_VERTEX_SHADER, "gouraudShadingADS");
-
+	
 	this->noFragmentShading = glGetSubroutineIndex(program, GL_FRAGMENT_SHADER, "noShading");
 	this->phongShading = glGetSubroutineIndex(program, GL_FRAGMENT_SHADER, "phongShading");
 }

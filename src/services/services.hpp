@@ -75,6 +75,7 @@ private:
 	int renderMode = 0;
 	bool useOpenGL = true;
 	bool modelCW = true;
+	bool useTexture = false;
 	int shading = 1;
 	GLuint texture;
 	GLuint program;
@@ -100,6 +101,7 @@ public:
 	int* getRenderMode();
 	bool* getOpenGLUse();
 	bool* getCWModel();
+	bool* getTextureUse();
 	int* getShading();
 	glm::vec3* getLightPosition();
 	GLuint* getCloseToGLProgramId();

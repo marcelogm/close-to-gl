@@ -78,8 +78,9 @@ void ImGuiWrapper::render() {
 	ImGui::RadioButton("Frame", config->getRenderMode(), RENDER_MODE_FRAME);
 	ImGui::Checkbox("Clockwise", config->getCW());
 	ImGui::SameLine();
-
 	ImGui::Checkbox("OpenGL", config->getOpenGLUse());
+
+	ImGui::Checkbox("Textura", config->getTextureUse());
 
 	ImGui::Text("Shading:");
 	ImGui::RadioButton("No shading", config->getShading(), LIGHT_NO_SHADING);

@@ -42,6 +42,7 @@ add_library(close-to-gl
 			${IMGUI_SOURCE_DIR}/backends/imgui_impl_glfw.cpp
 			"src/gui/Application.cpp" 
 			"src/gui/Command.cpp" 
+			"src/gui/ImGuiWrapper.cpp" 
 			"src/data/Model.cpp" 
 			"src/data/Vertex.cpp" 
 			"src/data/Triangle.cpp" 
@@ -51,7 +52,6 @@ add_library(close-to-gl
 			"src/services/render/open-gl/OpenGLRenderer.cpp" 
 			"src/services/render/close-to-gl/CloseToGLRenderer.cpp"
 			"src/services/camera/Camera.cpp"  
-			"src/gui/ImGuiWrapper.cpp" 
 			"src/services/ModelToVertex.cpp" 
 			"src/services/render/close-to-gl/CloseToGLPipeline.cpp"
 			"src/services/render/close-to-gl/VertexShader.cpp" 

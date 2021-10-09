@@ -17,10 +17,11 @@ subroutine vec4 light_t();
 uniform float ambientStrength;
 uniform float diffuseStrength;
 uniform float specularStrength;
+uniform int useTexture;
 
 uniform sampler2D texture1;
 
-subroutine uniform light_t light;
+subroutine uniform light_t getLight;
 
 vec3 getNormal() {
     return normalize(vec3(normal));
@@ -60,5 +61,9 @@ vec4 phongShading() {
 }
 
 void main() {
-   FragColor = texture(texture1, texCoord);
+    if (useTexture == 0) {
+        FragColor = getLight();
+    } else {
+        FragColor = getLight() * texture(texture1, texCoord);
+    }
 }
