@@ -2,7 +2,6 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
-#include <stb_image.h>
 
 namespace open {
 
@@ -92,6 +91,5 @@ namespace open {
 		FilteringProcessor* filter;
 		renderer::ProjectionFromConfig* projectionProvider;
 		std::vector<ShaderInfo> getShaders();
-		data::Texture getTexture();
 	};
 }

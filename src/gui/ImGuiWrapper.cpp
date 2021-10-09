@@ -83,11 +83,11 @@ void ImGuiWrapper::render() {
 	ImGui::Checkbox("OpenGL", config->getOpenGLUse());
 
 	ImGui::Text("Filtering:");
-	ImGui::RadioButton("Nearest Neighbor", config->getFiltering(), NEAREST_NEIGHBOR_RESAMPLING);
+	ImGui::RadioButton("Nearest", config->getFiltering(), NEAREST_NEIGHBOR_RESAMPLING);
 	ImGui::SameLine();
 	ImGui::RadioButton("Bilinear", config->getFiltering(), BILINEAR_RESAMPLING);
 	ImGui::SameLine();
-	ImGui::RadioButton("Mip mapping", config->getFiltering(), MIP_PAPPING_RESAMPLING);
+	ImGui::RadioButton("Mipmap", config->getFiltering(), MIP_PAPPING_RESAMPLING);
 
 	ImGui::Text("Shading:");
 	ImGui::RadioButton("No shading", config->getShading(), LIGHT_NO_SHADING);

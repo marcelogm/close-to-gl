@@ -7,6 +7,7 @@
 #include <string>
 #include <stdexcept>
 #include <memory>
+#include <stb_image.h>
 
 #define RENDER_MODE_TRIANGLE 0
 #define RENDER_MODE_DOT 1
@@ -113,6 +114,12 @@ public:
 	GLuint* getCloseToGLProgramId();
 	GLuint* getCloseToGLTextureId();
 	void reset();
+};
+
+class TextureProvider {
+public:
+	data::Texture get();
+	TextureProvider();
 };
 
 class Debug {

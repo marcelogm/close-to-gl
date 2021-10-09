@@ -33,7 +33,7 @@ void OpenGLRenderer::init(data::Model* model) {
 
 	glGenTextures(1, &this->texture);
 	glBindTexture(GL_TEXTURE_2D, this->texture);
-	data::Texture texture = this->getTexture();
+	data::Texture texture = TextureProvider().get();
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, texture.width, texture.height, 0, GL_RGB, GL_UNSIGNED_BYTE, texture.data);
 	stbi_image_free(texture.data);
 	glGenerateMipmap(GL_TEXTURE_2D);
@@ -107,14 +107,4 @@ OpenGLRenderer::OpenGLRenderer() {
 	this->config = Config::getInstance();
 	this->camera = Camera::getInstance();
 	this->projectionProvider = new renderer::ProjectionFromConfig();
-}
-
-data::Texture OpenGLRenderer::getTexture() {
-	int width, height, nrChannels;
-	stbi_set_flip_vertically_on_load(true);
-	unsigned char* data = stbi_load("data/mandrill_256.jpg", &width, &height, &nrChannels, 0);
-	if (data) {
-		return { (size_t) width, (size_t) height, data };
-	}
-	return { 0, 0, nullptr };
 }

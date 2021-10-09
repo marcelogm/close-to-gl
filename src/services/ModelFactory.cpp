@@ -1,4 +1,5 @@
 #include "services.hpp"
+#include <stb_image.h>
 
 using namespace data;
 

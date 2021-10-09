@@ -3,7 +3,7 @@
 #include "../../../services.hpp"
 #include "../../../camera/camera.hpp"
 
-#define PROPS_SLOPE_COUNT 5
+#define PROPS_SLOPE_COUNT 8
 #define PROPS_FOR_INTERPOLATION (PROPS_SLOPE_COUNT - 1)
 
 using std::vector;
@@ -39,7 +39,9 @@ namespace close {
 	public:
 		void scanline(RgbBuffer*, float*, int, vector<Slope>*, vector<Slope>*);
 		void draw(RgbBuffer*, float*, int, int, Slope*);
+		Scanner();
 	private:
+		data::Texture texture;
 		BYTE toRGBProp(Slope prop);
 	};
 

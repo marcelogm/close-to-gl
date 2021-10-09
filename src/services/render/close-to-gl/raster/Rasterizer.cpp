@@ -61,13 +61,14 @@ void Rasterizer::draw(RgbBuffer* buffer, float* zBuffer, data::VertexPayload* v0
 vector<Slope> Rasterizer::createSlope(data::VertexPayload* start, data::VertexPayload* end) {
 	vector<Slope> slopes(PROPS_SLOPE_COUNT);
 	const auto steps = end->position.y - start->position.y;
-	const auto zStart = 1.f / start->position.z;
-	const auto zEnd = 1.f / end->position.z;
 	slopes.at(0) = Slope(start->position.x, end->position.x, steps);
-	slopes.at(1) = Slope(start->color.r * zStart, end->color.r * zEnd, steps);
-	slopes.at(2) = Slope(start->color.g * zStart, end->color.g * zEnd, steps);
-	slopes.at(3) = Slope(start->color.b * zStart, end->color.b * zEnd, steps);
-	slopes.at(4) = Slope(zStart, zEnd, steps);
+	slopes.at(1) = Slope(start->color.r, end->color.r, steps);
+	slopes.at(2) = Slope(start->color.g, end->color.g, steps);
+	slopes.at(3) = Slope(start->color.b, end->color.b, steps);
+	slopes.at(4) = Slope(start->texture.x, end->texture.x, steps);
+	slopes.at(5) = Slope(start->texture.y, end->texture.y, steps);
+	slopes.at(6) = Slope(start->position.z, end->position.z, steps);
+	slopes.at(7) = Slope(start->position.w, end->position.w, steps);
 	return slopes;
 }
 
@@ -76,21 +77,24 @@ bool Rasterizer::isTheShorterSide(glm::vec4* p0, glm::vec4* p1, glm::vec4* p2) {
 }
 
 void Rasterizer::floor(data::VertexPayload* vertex) {
-	vertex->position.x = std::floor(vertex->position.x);
-	vertex->position.y = std::floor(vertex->position.y);
+	vertex->position.x = std::ceil(vertex->position.x);
+	vertex->position.y = std::ceil(vertex->position.y);
 }
 
 void Rasterizer::order(data::VertexPayload* v0, data::VertexPayload* v1, data::VertexPayload* v2) {
 	if (tie(v1->position.y, v1->position.x) < tie(v0->position.y, v0->position.x)) {
 		swap(v0->position, v1->position);
 		swap(v0->color, v1->color);
+		swap(v0->texture, v1->texture);
 	}
 	if (tie(v2->position.y, v2->position.x) < tie(v0->position.y, v0->position.x)) {
 		swap(v0->position, v2->position);
 		swap(v0->color, v2->color);
+		swap(v0->texture, v2->texture);
 	}
 	if (tie(v2->position.y, v2->position.x) < tie(v1->position.y, v1->position.x)) {
 		swap(v1->position, v2->position);
 		swap(v1->color, v2->color);
+		swap(v1->texture, v2->texture);
 	}
 }

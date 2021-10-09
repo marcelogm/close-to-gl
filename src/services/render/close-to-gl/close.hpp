@@ -96,7 +96,7 @@ namespace close {
 		PerspectiveAndViewport(VertexPayload* buffer);
 		size_t apply(size_t count);
 	private:
-		glm::vec4 transform(size_t width, size_t height, glm::vec4* vertex);
+		VertexPayload transform(size_t width, size_t height, VertexPayload* vertex);
 		Config* config;
 		VertexPayload* buffer;
 	};

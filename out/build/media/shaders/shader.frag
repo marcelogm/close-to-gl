@@ -28,7 +28,7 @@ vec3 getNormal() {
 }
 
 vec3 getLightDirection() {
-    //  return normalize(lightPosition - vec3(fragPos));
+   // return normalize(lightPosition - vec3(fragPos));
     return normalize(vec3(fragPos) - lightPosition);
 }
 

@@ -17,7 +17,7 @@ void Scanner::scanline(RgbBuffer* buffer, float* zBuffer, int y, vector<Slope>* 
 		if (x == start || x == end || mode == RENDER_MODE_TRIANGLE){
 			this->draw(buffer, zBuffer, x, y, props);
 		}
-		for (int i = 0; i < 4; ++i) {
+		for (int i = 0; i < 7; ++i) {
 			props[i].next();
 		}
 	}
@@ -28,15 +28,32 @@ void Scanner::scanline(RgbBuffer* buffer, float* zBuffer, int y, vector<Slope>* 
 }
 
 void Scanner::draw(RgbBuffer* buffer, float* zBuffer, int x, int y, Slope* props) {
-	const auto z = 1.f / props[3].get();
+	const auto w = props[6].get();
+	const auto z = props[5].get() / w;
 	const auto zBufferIndex = y * buffer->getWidth() + x;
-	if (z < zBuffer[zBufferIndex]) {
+	if (z > zBuffer[zBufferIndex]) {
 		zBuffer[zBufferIndex] = z;
-		auto R = this->toRGBProp(props[0]) * z;
-		auto G = this->toRGBProp(props[1]) * z;
-		auto B = this->toRGBProp(props[2]) * z;
+		auto R = props[0].get() / w;
+		auto G = props[1].get() / w;
+		auto B = props[2].get() / w;
+		auto X1 = props[3].get() / w;
+		auto Y1 = props[4].get() / w;
+		int pixelX = std::ceil((texture.width - 1) * X1);
+		int pixelY = std::ceil((texture.height - 1) * Y1);
+		R = texture.data[(pixelY * texture.width * 3) + (pixelX * 3)];
+		G = texture.data[(pixelY * texture.width * 3) + (pixelX * 3) + 1];
+		B = texture.data[(pixelY * texture.width * 3) + (pixelX * 3) + 2];
 		buffer->set(x, y, R, G, B);
 	}
+}
+
+
+
+
+
+
+close::Scanner::Scanner() {
+	texture = TextureProvider().get();
 }
 
 BYTE close::Scanner::toRGBProp(Slope prop) {
