@@ -33,7 +33,8 @@ vec3 getNormal() {
 }
 
 vec3 getLightDirection() {
-    return normalize(lightPosition - vPosition);
+    // return normalize(lightPosition - vPosition);
+    return normalize(vPosition - lightPosition);
 }
 
 vec3 getAmbientLight() {

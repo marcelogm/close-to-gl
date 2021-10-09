@@ -45,7 +45,8 @@ vec3 PhongIlluminationModel::getReflection(vec3* I, vec3* normal) {
 }
 
 vec3 PhongIlluminationModel::getLightDirection(vec3* position) {
-	return glm::normalize(*this->light - *position);
+	//return glm::normalize(*this->light - *position);
+	return glm::normalize(*position - *this->light);
 }
 
 vec3 PhongIlluminationModel::getAmbientLight(vec3* color) {

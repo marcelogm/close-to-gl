@@ -47,6 +47,14 @@ namespace open {
 		Config* config;
 	};
 
+	class FilteringProcessor {
+	public:
+		void process();
+		FilteringProcessor();
+	private:
+		Config* config;
+	};
+
 	class OpenGLDrawProcessor {
 	public:
 		void process(size_t vertices);
@@ -81,6 +89,7 @@ namespace open {
 		renderer::BackgroundProcessor* background;
 		renderer::CameraResetProcessor* reset;
 		LightProcessor* light;
+		FilteringProcessor* filter;
 		renderer::ProjectionFromConfig* projectionProvider;
 		std::vector<ShaderInfo> getShaders();
 		data::Texture getTexture();

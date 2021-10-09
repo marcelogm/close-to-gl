@@ -94,6 +94,11 @@ int* Config::getShading() {
 	return &this->shading;
 }
 
+int* Config::getFiltering()
+{
+	return &this->filtering;
+}
+
 bool* Config::getTextureUse() {
 	return &this->useTexture;
 }

@@ -17,6 +17,10 @@
 #define LIGHT_GOURAUD_ADS 3
 #define LIGHT_PHONG_SHADING 4
 
+#define NEAREST_NEIGHBOR_RESAMPLING 1
+#define BILINEAR_RESAMPLING 2
+#define MIP_PAPPING_RESAMPLING 3
+
 using std::string;
 using std::vector;
 using data::Model;
@@ -60,7 +64,7 @@ private:
 	float lightColor[4] = { 1.0f, 1.0f, 1.0f, 1.0f };
 	float ambientStrength = 0.1f;
 	float diffuseStrength = 0.8f;
-	float specularStrength = 0.6f;
+	float specularStrength = 0.0f;
 	bool move = false;
 	bool mouseStatus = false;
 	int xfov = 45;
@@ -76,6 +80,7 @@ private:
 	bool useOpenGL = true;
 	bool modelCW = true;
 	bool useTexture = false;
+	int filtering = 1;
 	int shading = 1;
 	GLuint texture;
 	GLuint program;
@@ -103,6 +108,7 @@ public:
 	bool* getCWModel();
 	bool* getTextureUse();
 	int* getShading();
+	int* getFiltering();
 	glm::vec3* getLightPosition();
 	GLuint* getCloseToGLProgramId();
 	GLuint* getCloseToGLTextureId();

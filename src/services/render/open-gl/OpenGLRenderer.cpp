@@ -32,11 +32,11 @@ void OpenGLRenderer::init(data::Model* model) {
 	glEnableVertexAttribArray(aTextCoord);
 
 	glGenTextures(1, &this->texture);
-	glBindBuffer(GL_TEXTURE_2D, this->texture);
+	glBindTexture(GL_TEXTURE_2D, this->texture);
 	data::Texture texture = this->getTexture();
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, texture.width, texture.height, 0, GL_RGB, GL_UNSIGNED_BYTE, texture.data);
-	glGenerateMipmap(GL_TEXTURE_2D);
 	stbi_image_free(texture.data);
+	glGenerateMipmap(GL_TEXTURE_2D);
 
 	glActiveTexture(GL_TEXTURE2);
 	glUniform1f(glGetUniformLocation(program, "texture1"), 2);
@@ -56,7 +56,6 @@ void OpenGLRenderer::display() {
 	glUseProgram(this->program);
 	glActiveTexture(GL_TEXTURE2);
 	glBindTexture(GL_TEXTURE_2D, texture);
-	glGenerateMipmap(GL_TEXTURE_2D);
 
 	glEnable(GL_CULL_FACE);
 	if (*config->getCW()) {
@@ -71,8 +70,9 @@ void OpenGLRenderer::display() {
 	const glm::mat4 projection = this->projectionProvider->get();
 	const glm::mat4 normal = glm::transpose(glm::inverse(model * view));
 
-	this->light->process();
+	this->filter->process();
 	this->background->process();
+	this->light->process();
 
 	glUniformMatrix4fv(modelSpace, 1, GL_FALSE, glm::value_ptr(model));
 	glUniformMatrix4fv(viewSpace, 1, GL_FALSE, glm::value_ptr(view));
@@ -103,6 +103,7 @@ OpenGLRenderer::OpenGLRenderer() {
 	this->reset = new renderer::CameraResetProcessor();
 	this->background = new renderer::BackgroundProcessor();
 	this->light = new LightProcessor();
+	this->filter = new FilteringProcessor();
 	this->config = Config::getInstance();
 	this->camera = Camera::getInstance();
 	this->projectionProvider = new renderer::ProjectionFromConfig();
@@ -110,7 +111,8 @@ OpenGLRenderer::OpenGLRenderer() {
 
 data::Texture OpenGLRenderer::getTexture() {
 	int width, height, nrChannels;
-	unsigned char* data = stbi_load("data/wall.jpg", &width, &height, &nrChannels, 0);
+	stbi_set_flip_vertically_on_load(true);
+	unsigned char* data = stbi_load("data/mandrill_256.jpg", &width, &height, &nrChannels, 0);
 	if (data) {
 		return { (size_t) width, (size_t) height, data };
 	}
