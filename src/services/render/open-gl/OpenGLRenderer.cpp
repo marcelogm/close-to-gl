@@ -26,7 +26,19 @@ void OpenGLRenderer::init(data::Model* model) {
 	int normalOffset = sizeof(this->vertices[0].position);
 	glVertexAttribPointer(vNormalVertex, 3, GL_FLOAT, GL_FALSE, sizeof(data::VertexData), BUFFER_OFFSET(normalOffset));
 	glEnableVertexAttribArray(vNormalVertex);
-	
+
+	int textureOffset = sizeof(this->vertices[0].normal) + normalOffset;
+	glVertexAttribPointer(aTextCoord, 2, GL_FLOAT, GL_FALSE, sizeof(data::VertexData), BUFFER_OFFSET(textureOffset));
+	glEnableVertexAttribArray(aTextCoord);
+
+	glGenTextures(1, &this->texture);
+	glBindBuffer(GL_TEXTURE_2D, this->texture);
+	data::Texture texture = this->getTexture();
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, texture.width, texture.height, 0, GL_RGB, GL_UNSIGNED_BYTE, texture.data);
+	glGenerateMipmap(GL_TEXTURE_2D);
+	stbi_image_free(texture.data);
+
+	glUniform1f(glGetUniformLocation(program, "texture1"), 0);
 	this->modelSpace = glGetUniformLocation(program, "model");
 	this->viewSpace = glGetUniformLocation(program, "view");
 	this->projectionSpace = glGetUniformLocation(program, "projection");
@@ -40,7 +52,9 @@ void OpenGLRenderer::init(data::Model* model) {
 #undef min
 #undef max
 void OpenGLRenderer::display() {
+
 	glUseProgram(this->program);
+	glActiveTexture(GL_TEXTURE0);
 
 	glEnable(GL_CULL_FACE);
 	if (*config->getCW()) {
@@ -56,11 +70,15 @@ void OpenGLRenderer::display() {
 	const glm::mat4 normal = glm::transpose(glm::inverse(model * view));
 
 	this->light->process();
+
 	glUniformMatrix4fv(modelSpace, 1, GL_FALSE, glm::value_ptr(model));
 	glUniformMatrix4fv(viewSpace, 1, GL_FALSE, glm::value_ptr(view));
 	glUniformMatrix4fv(projectionSpace, 1, GL_FALSE, glm::value_ptr(projection));
 	glUniformMatrix4fv(normalTransform, 1, GL_FALSE, glm::value_ptr(normal));
+	glBindTexture(GL_TEXTURE_2D, texture);
+	glGenerateMipmap(GL_TEXTURE_2D);
 	glBindVertexArray(VAOs[Triangles]);
+	glBindBuffer(GL_ARRAY_BUFFER, this->buffers[VertexBuffer]);
 
 	this->background->process();
 	this->drawer->process(this->verticesCount);	
@@ -90,3 +108,11 @@ OpenGLRenderer::OpenGLRenderer() {
 	this->projectionProvider = new renderer::ProjectionFromConfig();
 }
 
+data::Texture OpenGLRenderer::getTexture() {
+	int width, height, nrChannels;
+	unsigned char* data = stbi_load("data/wall.jpg", &width, &height, &nrChannels, 0);
+	if (data) {
+		return { (size_t) width, (size_t) height, data };
+	}
+	return { 0, 0, nullptr };
+}

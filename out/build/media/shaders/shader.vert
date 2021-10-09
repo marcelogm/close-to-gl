@@ -2,10 +2,12 @@
 
 layout( location = 0 ) in vec3 vPosition;
 layout( location = 1 ) in vec3 vNormal;
+layout( location = 2 ) in vec2 aTexCoord;
 
 out vec4 normal;
 out vec4 color;
 out vec4 fragPos;
+out vec2 texCoord;
 
 uniform mat4 model;
 uniform mat4 view;
@@ -77,7 +79,7 @@ main() {
     normal = vec4(getNormal(), 1.0f);
     fragPos = model * vec4(vPosition, 1.0);
     color = light();
-
+    texCoord = vec2(aTexCoord.x, aTexCoord.y);
     gl_Position = projection * view * model * vec4(vPosition, 1.0f);
     gl_PointSize = 2.0;
 }

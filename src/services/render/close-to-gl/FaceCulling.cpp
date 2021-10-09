@@ -18,9 +18,6 @@ size_t FaceCulling::apply(size_t verticeCount) {
 			buffer[surviving + 2] = buffer[i + 2];
 			surviving += 3;
 		}
-		else {
-			int a = 2;
-		}
 	}
 	return surviving;
 }

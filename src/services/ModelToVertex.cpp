@@ -10,9 +10,11 @@ VertexData* ModelToVertex::getVertexDataFromDataModel(Model* model) {
 			auto position = vertex->getPosition();
 			auto normal = vertex->getNormal();
 			auto color = vertex->getColor();
+			auto texture = vertex->getTexture();
 			vertices[i] = {
 				{ position->x, position->y, position->z },
 				{ normal->x, normal->y, normal->z },
+				{ texture ? texture->x : NULL,  texture ? texture->y: NULL },
 				{ color->r, color->g, color->b }
 			};
 			i++;

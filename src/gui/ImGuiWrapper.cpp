@@ -90,7 +90,9 @@ void ImGuiWrapper::render() {
 	if (*config->getOpenGLUse()) {
 		ImGui::RadioButton("Phong Shading", config->getShading(), LIGHT_PHONG_SHADING);
 	}
-
+	if (!*config->getOpenGLUse()) {
+		ImGui::Checkbox("Modelo CW", config->getCWModel());
+	}
 	ImGui::End();
 }
 

@@ -11,6 +11,12 @@ using glm::vec4;
 
 namespace data {
 
+	struct Texture {
+		size_t width;
+		size_t height;
+		unsigned char* data;
+	};
+
 	struct RGBColor {
 		unsigned char r;
 		unsigned char g;
@@ -20,12 +26,14 @@ namespace data {
 	struct VertexData {
 		float position[3];
 		float normal[3];
+		float texture[2];
 		unsigned char color[3];
 	};
 
 	struct VertexPayload {
 		vec4 position;
 		vec3 normal;
+		vec2 texture;
 		vec3 color;
 	};
 

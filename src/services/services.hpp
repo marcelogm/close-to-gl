@@ -74,6 +74,7 @@ private:
 	int windowHeight = 0;
 	int renderMode = 0;
 	bool useOpenGL = true;
+	bool modelCW = true;
 	int shading = 1;
 	GLuint texture;
 	GLuint program;
@@ -98,6 +99,7 @@ public:
 	bool* getMouseStatus();
 	int* getRenderMode();
 	bool* getOpenGLUse();
+	bool* getCWModel();
 	int* getShading();
 	glm::vec3* getLightPosition();
 	GLuint* getCloseToGLProgramId();

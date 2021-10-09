@@ -86,6 +86,10 @@ bool* Config::getOpenGLUse() {
 	return &this->useOpenGL;
 }
 
+bool* Config::getCWModel() {
+	return &this->modelCW;
+}
+
 int* Config::getShading() {
 	return &this->shading;
 }

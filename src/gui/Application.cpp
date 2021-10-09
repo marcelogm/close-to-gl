@@ -27,10 +27,10 @@ void onWindowSizeChange(GLFWwindow* window, int width, int height) {
 	glUseProgram(*config->getCloseToGLProgramId());
 	glDeleteTextures(1, config->getCloseToGLTextureId());
 	glGenTextures(1, config->getCloseToGLTextureId());
-	glBindTexture(GL_TEXTURE_2D, 1);
+	glBindTexture(GL_TEXTURE_2D, *config->getCloseToGLTextureId());
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
 	glGenerateMipmap(GL_TEXTURE_2D);
-	glUniform1i(glGetUniformLocation(*config->getCloseToGLProgramId(), "text"), 0);
+	glUniform1i(glGetUniformLocation(*config->getCloseToGLProgramId(), "text"), 1);
 }
 
 void Application::init() {

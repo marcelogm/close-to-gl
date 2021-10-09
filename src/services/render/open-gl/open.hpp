@@ -2,6 +2,7 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
+#include <stb_image.h>
 
 namespace open {
 
@@ -13,12 +14,14 @@ namespace open {
 	enum BufferIDs {
 		VertexBuffer = 0,
 		NormalBuffer = 1,
-		NumBuffers = 2
+		TextCoord = 2,
+		NumBuffers = 3
 	};
 
 	enum AttribIDs {
 		vPosition = 0,
-		vNormalVertex = 1
+		vNormalVertex = 1,
+		aTextCoord = 2
 	};
 
 	class LightProcessor {
@@ -45,7 +48,7 @@ namespace open {
 
 	class OpenGLDrawProcessor {
 	public:
-		void process(size_t);
+		void process(size_t vertices);
 		OpenGLDrawProcessor();
 	private:
 		Config* config;
@@ -67,7 +70,9 @@ namespace open {
 		long viewSpace;
 		long projectionSpace;
 		long normalTransform;
+		long texturaLocation;
 		GLuint program;
+		GLuint texture;
 		ModelToVertex* converter;
 		Config* config;
 		Camera* camera;
@@ -77,5 +82,6 @@ namespace open {
 		LightProcessor* light;
 		renderer::ProjectionFromConfig* projectionProvider;
 		std::vector<ShaderInfo> getShaders();
+		data::Texture getTexture();
 	};
 }
