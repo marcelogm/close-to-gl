@@ -38,7 +38,8 @@ void OpenGLRenderer::init(data::Model* model) {
 	glGenerateMipmap(GL_TEXTURE_2D);
 	stbi_image_free(texture.data);
 
-	glUniform1f(glGetUniformLocation(program, "texture1"), 0);
+	glActiveTexture(GL_TEXTURE2);
+	glUniform1f(glGetUniformLocation(program, "texture1"), 2);
 	this->modelSpace = glGetUniformLocation(program, "model");
 	this->viewSpace = glGetUniformLocation(program, "view");
 	this->projectionSpace = glGetUniformLocation(program, "projection");
@@ -52,9 +53,10 @@ void OpenGLRenderer::init(data::Model* model) {
 #undef min
 #undef max
 void OpenGLRenderer::display() {
-
 	glUseProgram(this->program);
-	glActiveTexture(GL_TEXTURE0);
+	glActiveTexture(GL_TEXTURE2);
+	glBindTexture(GL_TEXTURE_2D, texture);
+	glGenerateMipmap(GL_TEXTURE_2D);
 
 	glEnable(GL_CULL_FACE);
 	if (*config->getCW()) {
@@ -70,17 +72,15 @@ void OpenGLRenderer::display() {
 	const glm::mat4 normal = glm::transpose(glm::inverse(model * view));
 
 	this->light->process();
+	this->background->process();
 
 	glUniformMatrix4fv(modelSpace, 1, GL_FALSE, glm::value_ptr(model));
 	glUniformMatrix4fv(viewSpace, 1, GL_FALSE, glm::value_ptr(view));
 	glUniformMatrix4fv(projectionSpace, 1, GL_FALSE, glm::value_ptr(projection));
 	glUniformMatrix4fv(normalTransform, 1, GL_FALSE, glm::value_ptr(normal));
-	glBindTexture(GL_TEXTURE_2D, texture);
-	glGenerateMipmap(GL_TEXTURE_2D);
 	glBindVertexArray(VAOs[Triangles]);
 	glBindBuffer(GL_ARRAY_BUFFER, this->buffers[VertexBuffer]);
 
-	this->background->process();
 	this->drawer->process(this->verticesCount);	
 	this->reset->process(this->range);
 }

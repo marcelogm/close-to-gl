@@ -60,5 +60,5 @@ vec4 phongShading() {
 }
 
 void main() {
-   FragColor = texture(texture1, texCoord) * light();
+   FragColor = texture(texture1, texCoord);
 }

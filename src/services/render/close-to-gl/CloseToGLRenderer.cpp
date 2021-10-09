@@ -35,6 +35,7 @@ void CloseToGLRenderer::init(data::Model* model) {
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
 	glGenerateMipmap(GL_TEXTURE_2D);
 
+	glActiveTexture(GL_TEXTURE1);
 	glUniform1i(glGetUniformLocation(*config->getCloseToGLProgramId(), "text"), 1);
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_PROGRAM_POINT_SIZE);
