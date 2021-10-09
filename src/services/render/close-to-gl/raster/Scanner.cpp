@@ -28,16 +28,16 @@ void Scanner::scanline(RgbBuffer* buffer, float* zBuffer, int y, vector<Slope>* 
 }
 
 void Scanner::draw(RgbBuffer* buffer, float* zBuffer, int x, int y, Slope* props) {
-	const auto w = props[6].get();
-	const auto z = props[5].get() / w;
+	const auto w = 1.0f / props[6].get();
+	const auto z = props[5].get() * w;
 	const auto zBufferIndex = y * buffer->getWidth() + x;
 	if (z > zBuffer[zBufferIndex]) {
 		zBuffer[zBufferIndex] = z;
-		auto R = props[0].get() / w;
-		auto G = props[1].get() / w;
-		auto B = props[2].get() / w;
-		auto X1 = props[3].get() / w;
-		auto Y1 = props[4].get() / w;
+		auto R = props[0].get() * w;
+		auto G = props[1].get() * w;
+		auto B = props[2].get() * w;
+		auto X1 = props[3].get() * w;
+		auto Y1 = props[4].get() * w;
 		int pixelX = std::ceil((texture.width - 1) * X1);
 		int pixelY = std::ceil((texture.height - 1) * Y1);
 		R = texture.data[(pixelY * texture.width * 3) + (pixelX * 3)];
