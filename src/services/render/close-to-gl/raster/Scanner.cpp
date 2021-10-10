@@ -33,27 +33,31 @@ void Scanner::draw(RgbBuffer* buffer, float* zBuffer, int x, int y, Slope* props
 	const auto zBufferIndex = y * buffer->getWidth() + x;
 	if (z > zBuffer[zBufferIndex]) {
 		zBuffer[zBufferIndex] = z;
-		auto R = props[0].get() * w;
-		auto G = props[1].get() * w;
-		auto B = props[2].get() * w;
+		auto colorR = props[0].get() * w;
+		auto colorG = props[1].get() * w;
+		auto colorB = props[2].get() * w;
 		auto X1 = props[3].get() * w;
 		auto Y1 = props[4].get() * w;
-		int pixelX = std::ceil((texture.width - 1) * X1);
-		int pixelY = std::ceil((texture.height - 1) * Y1);
-		R = texture.data[(pixelY * texture.width * 3) + (pixelX * 3)];
-		G = texture.data[(pixelY * texture.width * 3) + (pixelX * 3) + 1];
-		B = texture.data[(pixelY * texture.width * 3) + (pixelX * 3) + 2];
+		int textureX = std::ceil((texture.width - 1) * X1);
+		int textureY = std::ceil((texture.height - 1) * Y1);
+
+		BYTE R = 0, G = 0, B = 0;
+		if (*config->getTextureUse() == 1) {
+			R = texture.data[(textureY * texture.width * 3) + (textureX * 3)] * colorR;
+			G = texture.data[(textureY * texture.width * 3) + (textureX * 3) + 1] * colorG;
+			B = texture.data[(textureY * texture.width * 3) + (textureX * 3) + 2] * colorB;
+		} else {
+			R = colorR * 255.f;
+			G = colorG * 255.f;
+			B = colorB * 255.f;
+		}
 		buffer->set(x, y, R, G, B);
 	}
 }
 
-
-
-
-
-
 close::Scanner::Scanner() {
 	texture = TextureProvider().get();
+	config = Config::getInstance();
 }
 
 BYTE close::Scanner::toRGBProp(Slope prop) {

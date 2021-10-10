@@ -42,6 +42,7 @@ namespace close {
 		Scanner();
 	private:
 		data::Texture texture;
+		Config* config;
 		BYTE toRGBProp(Slope prop);
 	};
 

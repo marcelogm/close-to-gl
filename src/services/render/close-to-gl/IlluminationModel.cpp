@@ -13,7 +13,12 @@ bool ColorShader::test() {
 
 vec4 ColorShader::apply(glm::vec4 position, glm::vec4 normal) {
 	const float* color = config->getColor();
-	return vec4(color[0], color[1], color[2], color[3]);
+
+	if (*config->getTextureUse() == 0) {
+		return vec4(color[0], color[1], color[2], color[3]);
+	} else {
+		return vec4(1.0f, 1.0f, 1.0f, 1.0f);
+	}
 }
 
 PhongIlluminationModel::PhongIlluminationModel() {
@@ -45,7 +50,6 @@ vec3 PhongIlluminationModel::getReflection(vec3* I, vec3* normal) {
 }
 
 vec3 PhongIlluminationModel::getLightDirection(vec3* position) {
-	//return glm::normalize(*this->light - *position);
 	return glm::normalize(*position - *this->light);
 }
 
@@ -76,7 +80,14 @@ vec4 PhongIlluminationModel::apply(vec4 position, vec4 normal) {
 	const auto ambient = this->getAmbientLight(&lightColor);
 	const auto diffuse = this->getDiffuseLight(&N, &direction, &lightColor);
 	const auto specular = this->getSpecularLight(&N, &vPosition, &direction, &lightColor);
-	const auto out = (ambient + diffuse + specular) * color;
+	const auto light = (ambient + diffuse + specular);
+
+	vec3 out;
+	if (*config->getTextureUse() == 0) {
+		out = light * color;
+	} else {
+		out = light * vec3(1.0f, 1.0f, 1.0f);
+	}
 	
 	return vec4(
 		min(out.x, 1.0f),
