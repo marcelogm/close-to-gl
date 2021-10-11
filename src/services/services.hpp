@@ -20,7 +20,7 @@
 
 #define NEAREST_NEIGHBOR_RESAMPLING 1
 #define BILINEAR_RESAMPLING 2
-#define MIP_PAPPING_RESAMPLING 3
+#define MIP_MAPPING_RESAMPLING 3
 
 using std::string;
 using std::vector;

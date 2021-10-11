@@ -2,12 +2,14 @@
 #include <tuple>
 #include "../../../services.hpp"
 #include "../../../camera/camera.hpp"
+#include "filter/filter.h";
 
 #define PROPS_SLOPE_COUNT 8
 #define PROPS_FOR_INTERPOLATION (PROPS_SLOPE_COUNT - 1)
 
 using std::vector;
 using data::VertexPayload;
+using filter::FilterStrategy;
 
 namespace close {
 
@@ -29,6 +31,7 @@ namespace close {
 		Slope();
 		Slope(float, float, int);
 		float get();
+		float getStep();
 		void next();
 	private:
 		float curent;
@@ -42,6 +45,7 @@ namespace close {
 		Scanner();
 	private:
 		data::Texture texture;
+		vector<FilterStrategy*> filters;
 		Config* config;
 		BYTE toRGBProp(Slope prop);
 	};

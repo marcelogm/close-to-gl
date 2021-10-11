@@ -77,8 +77,8 @@ bool Rasterizer::isTheShorterSide(glm::vec4* p0, glm::vec4* p1, glm::vec4* p2) {
 }
 
 void Rasterizer::floor(data::VertexPayload* vertex) {
-	vertex->position.x = std::ceil(vertex->position.x);
-	vertex->position.y = std::ceil(vertex->position.y);
+	vertex->position.x = std::floorf(vertex->position.x);
+	vertex->position.y = std::floorl(vertex->position.y);
 }
 
 void Rasterizer::order(data::VertexPayload* v0, data::VertexPayload* v1, data::VertexPayload* v2) {

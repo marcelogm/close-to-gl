@@ -67,7 +67,7 @@ namespace data {
 	class Triangle {
 	public:
 		Triangle(const Triangle&);
-		Triangle::Triangle(std::vector<Vertex*>*, vec3*);
+		Triangle(std::vector<Vertex*>*, vec3*);
 		std::vector<Vertex*>* getVertices();
 		vec3* getFaceNormal();
 		~Triangle();

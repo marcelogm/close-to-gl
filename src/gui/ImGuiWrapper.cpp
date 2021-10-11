@@ -87,7 +87,7 @@ void ImGuiWrapper::render() {
 	ImGui::SameLine();
 	ImGui::RadioButton("Bilinear", config->getFiltering(), BILINEAR_RESAMPLING);
 	ImGui::SameLine();
-	ImGui::RadioButton("Mipmap", config->getFiltering(), MIP_PAPPING_RESAMPLING);
+	ImGui::RadioButton("Mipmap", config->getFiltering(), MIP_MAPPING_RESAMPLING);
 
 	ImGui::Text("Shading:");
 	ImGui::RadioButton("No shading", config->getShading(), LIGHT_NO_SHADING);

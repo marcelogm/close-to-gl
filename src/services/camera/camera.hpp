@@ -24,7 +24,7 @@ public:
 	void requestReset();
 	bool getResetRequest();
 	void setResetRequest(bool);
-	void Camera::update();
+	void update();
 private:
 	Camera();
 	static Camera* instance;

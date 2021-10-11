@@ -28,6 +28,7 @@ add_subdirectory(lib/glm)
 set(COMMON_LIBS close-to-gl ${OPENGL_LIBRARIES} glfw glm)
 set(COMMON_HEADERS include/vgl.h)
 set(COMMON_HEADERS include/stb_image.h)
+set(COMMON_HEADERS include/stb_image_write.h)
 set(IMGUI_SOURCE_DIR lib/imgui)
 
 add_library(close-to-gl
@@ -67,7 +68,13 @@ add_library(close-to-gl
 			"src/services/render/close-to-gl/raster/Rasterizer.cpp" 
 			"src/services/render/close-to-gl/raster/RgbBuffer.cpp" 
 			"src/services/render/close-to-gl/raster/Slope.cpp" 
-			"src/services/render/close-to-gl/raster/Scanner.cpp" "src/services/render/open-gl/FilteringProcessor.cpp" "src/services/TextureProvider.cpp")
+			"src/services/render/close-to-gl/raster/Scanner.cpp" 
+			"src/services/render/open-gl/FilteringProcessor.cpp"
+			"src/services/TextureProvider.cpp" 
+			"src/services/render/close-to-gl/raster/filter/NoTexture.cpp"  
+			"src/services/render/close-to-gl/raster/filter/NearestNeighborResampling.cpp"
+			"src/services/render/close-to-gl/raster/filter/BilinearResampling.cpp"
+			"src/services/render/close-to-gl/raster/filter/MipmapPyramidProvider.cpp" "src/services/render/close-to-gl/raster/filter/MipmapResampling.cpp")
 
 find_package(OpenMP)
 if (OPENMP_FOUND)
@@ -75,7 +82,7 @@ if (OPENMP_FOUND)
 	set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OpenMP_CXX_FLAGS}")
 endif()
 
-add_executable(main WIN32 src/main.cpp ${COMMON_HEADERS} "src/services/render/open-gl/FilteringProcessor.cpp" "src/services/TextureProvider.cpp")
+add_executable(main WIN32 src/main.cpp ${COMMON_HEADERS})
 target_link_libraries(main ${COMMON_LIBS})
 
 include_directories(include)

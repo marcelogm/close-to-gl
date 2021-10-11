@@ -35,31 +35,31 @@
 			{
 				"command" : 0,
 				"file" : 0,
-				"line" : 33,
+				"line" : 34,
 				"parent" : 0
 			},
 			{
 				"command" : 1,
 				"file" : 0,
-				"line" : 81,
+				"line" : 88,
 				"parent" : 0
 			},
 			{
 				"command" : 1,
 				"file" : 0,
-				"line" : 82,
+				"line" : 89,
 				"parent" : 0
 			},
 			{
 				"command" : 1,
 				"file" : 0,
-				"line" : 83,
+				"line" : 90,
 				"parent" : 0
 			},
 			{
 				"command" : 1,
 				"file" : 0,
-				"line" : 84,
+				"line" : 91,
 				"parent" : 0
 			}
 		]
@@ -70,7 +70,7 @@
 			"compileCommandFragments" : 
 			[
 				{
-					"fragment" : "/DWIN32 /D_WINDOWS /W3 -openmp /MD /Zi /O2 /Ob1 /DNDEBUG"
+					"fragment" : "/DWIN32 /D_WINDOWS /W3 -openmp /MDd /Zi /Ob0 /Od /RTC1"
 				}
 			],
 			"includes" : 
@@ -102,7 +102,7 @@
 			"compileCommandFragments" : 
 			[
 				{
-					"fragment" : "/DWIN32 /D_WINDOWS /W3 /GR /EHsc -openmp /MD /Zi /O2 /Ob1 /DNDEBUG"
+					"fragment" : "/W3 /WX- /O2 /Ob2 /Oy- /DWIN32 /D_WINDOWS /Wall /GR /EHsc -openmp /MDd /Zi /Ob0 /Od /RTC1"
 				}
 			],
 			"includes" : 
@@ -172,7 +172,12 @@
 				35,
 				36,
 				37,
-				38
+				38,
+				39,
+				40,
+				41,
+				42,
+				43
 			]
 		}
 	],
@@ -228,7 +233,12 @@
 				35,
 				36,
 				37,
-				38
+				38,
+				39,
+				40,
+				41,
+				42,
+				43
 			]
 		}
 	],
@@ -466,6 +476,36 @@
 			"backtrace" : 1,
 			"compileGroupIndex" : 1,
 			"path" : "src/services/TextureProvider.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "src/services/render/close-to-gl/raster/filter/NoTexture.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "src/services/render/close-to-gl/raster/filter/NearestNeighborResampling.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "src/services/render/close-to-gl/raster/filter/BilinearResampling.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "src/services/render/close-to-gl/raster/filter/MipmapPyramidProvider.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "src/services/render/close-to-gl/raster/filter/MipmapResampling.cpp",
 			"sourceGroupIndex" : 0
 		}
 	],

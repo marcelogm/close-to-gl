@@ -10,11 +10,15 @@ Slope::Slope() {
 close::Slope::Slope(float start, float end, int steps) {
 	const float inv = 1.f / steps;
 	this->curent = start;
-	this->step = (end - start)* inv;
+	this->step = (end - start) * inv;
 }
 
 float close::Slope::get() {
 	return this->curent;
+}
+
+float close::Slope::getStep() {
+	return this->step;
 }
 
 void close::Slope::next() {

@@ -12,9 +12,9 @@ void Scanner::scanline(RgbBuffer* buffer, float* zBuffer, int y, vector<Slope>* 
 		props[i] = Slope(left->at(i + 1).get(), right->at(i + 1).get(), steps);
 	}
 
-	for (int x = start; x <= end; ++x) {
+	for (int x = start; x < end; x++) {
 		int mode = *Config::getInstance()->getRenderMode();
-		if (x == start || x == end || mode == RENDER_MODE_TRIANGLE){
+		if ((x == start) || x == end || mode == RENDER_MODE_TRIANGLE){
 			this->draw(buffer, zBuffer, x, y, props);
 		}
 		for (int i = 0; i < 7; ++i) {
@@ -31,33 +31,37 @@ void Scanner::draw(RgbBuffer* buffer, float* zBuffer, int x, int y, Slope* props
 	const auto w = 1.0f / props[6].get();
 	const auto z = props[5].get() * w;
 	const auto zBufferIndex = y * buffer->getWidth() + x;
+
 	if (z > zBuffer[zBufferIndex]) {
 		zBuffer[zBufferIndex] = z;
-		auto colorR = props[0].get() * w;
-		auto colorG = props[1].get() * w;
-		auto colorB = props[2].get() * w;
-		auto X1 = props[3].get() * w;
-		auto Y1 = props[4].get() * w;
-		int textureX = std::ceil((texture.width - 1) * X1);
-		int textureY = std::ceil((texture.height - 1) * Y1);
+		
+		// we must perfom the perspective correct interpolation 
+		// after the z-buffer test to save processing power
+		const auto colorR = props[0].get() * w;
+		const auto colorG = props[1].get() * w;
+		const auto colorB = props[2].get() * w;
+		const auto texCoordX = props[3].get() * w;
+		const auto texCoordY = props[4].get() * w;
+		const auto deltaTexCoordX = props[3].getStep() * w;
+		const auto deltaTexCoordY = props[4].getStep() * w;
 
-		BYTE R = 0, G = 0, B = 0;
-		if (*config->getTextureUse() == 1) {
-			R = texture.data[(textureY * texture.width * 3) + (textureX * 3)] * colorR;
-			G = texture.data[(textureY * texture.width * 3) + (textureX * 3) + 1] * colorG;
-			B = texture.data[(textureY * texture.width * 3) + (textureX * 3) + 2] * colorB;
-		} else {
-			R = colorR * 255.f;
-			G = colorG * 255.f;
-			B = colorB * 255.f;
+		for (auto &filter : this->filters) {
+			if (filter->matches()) {
+				const vec3 filtered = filter->apply(&texture, texCoordX, texCoordY, vec3(colorR, colorG, colorB), deltaTexCoordX, deltaTexCoordY);
+				buffer->set(x, y, filtered.r, filtered.g, filtered.b);
+			}
 		}
-		buffer->set(x, y, R, G, B);
 	}
 }
 
 close::Scanner::Scanner() {
 	texture = TextureProvider().get();
 	config = Config::getInstance();
+	filters = vector<FilterStrategy*>();
+	filters.push_back(new filter::NoTexture());
+	filters.push_back(new filter::NearestNeighborResampling());
+	filters.push_back(new filter::BilinearResampling());
+	filters.push_back(new filter::MipmapResampling());
 }
 
 BYTE close::Scanner::toRGBProp(Slope prop) {
