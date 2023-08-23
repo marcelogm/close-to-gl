@@ -1,2 +1,5 @@
 out/build/**.*
 .vs/**
+out/x64-Debug
+out/x64-Release
+**.html
