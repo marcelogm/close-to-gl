@@ -1,5 +1,0 @@
-if(EXISTS "C:/Users/marce/UFRGS/close-to-gl/out/build/x64-Debug/test/test[1]_tests.cmake")
-  include("C:/Users/marce/UFRGS/close-to-gl/out/build/x64-Debug/test/test[1]_tests.cmake")
-else()
-  add_test(test_NOT_BUILT test_NOT_BUILT)
-endif()
